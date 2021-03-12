@@ -1,0 +1,89 @@
+@import "../../../../assets/styles/mixins.scss";
+
+.delete-modal {
+    display: flex;
+    flex-direction: column;
+    width: 504px;
+
+    &__head {
+        display: flex;
+        align-items: center;
+        padding: 19px 34px;
+        padding-bottom: 24px;
+        background-color: color(modalhead);
+
+        p {
+            margin: 0;
+            margin-right: auto;
+            font-weight: 500;
+            font-size: 12px;
+            line-height: 16px;
+            letter-spacing: 0.25px;
+            color: color(textmain);
+        }
+
+        button {
+            display: flex;
+            padding: 5px;
+            margin: 0;
+            margin-right: -5px;
+            background-color: transparent;
+            outline: none;
+            border: none;
+            color: color(textsecondary);
+            cursor: pointer;
+
+            mat-icon {
+                font-size: 18px;
+                width: 18px;
+                height: 18px;
+            }
+        }
+    }
+
+    &__title {
+        margin: 0;
+        margin-bottom: 30px;
+        font-weight: 500;
+        font-size: 12px;
+        letter-spacing: 0.25px;
+        color: color(textmain);
+    }
+
+    &__element {
+        margin-bottom: 20px;
+    }
+
+    &__main {
+        display: flex;
+        flex-direction: column;
+        padding: 87px 34px;
+        background-color: color(modalbody);
+    }
+    
+    &__question {
+        text-align: center;
+        margin: 0;
+        color: color(textmain);
+        font-size: 14px;
+        line-height: 24px;
+    }
+
+    &__controls {
+        display: flex;
+        align-items: center;
+        margin-top: 47px;
+
+        .button {
+            width: 206px;
+
+            &:first-of-type {
+                margin-right: auto;
+            }
+
+            &:not(:first-of-type):not(:last-of-type) {
+                margin-right: 5px;
+            }
+        }
+    }
+}

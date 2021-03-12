@@ -1,0 +1,28 @@
+<header class="header">
+    <a routerLink="/home" class="header__logo">
+        <img [src]="logoPath" alt="logo">
+    </a>
+    <h1 class="header__directory"  *ngIf="directory">{{directory}}</h1>
+    <div class="header__provider" [class.header__provider_opened]="isOpen" *ngIf="user">
+        <p>Provider</p>
+        <mat-form-field>
+            <input type="text"
+                   matInput
+                   maxlength="200"
+                   [formControl]="providerFormControl"
+                   [matAutocomplete]="auto">
+            <mat-autocomplete #auto="matAutocomplete" (optionSelected)='onChangeProvider($event.option.value)' panelWidth="260px" (opened)="autocompleteOpened($event)" (closed)="autocompleteClosed($event)" position="auto">
+              <mat-option *ngFor="let option of selectProviders | async" [value]="option">
+                {{option}}
+              </mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+    </div>
+    <div class="header__user-info" *ngIf="user">
+        <p>{{user.name}}</p>
+        <p>{{user.system}}</p>
+    </div>
+    <rms-custom-select (onSelectChange)="onSelectChange($event)" 
+                       [selectOptions]="userParams"
+                       *ngIf="user"></rms-custom-select>
+</header>

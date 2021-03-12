@@ -1,0 +1,41 @@
+<form class="domains-provider" #ngForm="ngForm" [formGroup]="domainsProviderForm">
+    <div class="domains-provider__left">
+        <rms-filter-component class="administration-create-user__element"
+                              title="Business Name"
+                              shortDropdown="true"
+                              [ngClass]="{error: _businessName.invalid && ngForm.submitted}"
+                              [PassedformControl]="domainsProviderForm['controls'].businessName"></rms-filter-component>
+        <input class="input input_grey" [ngClass]="{error: _street.invalid && ngForm.submitted}" formControlName="street" type="text" placeholder="Street">
+        <input class="input input_grey" [ngClass]="{error: _nationalProviderID.invalid && ngForm.submitted}" formControlName="nationalProviderID" type="text" placeholder="National Provider ID">
+        <input class="input input_grey" [ngClass]="{error: _additionalStreetInformation.invalid && ngForm.submitted}" formControlName="additionalStreetInformation" type="text" placeholder="Additional Street Information">
+        <input class="input input_grey" [ngClass]="{error: _taxID.invalid && ngForm.submitted}" formControlName="taxID" type="text" placeholder="Tax ID">
+        <rms-filter-component class="administration-create-lockboxes__element"
+                                title="State"
+                                shortDropdown="true"
+                                dropdown="true"
+                                [options]="stateOptions"
+                                [ngClass]="{error: _state.invalid && ngForm.submitted}"
+                                [PassedformControl]="domainsProviderForm.controls['state']"></rms-filter-component>
+        <input class="input input_grey" [ngClass]="{error: _zipCode.invalid && ngForm.submitted}" formControlName="zipCode" type="text" placeholder="Zip Code">
+    </div>
+    <div class="domains-provider__controls">
+        <button mat-flat-button
+                class="button button_green"
+                (click)="onPressSave()">Save</button>
+        <button mat-flat-button
+                class="button"
+                (click)="onPressCancel()">Cancel</button>
+    </div>
+</form>
+
+
+
+
+
+
+
+
+
+
+
+

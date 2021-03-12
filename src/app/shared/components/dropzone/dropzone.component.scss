@@ -1,0 +1,71 @@
+@import "../../../../assets/styles/mixins.scss";
+
+.dropzone {
+    display: flex;
+    flex-wrap: wrap;
+    width: 230px;
+
+    &__title {
+        width: 100%;
+        margin: 0;
+        margin-bottom: 19px;
+        font-size: 12px;
+        line-height: 14px;
+        color: color(textmain);
+    }
+
+    &__desc {
+        width: 100%;
+        margin: 0;
+        margin-bottom: 19px;
+        font-size: 12px;
+        line-height: 27px;
+        color: color(textsecondary);
+    }
+
+    &__button {
+        display: flex;
+        align-items: center;
+        background-color: transparent;
+        padding: 0;
+        margin-right: auto;
+        outline: none;
+        border: none;
+        color: color(secondary);
+        font-style: normal;
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 16px;
+        letter-spacing: 1.25px;
+        text-transform: uppercase;
+        cursor: pointer;
+
+        &:not(:last-of-type) {
+            margin-right: 34px;
+        }
+    }
+
+    &__preview {
+        width: 100%;
+        min-height: 74px;
+        margin-bottom: 8px;
+        background: #FFFFFF;
+        border: 2px dashed #E9EDEF;
+        border-radius: 5px;
+        background-color: color(maincolor);
+
+        ngx-dropzone-image-preview {
+            outline: none!important;
+            
+            img {
+                opacity: 1!important;
+            }
+
+            &:hover {
+                img {
+                    opacity: 1!important;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,215 @@
+@import "../../../../assets/styles/mixins.scss";
+
+.item-history {
+    display: flex;
+    flex-direction: column;
+    width: 600px;
+
+    &__head {
+        display: flex;
+        align-items: center;
+        padding: 19px 34px;
+        padding-bottom: 24px;
+        background-color: color(modalhead);
+
+        p {
+            margin: 0;
+            margin-right: auto;
+            font-weight: 500;
+            font-size: 12px;
+            line-height: 16px;
+            letter-spacing: 0.25px;
+            color: color(textmain);
+        }
+
+        button {
+            display: flex;
+            padding: 5px;
+            margin: 0;
+            margin-right: -5px;
+            background-color: transparent;
+            outline: none;
+            border: none;
+            color: color(textsecondary);
+            cursor: pointer;
+
+            mat-icon {
+                font-size: 18px;
+                width: 18px;
+                height: 18px;
+            }
+        }
+    }
+
+    &__title {
+        margin: 0;
+        margin-bottom: 30px;
+        font-weight: 500;
+        font-size: 12px;
+        letter-spacing: 0.25px;
+        color: color(textmain);
+    }
+
+    &__element {
+        margin-bottom: 25px;
+    }
+
+    &__filter {
+        display: flex;
+        flex-direction: column;
+        width: 260px;
+        margin-right: 70px;
+    }
+
+    &__table {
+        // max-height: 400px;
+    }
+
+    mat-table {
+        display: table;
+        width: 100%;
+
+        thead {
+            tr {
+                background-color: color(modalhead);
+            }
+        }
+
+        tr {
+            background-color: color(modalbody);
+
+            &.mat-header-row {
+                background: color(modalhead);
+                border-radius: 5px;
+                overflow: hidden;
+
+                th {
+                    font-style: normal;
+                    font-weight: 500;
+                    font-size: 12px;
+                    letter-spacing: 0.25px;
+                    color: color(textmain);
+                }
+            }
+
+            &.mat-row {
+                height: auto;
+            }
+
+            th,
+            td {
+                padding: 19px 0;
+                border-bottom: 0;
+
+                &.mat-cell,
+                &.mat-header-cell,
+                &.mat-footer-cell {
+                    &:first-of-type {
+                        padding-left: 32px;
+                    }
+
+                    &:last-of-type {
+                        padding-right: 32px;
+                    }
+                }
+            }
+
+            td {
+                padding: 7px 0;
+                font-style: normal;
+                font-weight: normal;
+                font-size: 12px;
+                letter-spacing: 0.25px;
+                color: color(textsecondary);
+            }
+        }
+    }
+    
+    &__main {
+        display: flex;
+        flex-direction: column;
+        padding: 30px 0;
+        padding-bottom: 40px;
+        background-color: color(modalbody);
+
+        .input,
+        .textarea {
+            width: 775px;
+        }
+
+        .input {
+            margin-bottom: 30px;
+        }
+
+        .textarea {
+            height: 290px;
+        }
+    }
+
+    &__info {
+        display: flex;
+        align-items: center;
+        margin-bottom: 40px;
+
+        span {
+            display: block;
+            width: 20px;
+            height: 20px;
+            margin: 0;
+            margin-right: 25px;
+            background-color: #4787FF;
+            border-radius: 50%;
+        }
+
+        dl {
+            display: flex;
+            margin: 0;
+            padding: 0;
+
+            &:first-of-type {
+                margin-right: auto;
+            }
+
+            dt,
+            dd {
+                margin: 0;
+                font-weight: normal;
+                font-size: 12px;
+                display: flex;
+                align-items: center;
+                letter-spacing: 0.15px;
+                color: color(textmain);
+            }
+
+            dd {
+                font-weight: 500;
+            }
+
+            dt {
+                margin-right: 5px;
+                color: color(textsecondary);
+            }
+        }
+    }
+
+    &__desc {
+        margin: 0;
+        margin-bottom: 15px;
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 20px;
+        letter-spacing: 0.25px;
+        color: color(textmain);
+    }
+
+    &__controls {
+        display: flex;
+        justify-self: flex-end;
+        padding: 0 34px;
+        margin-top: 40px;
+
+        .button {
+            width: 200px;
+        }
+    }
+}

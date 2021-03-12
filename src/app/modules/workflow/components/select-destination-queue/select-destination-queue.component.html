@@ -1,0 +1,34 @@
+<section class="select-destination-queue"
+         [formGroup]="selectDestinationQueueForm"
+         novalidate
+         #ngForm="ngForm">
+    <div class="select-destination-queue__head">
+        <p>Select destination queue</p>
+        <button>
+            <mat-icon aria-label="close icon" mat-dialog-close aria-hidden="false" type="none">close</mat-icon>
+        </button>
+    </div>
+    <div class="select-destination-queue__main">
+        <rms-filter-component class="select-destination-queue__element"
+                              title="Select Domain"
+                              [dropdown]="true"
+                              [options]="selectDomainOptions"
+                              [ngClass]="{error: _selectDomain.invalid && ngForm.submitted}"
+                              [PassedformControl]="selectDestinationQueueForm.controls['selectDomain']"></rms-filter-component>
+        <rms-filter-component class="select-destination-queue__element"
+                              title="Select Queue"
+                              [dropdown]="true"
+                              [options]="selectQueueOptions"
+                              [disabled]="!_selectDomain.value"
+                              [ngClass]="{error: _selectQueue.invalid && ngForm.submitted}"
+                              [PassedformControl]="selectDestinationQueueForm.controls['selectQueue']"></rms-filter-component>
+        <div class="select-destination-queue__controls">
+            <button mat-flat-button
+                    class="button button_green"
+                    (click)="onPressSave()">save</button>
+            <button mat-flat-button
+                    class="button"
+                    mat-dialog-close>cancel</button>
+        </div>
+    </div>
+</section>

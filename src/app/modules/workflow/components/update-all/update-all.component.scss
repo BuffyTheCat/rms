@@ -1,0 +1,73 @@
+@import "../../../../../assets/styles/mixins.scss";
+
+.update-all {
+    display: flex;
+    flex-direction: column;
+
+    &__head {
+        display: flex;
+        align-items: center;
+        padding: 19px 34px;
+        padding-bottom: 24px;
+        background-color: color(modalhead);
+
+        p {
+            margin: 0;
+            margin-right: auto;
+            font-weight: 500;
+            font-size: 12px;
+            line-height: 16px;
+            letter-spacing: 0.25px;
+            color: color(textmain);
+            text-transform: uppercase;
+        }
+
+        button {
+            display: flex;
+            padding: 5px;
+            margin: 0;
+            margin-right: -5px;
+            background-color: transparent;
+            outline: none;
+            border: none;
+            color: color(textsecondary);
+            cursor: pointer;
+
+            mat-icon {
+                font-size: 18px;
+                width: 18px;
+                height: 18px;
+            }
+        }
+    }
+
+    &__main {
+        display: flex;
+        flex-direction: column;
+        padding: 30px 34px;
+        background-color: color(modalbody);
+    }
+
+    &__controls {
+        display: flex;
+        align-items: center;
+        margin-top: 25px;
+
+        .button {
+            width: 120px;
+
+            &:first-of-type {
+                margin-right: auto;
+            }
+
+            &:not(:first-of-type):not(:last-of-type) {
+                margin-right: 5px;
+            }
+        }
+    }
+
+    &__element {
+        width: 260px;
+        margin-bottom: 20px;
+    }
+}

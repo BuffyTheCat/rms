@@ -1,0 +1,67 @@
+<section class="update-all"
+         [formGroup]="updateAllForm"
+         novalidate
+         #ngForm="ngForm">
+    <div class="update-all__head">
+        <p>Update All Items</p>
+        <button>
+            <mat-icon aria-label="Close icon" mat-dialog-close aria-hidden="false" type="none">close</mat-icon>
+        </button>
+    </div>
+    <div class="update-all__main">
+        <rms-filter-component class="update-all__element"
+                              title="Provider"
+                              [options]="providerOptions"
+                              [ngClass]="{error: _provider.invalid }"
+                              [PassedformControl]="updateAllForm.controls['provider']"
+                              [selectedOption]="providerSelectedOption"></rms-filter-component>
+        <rms-filter-date class="update-all__element"
+                              #beginDate
+                              [rangeMode]="false"
+                              (onDateChange)="onChangeBeginDate($event)"
+                              [ngClass]="{error: _beginDate.invalid }"
+                              [PassedformControl]="updateAllForm.controls['beginDate']"
+                              title="Begin Date"></rms-filter-date>
+        <rms-filter-date class="update-all__element"
+                              #endDate
+                              [rangeMode]="false"
+                              (onDateChange)="onChangeEndDate($event)"
+                              [ngClass]="{error: _endDate.invalid || updateAllForm.hasError('range')}"
+                              [PassedformControl]="updateAllForm.controls['endDate']"
+                              title="End Date"></rms-filter-date>
+        <rms-filter-component class="update-all__element"
+                              title="Source Queue"
+                              [options]="sourceQueueOptions"
+                              [ngClass]="{error: _sourceQueue.invalid }"
+                              [PassedformControl]="updateAllForm.controls['sourceQueue']"
+                              [selectedOption]="sourceQueueSelectedOption"></rms-filter-component>
+        <rms-filter-component class="update-all__element"
+                              title="Current Status"
+                              [dropdown]="true"
+                              [options]="currentStatusOptions"
+                              [ngClass]="{error: _currentStatus.invalid }"
+                              [PassedformControl]="updateAllForm.controls['currentStatus']"
+                              [selectedOption]="currentStatusSelectedOption"></rms-filter-component>
+        <rms-filter-component class="update-all__element"
+                              title="New Status"
+                              [dropdown]="true"
+                              [options]="newStatusOptions"
+                              [ngClass]="{error: _newStatus.invalid }"
+                              [PassedformControl]="updateAllForm.controls['newStatus']"
+                              [selectedOption]="newStatusSelectedOption"></rms-filter-component>
+        <rms-filter-component class="update-all__element"
+                              title="Destination Queue"
+                              [options]="destinationQueueOptions"
+                              [ngClass]="{error: _destinationQueue.invalid }"
+                              [PassedformControl]="updateAllForm.controls['destinationQueue']"
+                              [selectedOption]="destinationQueueSelectedOption"></rms-filter-component>
+        <div class="update-all__controls">
+            <button mat-flat-button
+                    class="button button_green"
+                    (click)="onPressUpdate()">update</button>
+            <button mat-flat-button
+                    class="button"
+                    mat-dialog-close>cancel</button>
+        </div>
+    </div>
+</section>

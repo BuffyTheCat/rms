@@ -1,0 +1,212 @@
+@import "../../../../../assets/styles/mixins.scss";
+
+:host {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    padding: 20px 24px;
+}
+
+.new-report {
+    display: flex;
+    flex-grow: 2;
+    flex-direction: column;
+    overflow: auto;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 7px;
+
+    p.error {
+        margin: 0;
+        margin-left: 12px;
+        font-size: 12px;
+        line-height: 20px;
+        color: color(error);;
+
+        &:not(:last-of-type) {
+            margin-bottom: 12px;
+        }
+    }
+
+    &__head {
+        display: flex;
+        align-items: center;
+        padding: 19px 34px;
+        padding-bottom: 24px;
+        background-color: color(modalhead);
+
+        p {
+            margin: 0;
+            margin-right: auto;
+            font-weight: 500;
+            font-size: 12px;
+            line-height: 16px;
+            letter-spacing: 0.25px;
+            color: color(textmain);
+        }
+
+        button {
+            display: flex;
+            padding: 5px;
+            margin: 0;
+            margin-right: -5px;
+            background-color: transparent;
+            outline: none;
+            border: none;
+            color: color(textsecondary);
+            cursor: pointer;
+
+            mat-icon {
+                font-size: 12px;
+                width: 14px;
+                height: 14px;
+            }
+        }
+    }
+
+    &__main {
+        padding: 30px 34px;
+        background-color: color(modalbody);
+        flex-grow: 2;
+    }
+
+    &__controls {
+        display: flex;
+        align-items: center;
+        margin-top: 25px;
+
+        .button {
+            width: 120px;
+
+            &:first-of-type {
+                margin-left: auto;
+            }
+
+            &:not(:last-of-type) {
+                margin-right: 20px;
+            }
+        }
+    }
+    .grey-select {
+        width: 344px;
+    }
+
+    &__desc {
+        margin: 0;
+        margin-top: 10px;
+        font-weight: normal;
+        font-size: 12px;
+        line-height: 24px;
+        letter-spacing: 0.15px;
+        color: color(textsecondary);
+    }
+
+    &__radio {
+        display: flex;
+        flex-direction: column;
+
+        p {
+            margin: 0;
+            margin-bottom: 15px;
+            font-weight: normal;
+            font-size: 12px;
+            line-height: 24px;
+            letter-spacing: 0.15px;
+            color: color(textsecondary);
+        }
+    }
+
+    &__section {
+        display: flex;
+        flex-direction: column;
+        padding-bottom: 26px;
+        margin-bottom: 26px;
+        border-bottom: 1px solid #E5E6E7;
+
+        &-wrap {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            
+            .input  {
+                &:last-of-type {
+                    margin-bottom: 0!important;
+                }
+            }
+        }
+
+        mat-radio-button {
+            &:not(:last-of-type) {
+                margin-right: 20px;
+            }
+        }
+
+        .input {
+            width: 344px;
+            margin-right: 55px;
+            font-size: 12px;
+            line-height: 16px;
+
+            &:not(:last-child) {
+                margin-bottom: 30px;
+            }
+        }
+
+        .grey-select {
+            margin-bottom: 30px;
+        }
+
+        dl {
+            display: flex;
+            margin: 0;
+            padding: 0;
+            margin-bottom: 26px;
+
+            dt,
+            dd {
+                margin: 0;
+                font-weight: normal;
+                font-size: 12px;
+                line-height: 24px;
+                letter-spacing: 0.15px;
+                color: color(textsecondary);
+            }
+
+            dt {
+                margin-right: 5px;
+            }
+
+            dd {
+                color: color(secondary);
+            }
+        }
+
+        &_interval {
+            width: calc(100% + 24px);
+            margin-right: -12px;
+            margin-left: -12px;
+            padding-bottom: 6px;
+
+            .new-report__title {
+                margin-left: 12px;
+                margin-right: 12px;
+            }
+
+            .grey-select  {
+                margin: 0 12px;
+                margin-bottom: 20px;
+            }
+        }
+    }
+
+    &__title {
+        margin: 0;
+        margin-bottom: 30px;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 16px;
+        letter-spacing: 0.25px;
+        color: color(textmain);
+    }
+}
+

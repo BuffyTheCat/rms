@@ -1,0 +1,33 @@
+<div class="administration-profiles">
+    <rms-table [displayedColumns]="displayedColumns" 
+        *ngIf="(items$ | async) as items"
+        [tableData]="items"
+        [columnEditor]="false"
+        [pagination]="false"
+        (onSelectRow)="onSelectRow($event)"
+        (onEdit)="onEdit($event)"
+        title="Profile Info"
+        [provider]="activeProvider"
+        (onExport)="onExport($event)">
+        <div table-additional-content class="administration-profiles__copy">
+            <div class="administration-profiles__select">
+                <p>Copy Profile To</p>
+                <mat-select *ngIf="userInfo" class="grey-select huge" [(value)]="category" (selectionChange)="copyTo($event)" panelClass="huge">
+                    <perfect-scrollbar>
+                        <mat-option *ngFor="let val of userInfo.rolesUnassigned | keyvalue" [value]="val.key">{{val.key}}</mat-option>
+                    </perfect-scrollbar>
+                </mat-select>
+            </div>
+            <button mat-flat-button
+                    class="button button_green"
+                    (click)="onPressProfilesSave()">Copy</button>
+        </div>
+        <div table-additional-content-second class="administration-profiles__save">
+            <button mat-flat-button
+                    class="button button_green"
+                    (click)="onPressProfilesSave()">Save</button>
+        </div>
+    </rms-table>
+</div>
+
+

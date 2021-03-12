@@ -1,0 +1,27 @@
+<rms-header  [directory]="!router.url.includes('/login') && 
+                          !router.url.includes('/reset-password') && 
+                          !router.url.includes('/questions') && 
+                          !router.url.includes('/mfa-reset') && 
+                          !router.url.includes('/mfa-token-generating') && 
+                          !router.url.includes('/mfa-login') ? directory : null" 
+             [user]="!router.url.includes('/login') && 
+                     !router.url.includes('/reset-password') && 
+                     !router.url.includes('/questions') &&
+                     !router.url.includes('/mfa-reset') &&
+                     !router.url.includes('/mfa-token-generating') && 
+                     !router.url.includes('/mfa-login') ? user : null"
+             *ngIf="!router.url.includes('/image-viewer') && (params$ | async) as params"
+             [userParams]="userParams"
+             [providers]="params.provider"
+             [selectedOption]="params.providerSelectedOption"
+             [logoPath]="logoPath"></rms-header>
+<main class="main" [ngClass]="{main_login: router.url === '/login', main_viewer: router.url === '/image-viewer'}">
+    <rms-sidenav [navLinks]="navLinks" *ngIf="!router.url.includes('/login') && 
+                                              !router.url.includes('/reset-password') && 
+                                              !router.url.includes('/questions') &&
+                                              !router.url.includes('/mfa-reset') &&
+                                              !router.url.includes('/mfa-token-generating') && 
+                                              !router.url.includes('/image-viewer') && 
+                                              !router.url.includes('/mfa-login')"></rms-sidenav>
+    <router-outlet></router-outlet>
+</main>

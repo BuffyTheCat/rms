@@ -1,0 +1,205 @@
+@import "../../../../../assets/styles/mixins.scss";
+rms-analytics {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+.analytics {
+    display: flex;
+    flex-wrap: wrap;
+    flex-grow: 2;
+    padding: 20px 24px;
+    overflow: auto;
+    
+    &__item {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        width: 100%;
+        padding: 30px 32px;
+        padding-top: 20px;
+        margin-bottom: 23px;
+        background: #FFFFFF;
+        box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.05), 0px 3px 4px rgba(0, 0, 0, 0.02), 0px 2px 4px rgba(0, 0, 0, 0.02);
+        border-radius: 7px;
+        overflow: hidden;
+    }
+
+    &__info {
+        .button {
+            height: 56px;
+            width: 138px;
+
+            &:not(:last-of-type) {
+                margin-right: 20px;
+            }
+        }
+    }
+
+    rms-line-chart {
+        flex-grow: 2;
+    }
+
+    rms-filter-component {
+        width: 276px;
+
+        .filter-component__title {
+            font-weight: normal;
+        }
+    }
+    
+    .filters__element {
+        margin-right: 22px;
+    }
+    
+    &__title {
+        width: 100%;
+        margin: 0;
+        margin-bottom: 21px;
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 16px;
+        letter-spacing: 0.25px;
+        color: color(textmain);
+    }
+    
+    &__select-wrap {
+        position: relative;
+        width: 276px;
+        margin-right: auto;
+        
+        .grey-select {
+            padding: 10px 17px;
+            padding-top: 27px;
+            padding-bottom: 11px;
+
+            .mat-select-value-text {
+                font-weight: 500;
+                font-size: 12px;
+            }
+
+            .mat-select-arrow-wrapper {
+                transform: translateY(-6px);
+            }
+        }
+
+        p {
+            position: absolute;
+            top: 11px;
+            left: 16px;
+            margin: 0;
+            font-weight: normal;
+            font-size: 11px;
+            line-height: 16px;
+            letter-spacing: 0.4px;
+            color: color(textsecondary);
+        }
+    }
+
+    &__wrap {
+        display: flex;
+        flex-wrap: wrap;
+        width: calc(100% + 24px);
+        margin-left: -12px;
+        margin-right: -12px;
+        margin-bottom: -23px;
+
+        rms-simple-chart {
+            width: calc(33.3% - 24px);
+            margin: 0 12px;
+            margin-bottom: 23px;
+        }
+    }
+
+    &__filters {
+        display: flex;
+        flex-direction: column;
+        width: 327px;
+        margin-left: 19px;
+
+        &-item {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            padding: 33px;
+            padding-top: 24px;
+            margin-bottom: 20px;
+            box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+            border-radius: 7px;
+            overflow: hidden;
+            background-color: white;
+        }
+
+        &-name {
+            margin: 0;
+            margin-right: auto;
+            font-weight: 500;
+            font-size: 12px;
+            line-height: 16px;
+            letter-spacing: 0.25px;
+            color: color(textmain);
+        }
+
+        &-title {
+            width: 100%;
+            margin: 0;
+            margin-bottom: 33px;
+            font-weight: normal;
+            font-size: 12px;
+            line-height: 20px;
+            letter-spacing: 0.25px;
+            color: color(textsecondary);
+        }
+
+        .analytics__select-wrap {
+            width: 100%;
+        }
+
+        .button {
+            height: 40px;
+        }
+    }
+
+    &__cart {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        padding: 24px 32px;
+        box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+        border-radius: 7px;
+        background-color: white;
+
+        &-head {
+            display: flex;
+            width: 100%;
+            padding-bottom: 31px;
+            border-bottom: 1px solid #E5E6E7;
+            margin-bottom: 24px;
+        }
+
+        &-name {
+            margin: 0;
+            margin-right: auto;
+            font-weight: 500;
+            font-size: 12px;
+            line-height: 16px;
+            letter-spacing: 0.25px;
+            color: color(textmain);
+        }
+
+        &-total {
+            margin: 0;
+            margin-right: auto;
+            font-weight: 500;
+            font-size: 12px;
+            line-height: 16px;
+            letter-spacing: 0.25px;
+            color: color(textsecondary);
+        }
+    }
+    
+}

@@ -1,0 +1,89 @@
+@import "../../../../assets/styles/mixins.scss";
+
+rms-filter-component {
+    rms-custom-select {
+        width: 26px;
+        display: flex;
+        align-items: center;
+        border-left: 1px solid color(bordercolor);
+        background: color(lightcolor);
+    }
+
+    &.error {
+        .filter-component {
+            border: 1px solid color(error);;
+        }
+
+        .filter-component__title {
+            color: color(error);;
+        }
+    }
+}
+
+.filter-component {
+    display: flex;
+    border-radius: 5px;
+    overflow: hidden;
+    border: 1px solid transparent;
+    transition: border .3s;
+    
+    &__container {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 2;
+        padding: 10px 17px;
+        background: color(lightcolor);
+
+        .mat-form-field-infix {
+            padding: 0;
+            margin: 0;
+            border: none;
+            font-size: 12px;
+        }
+
+        .mat-form-field-label-wrapper,
+        .mat-input-element  {
+            color: color(textsecondary)!important;
+        }
+
+
+        .mat-form-field-wrapper {
+            padding: 0;
+        }
+
+        .mat-form-field-underline {
+            display: none;
+        }
+
+        .mat-select {
+            .mat-select-value-text {
+                font-style: normal;
+                font-weight: normal;
+                font-size: 12px;
+                letter-spacing: 0.15px;
+                color: color(textsecondary);
+            }
+            .mat-select-arrow-wrapper {
+                display: none;
+            }
+
+            .mat-select-value {
+                max-width: 100%;
+            }
+        }
+    }
+
+    &_opened {
+        border-radius: 5px 5px 0 0;
+    }
+
+    &__title {
+        width: 100%;
+        font-size: 11px;
+        margin: 0;
+        line-height: 16px;
+        letter-spacing: 0.4px;
+        color: color(textmain);
+        transition: color .3s;
+    }
+}

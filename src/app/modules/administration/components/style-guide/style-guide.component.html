@@ -1,0 +1,38 @@
+<div class="style-guide">
+    <perfect-scrollbar class="style-guide__content">
+        <mat-slide-toggle class="style-guide__dark-theme" [checked]="darkMode" (change)="onChangeMode($event)">Dark Theme</mat-slide-toggle>
+        <div class="style-guide__colors">
+            <div class="style-guide__colors-wrap">
+                <p>Primary Theme Color:</p>
+                <rms-select-color #primaryColor (onChangeColor)="onChangePrimary($event)" *ngIf="(theme$ | async) as theme" [color]="theme.primary"></rms-select-color>
+            </div>
+            <div class="style-guide__colors-wrap">
+                <p>Secondary Theme Colors:</p>
+                <rms-select-color #firstSecondaryColor (onChangeColor)="onChangefirstSecondary($event)" *ngIf="(theme$ | async) as theme" [color]="theme.firstSecondaryColor"></rms-select-color>
+                <rms-select-color #secondSecondaryColor (onChangeColor)="onChangesecondSecondary($event)" *ngIf="(theme$ | async) as theme" [color]="theme.secondSecondaryColor"></rms-select-color>
+                <rms-select-color #thirdSecondaryColor (onChangeColor)="onChangethirdSecondary($event)" *ngIf="(theme$ | async) as theme" [color]="theme.thirdSecondaryColor"></rms-select-color>
+                <rms-select-color #fourthSecondaryColor (onChangeColor)="onChangefourthSecondary($event)" *ngIf="(theme$ | async) as theme" [color]="theme.fourthSecondaryColor"></rms-select-color>
+                <rms-select-color #fifthSecondaryColor (onChangeColor)="onChangefifthSecondary($event)" *ngIf="(theme$ | async) as theme" [color]="theme.fifthSecondaryColor"></rms-select-color>
+                <rms-select-color #seventhSecondaryColor (onChangeColor)="onChangeseventhSecondary($event)" *ngIf="(theme$ | async) as theme" [color]="theme.seventhSecondaryColor"></rms-select-color>
+                <rms-select-color #sixthSecondaryColor (onChangeColor)="onChangesixthSecondary($event)" *ngIf="(theme$ | async) as theme" [color]="theme.sixthSecondaryColor"></rms-select-color>
+            </div>
+        </div>
+        <div class="style-guide__logos">
+            <rms-dropzone #loginLogo title="Login logo:"></rms-dropzone>
+            <rms-dropzone #defaultLogo title="Default logo:"></rms-dropzone>
+            <rms-dropzone #applicationLogo title="Application logo:"></rms-dropzone>
+            <rms-dropzone #secondaryLogo title="Secondary logo:"></rms-dropzone>
+        </div>
+        <iframe src="https://rms.d1.aisnovations.com/reconciliation"></iframe>
+        <div class="style-guide__controls">
+            <button mat-flat-button
+                        class="button button_green"
+                        (click)="onSave()">Apply</button>
+            <button mat-flat-button
+                    class="button"
+                    (click)="onCancel()">Cancel</button>
+        </div>
+    </perfect-scrollbar>
+</div>
+
+

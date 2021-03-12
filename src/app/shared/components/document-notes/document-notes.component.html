@@ -1,0 +1,48 @@
+<section class="document-notes" [formGroup]="notesForm">
+    <div class="document-notes__head">
+        <p>Document notes</p>
+        <button mat-dialog-close>
+            <mat-icon aria-label="Close icon" aria-hidden="false" type="none">close</mat-icon>
+        </button>
+    </div>
+    <div class="document-notes__main">
+        <perfect-scrollbar class="document-notes__info">
+            <table #table mat-table class="history-tracking__table" [dataSource]="dataSource">
+                <ng-container *ngFor="let column of displayedColumnsResult index as i">          
+                    <ng-container [matColumnDef]="column.column">
+                        <th mat-header-cell *matHeaderCellDef>{{column.title}}</th>
+                        <td mat-cell *matCellDef="let element">
+                            {{element[column.column]}}
+                        </td>
+                    </ng-container>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumnsArray; sticky: true"></tr>
+                <tr mat-row
+                    [ngClass]="{selected: selectedRow === row}" 
+                    (click)="selectRow(row)"  
+                    *matRowDef="let row; columns: displayedColumnsArray;"></tr>
+            </table>
+        </perfect-scrollbar>
+        <button class="document-notes__add"
+                (click)="onPressAdd()">
+            <mat-icon aria-label="add note" aria-hidden="false">add_circle</mat-icon>
+            add note
+        </button>
+        <p class="document-notes__desc">Note text editor</p>
+        <textarea [ngClass]="{error: _description.invalid}" maxlength="2048" class="textarea" #textarea [(ngModel)]="selectedRow.text" name="document-notes" formControlName="description"></textarea>
+        <p class="error-desc" *ngIf="_description.invalid" >Note shouldn't more then 2048 characters</p>
+        <div class="document-notes__controls">
+            <button mat-flat-button
+                    class="button button_green"
+                    [disabled]="!selectedRow.id"
+                    (click)="onPressDelete()">delete</button>
+            <button mat-flat-button
+                    [disabled]="notesForm.invalid"
+                    class="button button_green"
+                    (click)="onPressSave()">SAVE</button>
+            <button mat-flat-button
+                    class="button"
+                    mat-dialog-close>CLOSE</button>
+        </div>
+    </div>
+</section>

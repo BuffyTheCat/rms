@@ -1,0 +1,78 @@
+<div class="domains">
+    <mat-tab-group animationDuration="0ms" #tabGroup (selectedTabChange)="tabChanged($event)">
+        <mat-tab label="Domain Info" >
+            <div class="domains__header">
+                <p class="domains__title">Domain Info</p>
+                <dl class="domains__provider">
+                    <dt>Provider: </dt>
+                    <dd>{{provider}}</dd>
+                </dl>
+            </div>
+            <div class="domains__content">
+                <rms-domains-info></rms-domains-info>
+            </div>
+        </mat-tab>
+        <mat-tab label="provider details">
+            <div class="domains__header">
+                <p class="domains__title">Provider details</p>
+                <dl class="domains__provider">
+                    <dt>Provider: </dt>
+                    <dd>{{provider}}</dd>
+                </dl>
+            </div>
+            <div class="domains__content">
+                <rms-domains-provider></rms-domains-provider>
+            </div>
+        </mat-tab>
+        <mat-tab label="Dashboard settings">
+            <div class="domains__header domains__header_dashboard">
+                <p class="domains__title">Dashboard settings</p>
+                <dl class="domains__provider">
+                    <dt>Provider: </dt>
+                    <dd>{{provider}}</dd>
+                </dl>
+            </div>
+            <div class="domains__content domains__content_dashboard">
+                <rms-domains-dashboard></rms-domains-dashboard>
+            </div>
+        </mat-tab>
+        <mat-tab label="branding">
+            <div class="domains__header">
+                <p class="domains__title">Branding</p>
+                <dl class="domains__provider">
+                    <dt>Provider: </dt>
+                    <dd>{{provider}}</dd>
+                </dl>
+            </div>
+            <div class="domains__content">
+                <rms-style-guide #styleGuide></rms-style-guide>
+            </div>
+        </mat-tab>
+        <mat-tab label="Queues">
+            <div class="domains__header">
+                <p class="domains__title">Queues</p>
+                <dl class="domains__provider domains__header_queues">
+                    <dt>Provider: </dt>
+                    <dd>{{provider}}</dd>
+                </dl>
+            </div>
+            <perfect-scrollbar class="domains__content domains__content_queues">
+                <rms-domains-queues></rms-domains-queues>
+            </perfect-scrollbar>
+        </mat-tab>
+        <mat-tab label="Queues mapping">
+            <div class="domains__header domains__header_queues-mapping">
+                <p class="domains__title">Queue Mappings</p>
+                <dl class="domains__provider">
+                    <dt>Provider: </dt>
+                    <dd>{{provider}}</dd>
+                </dl>
+            </div>
+            <div class="domains__content domains__content_queue-mapping">
+                <rms-domains-queue-mapping></rms-domains-queue-mapping>
+            </div>
+        </mat-tab>
+    </mat-tab-group>
+</div>
+
+

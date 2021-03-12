@@ -1,0 +1,35 @@
+<section class="queue-management">
+    <div class="queue-management__head">
+        <p>{{title}}</p>
+        <button mat-dialog-close>
+            <mat-icon aria-label="Close icon" aria-hidden="false" type="none">close</mat-icon>
+        </button>
+    </div>
+    <div class="queue-management__main"  #ngForm="ngForm" [formGroup]="queueManagementForm">
+        <div class="queue-management__select queue-management__element">
+            <p>Group</p>
+            <mat-select class="grey-select huge" [(value)]="selectedGroup" (selectionChange)="changeGroup($event.value)" panelClass="huge">
+                <perfect-scrollbar>
+                    <mat-option *ngFor="let group of groups" [value]="group">{{group | titlecase }}</mat-option>
+                </perfect-scrollbar>
+            </mat-select>
+        </div>
+        <rms-filter-component class="queue-management__element"
+                              title="Name"
+                              shortDropdown="true"
+                              [PassedformControl]="queueManagementForm['controls'].name"></rms-filter-component>
+        <div class="queue-management__textarea queue-management__element">
+            <p>Description</p>
+            <textarea formControlName="description" name="description">{{description}}</textarea>
+        </div>
+
+        <div class="queue-management__controls">
+            <button mat-flat-button
+                    class="button button_green"
+                    (click)="onPressSave()">Apply</button>
+            <button mat-flat-button
+                    mat-dialog-close
+                    class="button">Cancel</button>
+        </div>
+    </div>
+</section>

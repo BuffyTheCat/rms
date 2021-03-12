@@ -1,0 +1,196 @@
+<div class="image-viewer">
+    <as-split #splitEl direction="horizontal">
+        <as-split-area [size]="50" minSize="20">
+            <perfect-scrollbar class="image-viewer__side">
+                <div class="image-viewer__document-controls">
+                    <p class="image-viewer__information">{{information}}</p>
+                    <div class="image-viewer__search">
+                        <input matInput  type="text" [formControl]="myControlLeft" [matAutocomplete]="auto">
+                        <mat-autocomplete #auto="matAutocomplete">
+                            <mat-option *ngFor="let option of filteredOptionsLeft | async" [value]="option">
+                              {{option}}
+                            </mat-option>
+                        </mat-autocomplete>
+                        <mat-icon aria-label="search icon" aria-hidden="false">search</mat-icon>
+                    </div>
+                </div>
+                <rms-filter-component class="image-viewer__select"
+                    title="Select an Image"
+                    [dropdown]="true"
+                    [options]="quantityOptions"
+                    (onChangeSelect)="onChangeSelectedImage($event)"
+                    [PassedformControl]="imageViewerForm.controls['imagesLeft']"
+                    [selectedOption]="quantitySelectedOption"></rms-filter-component>
+                <perfect-scrollbar class="image-viewer__panel">
+                    <div class="image-viewer__panel-group">
+                        <button mat-button #toStart (click)="onPressToStart()">
+                            <mat-icon aria-label="To start icon" aria-hidden="false">fast_rewind</mat-icon>
+                        </button>
+                        <button class="image-viewer__back" mat-button #toPrev (click)="onPressToPrev()">
+                            <mat-icon aria-label="To prev icon" aria-hidden="false">play_arrow</mat-icon>
+                        </button>
+                        <input type="number" [(ngModel)]="activeImageLeft">
+                        <p>of {{imgagesLeft.length}}</p>
+                        <button mat-button #toNext (click)="onPressToNext()">
+                            <mat-icon aria-label="To next icon" aria-hidden="false">play_arrow</mat-icon>
+                        </button>
+                        <button mat-button #toLast (click)="onPressToLast()">
+                            <mat-icon aria-label="To last icon" aria-hidden="false">fast_forward</mat-icon>
+                        </button>
+                    </div>
+                    <div class="image-viewer__panel-group">
+                        <button mat-button #zoom (click)="onPressZoom()">
+                            <mat-icon aria-label="Zoom icon" aria-hidden="false">add</mat-icon>
+                        </button>
+                        <mat-select [(ngModel)]="sizeLeft" (selectionChange)="changeSizeLeft($event)">
+                            <mat-option value="10">10%</mat-option>
+                            <mat-option value="25">25%</mat-option>
+                            <mat-option value="50">50%</mat-option>
+                            <mat-option value="75">75%</mat-option>
+                            <mat-option value="90">90%</mat-option>
+                            <mat-option value="100">100%</mat-option>
+                            <mat-option value="150">150%</mat-option>
+                            <mat-option value="200">200%</mat-option>
+                            <mat-option value="400">400%</mat-option>
+                            <mat-option value="800">800%</mat-option>
+                        </mat-select>
+                        <button mat-button #zoomOut (click)="onPressZoomOut()">
+                            <mat-icon aria-label="Zomm out icon" aria-hidden="false">remove</mat-icon>
+                        </button>
+                    </div>
+                    <div class="image-viewer__panel-group">
+                        <button mat-button #fullscreen (click)="onPressFullscreenLeft()">
+                            <mat-icon aria-label="fullscreen icon" aria-hidden="false">fullscreen</mat-icon>
+                        </button>
+                        <button mat-button #fullscreenExit (click)="onPressFullscreenExitLeft()">
+                            <mat-icon aria-label="Exit fullscreen icon" aria-hidden="false">fullscreen_exit</mat-icon>
+                        </button>
+                    </div>
+                    <div class="image-viewer__panel-group">
+                        <button mat-button #rotate (click)="onPressRotate()">
+                            <mat-icon aria-label="Rotate icon" aria-hidden="false">loop</mat-icon>
+                        </button>
+                    </div>
+                    <div class="image-viewer__panel-group image-viewer__panel-group_settings">
+                        <button mat-button #export (click)="onPressExport()">
+                            <mat-icon aria-label="Export icon" aria-hidden="false">get_app</mat-icon>
+                        </button>
+                        <div class="image-viewer__export">
+                            <mat-select disableOptionCentering (selectionChange)="onPressPrint($event.value)" (openedChange)="selectOpen($event)" panelClass="tabel-panel tabel-panel_align-left" [class.image-viewer__export_opened]="isOpen">
+                              <mat-option *ngFor="let option of printOptions index as i" [value]="option">
+                                  {{option}}
+                              </mat-option>
+                            </mat-select>
+                            <mat-icon aria-label="Columns editor icon" aria-hidden="false">local_printshop</mat-icon>
+                        </div>
+                    </div>
+                    <button mat-button #notes (click)="onPressNotes()">
+                        <mat-icon aria-label="Notes icon" aria-hidden="false">note</mat-icon>
+                    </button>
+                </perfect-scrollbar>
+                <perfect-scrollbar class="image-viewer__content" [ngClass]="{fullSize: isFullSizeLeft}">
+                    <p *ngIf="activeImageLeft > imgagesLeft.length" class="image-viewer__error">Incorrect picture number</p>
+                    <div class="image-viewer__content-wrap" #imageLeft [ngStyle]="!isFullSizeLeft && sizeLeft === '100' ? {'width': 'fit-content'} : {'width': sizeLeft + '%'}">
+                        <img *ngIf="activeImageLeft <= imgagesLeft.length" [style.height]="isLeftSideHorisontal ? 'auto' : leftImageWidth + 'px'" [style.transform]="'rotate(' + leftRotate + 'deg)'" [src]="imgagesLeft[activeImageLeft - 1]"  alt="image-viewer">
+                    </div>
+                </perfect-scrollbar>
+            </perfect-scrollbar>
+        </as-split-area>
+        <as-split-area [size]="50" minSize="20">
+            <perfect-scrollbar class="image-viewer__side">
+                <div class="image-viewer__document-controls">
+                    <p class="image-viewer__information">{{information}}</p>
+                    <div class="image-viewer__search">
+                        <input matInput  type="text" [formControl]="myControl" [matAutocomplete]="autoRight">
+                        <mat-autocomplete #autoRight="matAutocomplete">
+                            <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                              {{option}}
+                            </mat-option>
+                        </mat-autocomplete>
+                        <mat-icon aria-label="search icon" aria-hidden="false">search</mat-icon>
+                    </div>
+                </div>
+                <rms-filter-component class="image-viewer__select"
+                    title="Select an Image"
+                    [dropdown]="true"
+                    [PassedformControl]="imageViewerForm.controls['imagesRight']"
+                    [options]="quantityOptions"
+                    (onChangeSelect)="onChangeRightSelectedImage($event)"
+                    [selectedOption]="quantitySelectedOption"></rms-filter-component>
+                <perfect-scrollbar class="image-viewer__panel">
+                    <div class="image-viewer__panel-group">
+                        <button mat-button #toStart (click)="onPressToStartRight()">
+                            <mat-icon aria-label="To start icon" aria-hidden="false">fast_rewind</mat-icon>
+                        </button>
+                        <button class="image-viewer__back" mat-button #toPrev (click)="onPressToPrevRight()">
+                            <mat-icon aria-label="To prev icon" aria-hidden="false">play_arrow</mat-icon>
+                        </button>
+                        <input type="number" [(ngModel)]="activeImageRight">
+                        <p>of {{imgagesRight.length}}</p>
+                        <button mat-button #toNext (click)="onPressToNextRight()">
+                            <mat-icon aria-label="To next icon" aria-hidden="false">play_arrow</mat-icon>
+                        </button>
+                        <button mat-button #toLast (click)="onPressToLastRight()">
+                            <mat-icon aria-label="To last icon" aria-hidden="false">fast_forward</mat-icon>
+                        </button>
+                    </div>
+                    <div class="image-viewer__panel-group">
+                        <button mat-button #zoom (click)="onPressZoomRight()">
+                            <mat-icon aria-label="Zoom icon" aria-hidden="false">add</mat-icon>
+                        </button>
+                        <mat-select [(ngModel)]="sizeRight" (selectionChange)="changeSizeRight($event)">
+                            <mat-option value="10">10%</mat-option>
+                            <mat-option value="25">25%</mat-option>
+                            <mat-option value="50">50%</mat-option>
+                            <mat-option value="75">75%</mat-option>
+                            <mat-option value="90">90%</mat-option>
+                            <mat-option value="100">100%</mat-option>
+                            <mat-option value="150">150%</mat-option>
+                            <mat-option value="200">200%</mat-option>
+                            <mat-option value="400">400%</mat-option>
+                            <mat-option value="800">800%</mat-option>
+                        </mat-select>
+                        <button mat-button #zoomOut (click)="onPressZoomOutRight()">
+                            <mat-icon aria-label="Zomm out icon" aria-hidden="false">remove</mat-icon>
+                        </button>
+                    </div>
+                    <div class="image-viewer__panel-group">
+                        <button mat-button #fullscreen (click)="onPressFullscreen()">
+                            <mat-icon aria-label="fullscreen icon" aria-hidden="false">fullscreen</mat-icon>
+                        </button>
+                        <button mat-button #fullscreenExit (click)="onPressFullscreenExit()">
+                            <mat-icon aria-label="Exit fullscreen icon" aria-hidden="false">fullscreen_exit</mat-icon>
+                        </button>
+                    </div>
+                    <div class="image-viewer__panel-group">
+                        <button mat-button #rotate (click)="onPressRotateRight()">
+                            <mat-icon aria-label="Rotate icon" aria-hidden="false">loop</mat-icon>
+                        </button>
+                    </div>
+                    <div class="image-viewer__panel-group image-viewer__panel-group_settings">
+                        <button mat-button #export (click)="onPressExport()">
+                            <mat-icon aria-label="Export icon" aria-hidden="false">get_app</mat-icon>
+                        </button>
+                        <div class="image-viewer__export">
+                            <mat-select disableOptionCentering (selectionChange)="onPressPrint($event.value)" (openedChange)="selectOpen($event)" panelClass="tabel-panel tabel-panel_align-left" [class.image-viewer__export_opened]="isOpen">
+                              <mat-option *ngFor="let option of printOptions index as i" [value]="option">
+                                  {{option}}
+                              </mat-option>
+                            </mat-select>
+                            <mat-icon aria-label="Columns editor icon" aria-hidden="false">local_printshop</mat-icon>
+                        </div>
+                    </div>
+                    <button mat-button #notes (click)="onPressNotes()">
+                        <mat-icon aria-label="Notes icon" aria-hidden="false">note</mat-icon>
+                    </button>
+                </perfect-scrollbar>
+                <perfect-scrollbar class="image-viewer__content" [ngClass]="{fullSize: isFullSize}">
+                    <p *ngIf="activeImageRight > imgagesRight.length" class="image-viewer__error">Incorrect picture number</p>
+                    <div class="image-viewer__content-wrap" #imageRight [ngStyle]="!isFullSize && sizeRight === '100' ? {'width': 'fit-content'} : {'width': sizeRight + '%'}">
+                        <img *ngIf="activeImageRight <= imgagesRight.length"  [style.height]="isRightSideHorisontal ? 'auto' : rightImageWidth + 'px'" [style.transform]="'rotate(' + rightRotate + 'deg)'" [src]="imgagesRight[activeImageRight - 1]"  alt="image-viewer">
+                    </div>
+                </perfect-scrollbar>
+            </perfect-scrollbar>
+        </as-split-area>
+    </as-split>
+</div>

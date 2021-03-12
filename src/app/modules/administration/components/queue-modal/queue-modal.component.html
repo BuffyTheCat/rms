@@ -1,0 +1,240 @@
+<section class="queue-modal">
+    <div class="queue-modal__head">
+        <p><span>Queue Mapping</span> / {{step}}</p>
+        <button mat-dialog-close>
+            <mat-icon aria-label="Close icon" aria-hidden="false" type="none">close</mat-icon>
+        </button>
+    </div>
+    <div class="queue-modal__main">
+        <mat-horizontal-stepper #stepper linear (selectionChange)="selectionChange($event)">
+            <mat-step label="Type"  [stepControl]="type">
+                <form class="queue-modal__content" [formGroup]="type">
+                    <div class="queue-modal__select">
+                        <p>Choose Type</p>
+                        <mat-select formControlName="type" class="grey-select huge" disableOptionCentering panelClass="huge">
+                            <perfect-scrollbar>
+                                <mat-option *ngFor="let val of typeArray" [value]="val">{{val }}</mat-option>
+                            </perfect-scrollbar>
+                        </mat-select>
+                    </div>
+                </form>
+              <div class="queue-modal__controls">
+                <button mat-flat-button
+                    *ngIf="isEditing"
+                    class="button button_green button_save" 
+                    (click)="onSave()">Save</button>
+                <button mat-flat-button
+                        [disabled]="type.invalid"
+                        class="button button_green" 
+                        matStepperNext>Next</button>
+              </div>
+            </mat-step>
+            <mat-step label="Payers"  [stepControl]="payers">
+                <form class="queue-modal__content" [formGroup]="payers">
+                    <multiselect-autocomplete title="Selected Payers" [itemsArray]="payersArray" formControlName="payers"></multiselect-autocomplete>
+                </form>
+              <div class="queue-modal__controls">
+                <button mat-flat-button
+                    *ngIf="isEditing"
+                    class="button button_green button_save" 
+                    (click)="onSave()">Save</button>
+                <button mat-flat-button
+                        class="button" 
+                        matStepperPrevious>Previous</button>
+                <button mat-button mat-flat-button
+                        [disabled]="payers.invalid"
+                        class="button button_green" matStepperNext>Next</button>
+              </div>
+            </mat-step>
+            <mat-step label="Payer Group"  [stepControl]="payerGroup">
+                <form class="queue-modal__content" [formGroup]="payerGroup">
+                    <multiselect-autocomplete inputPlaceholder="Enter Payer Group" title="Selected Payer Groups" [itemsArray]="payerGroupArray" formControlName="payerGroup"></multiselect-autocomplete>
+                </form>
+                <div class="queue-modal__controls">
+                  <button mat-flat-button 
+                        *ngIf="isEditing"
+                        class="button button_green button_save" 
+                        (click)="onSave()">Save</button>
+                  <button mat-flat-button
+                          class="button" 
+                          matStepperPrevious>Previous</button>
+                  <button mat-button mat-flat-button
+                          [disabled]="payerGroup.invalid"
+                          class="button button_green" matStepperNext>Next</button>
+                </div>
+            </mat-step>
+            <mat-step label="Batch"  [stepControl]="batch">
+                <form class="queue-modal__content queue-modal__content_batch" [formGroup]="batch">
+                    <p class="queue-modal__content-title">Please specify the range for the Batch</p>
+                    <div class="queue-modal__input">
+                        <p>Start</p>
+                        <input matInput formControlName="batchStart" placeholder="Enter Batch Number " required>
+                    </div>
+                    <div class="queue-modal__input">
+                        <p>End</p>
+                        <input matInput formControlName="batchEnd" placeholder="Enter Batch Number" required>
+                    </div>
+                </form>
+                <div class="queue-modal__controls">
+                  <button mat-flat-button 
+                        *ngIf="isEditing"
+                        class="button button_green button_save" 
+                        (click)="onSave()">Save</button>
+                  <button mat-flat-button
+                          class="button" 
+                          matStepperPrevious>Previous</button>
+                  <button mat-button mat-flat-button
+                          [disabled]="batch.invalid"
+                          class="button button_green" matStepperNext>Next</button>
+                </div>
+            </mat-step>
+            <mat-step label="Lockbox"  [stepControl]="lockbox">
+                <form class="queue-modal__content" [formGroup]="lockbox">
+                    <p class="queue-modal__content-title">Please specify the range for the Lockbox Number</p>
+                    <div class="queue-modal__input">
+                        <p>Start</p>
+                        <input matInput formControlName="lockboxStart" placeholder="Enter Lockbox Number " required>
+                    </div>
+                    <div class="queue-modal__input">
+                        <p>End</p>
+                        <input matInput formControlName="lockboxEnd" placeholder="Enter Lockbox Number " required>
+                    </div>
+                </form>
+                <div class="queue-modal__controls">
+                  <button mat-flat-button 
+                        *ngIf="isEditing"
+                        class="button button_green button_save" 
+                        (click)="onSave()">Save</button>
+                  <button mat-flat-button
+                          class="button" 
+                          matStepperPrevious>Previous</button>
+                  <button mat-button mat-flat-button
+                          [disabled]="lockbox.invalid"
+                          class="button button_green" matStepperNext>Next</button>
+                </div>
+            </mat-step>
+            <mat-step label="Type of Document"  [stepControl]="typeOfD">
+                <form class="queue-modal__content" [formGroup]="typeOfD">
+                    <div class="queue-modal__select">
+                        <p>Choose Type of Document</p>
+                        <mat-select formControlName="typeOfD" disableOptionCentering class="grey-select huge" panelClass="huge">
+                            <perfect-scrollbar>
+                                <mat-option *ngFor="let val of typeOfDArray" [value]="val">{{val}}</mat-option>
+                            </perfect-scrollbar>
+                        </mat-select>
+                    </div>
+                </form>
+                <div class="queue-modal__controls">
+                  <button mat-flat-button 
+                        *ngIf="isEditing"
+                        class="button button_green button_save" 
+                        (click)="onSave()">Save</button>
+                  <button mat-flat-button
+                          class="button" 
+                          matStepperPrevious>Previous</button>
+                  <button mat-button mat-flat-button
+                          [disabled]="typeOfD.invalid"
+                          class="button button_green" matStepperNext>Next</button>
+                </div>
+            </mat-step>
+            <mat-step label="Denial Code"  [stepControl]="denialCode">
+                <form class="queue-modal__content" [formGroup]="denialCode">
+                    <multiselect-autocomplete inputPlaceholder="Enter Denial Code" [itemsArray]="denialCodeArray" formControlName="denialCode"></multiselect-autocomplete>
+                </form>
+                <div class="queue-modal__controls">
+                  <button mat-flat-button 
+                        *ngIf="isEditing"
+                        class="button button_green button_save" 
+                        (click)="onSave()">Save</button>
+                  <button mat-flat-button
+                          class="button" 
+                          matStepperPrevious>Previous</button>
+                  <button mat-button mat-flat-button
+                          [disabled]="denialCode.invalid"
+                          class="button button_green" matStepperNext>Next</button>
+                </div>
+            </mat-step>
+            <mat-step label="Funded Type"  [stepControl]="fundedT">
+                <form class="queue-modal__content" [formGroup]="fundedT">
+                    <div class="queue-modal__select">
+                        <p>Choose Type of Document</p>
+                        <mat-select formControlName="fundedT" disableOptionCentering class="grey-select huge" panelClass="huge">
+                            <perfect-scrollbar>
+                                <mat-option *ngFor="let val of fundedTArray" [value]="val">{{val }}</mat-option>
+                            </perfect-scrollbar>
+                        </mat-select>
+                    </div>
+                </form>
+                <div class="queue-modal__controls">
+                  <button mat-flat-button 
+                        *ngIf="isEditing"
+                        class="button button_green button_save" 
+                        (click)="onSave()">Save</button>
+                  <button mat-flat-button
+                          class="button" 
+                          matStepperPrevious>Previous</button>
+                  <button mat-button mat-flat-button
+                          [disabled]="fundedT.invalid"
+                          class="button button_green" matStepperNext>Next</button>
+                </div>
+            </mat-step>
+            <mat-step label="Refund Amount Range"  [stepControl]="refundA">
+                <form class="queue-modal__content" [formGroup]="refundA">
+                    <p class="queue-modal__content-title">Please specify one or both on the Refund Amount</p>
+                    <div class="queue-modal__input">
+                        <p>Minimum (e.g. 100.01)</p>
+                        <input matInput formControlName="refundAStart" placeholder="Enter minimum Refund Amount " required>
+                    </div>
+                    <div class="queue-modal__input">
+                        <p>Maximum (e.g. 200)</p>
+                        <input matInput formControlName="refundAEnd" placeholder="Enter minimum Refund Amount " required>
+                    </div>
+                </form>
+                <div class="queue-modal__controls">
+                  <button mat-flat-button 
+                        *ngIf="isEditing"
+                        class="button button_green button_save" 
+                        (click)="onSave()">Save</button>
+                  <button mat-flat-button
+                          class="button" 
+                          matStepperPrevious>Previous</button>
+                  <button mat-button mat-flat-button
+                          [disabled]="refundA.invalid"
+                          class="button button_green" matStepperNext>Next</button>
+                </div>
+            </mat-step>
+            <mat-step label="Destination Queue"  [stepControl]="destination">
+                <form class="queue-modal__content" [formGroup]="destination">
+                    <div class="queue-modal__select">
+                        <p>Choose Provider</p>
+                        <mat-select formControlName="provider" disableOptionCentering class="grey-select huge" panelClass="huge">
+                            <perfect-scrollbar>
+                                <mat-option *ngFor="let val of providerArray" [value]="val">{{val }}</mat-option>
+                            </perfect-scrollbar>
+                        </mat-select>
+                    </div>
+                    <div class="queue-modal__select">
+                        <p>Choose Queue</p>
+                        <mat-select formControlName="queue" disableOptionCentering class="grey-select huge" panelClass="huge">
+                            <perfect-scrollbar>
+                                <mat-option *ngFor="let val of queueArray" [value]="val">{{val }}</mat-option>
+                            </perfect-scrollbar>
+                        </mat-select>
+                    </div>
+                </form>
+                <div class="queue-modal__controls">
+                  <button mat-flat-button 
+                        *ngIf="isEditing"
+                        class="button button_green button_save" 
+                        (click)="onSave()">Save</button>
+                  <button mat-flat-button
+                          class="button" 
+                          matStepperPrevious>Previous</button>
+                  <button mat-button mat-flat-button
+                          [disabled]="destination.invalid"
+                          class="button button_green" (click)="onFinish()">Finish</button>
+                </div>
+            </mat-step>
+          </mat-horizontal-stepper>
+    </div>
+</section>

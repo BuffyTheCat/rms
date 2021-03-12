@@ -1,0 +1,47 @@
+rms-research {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+
+    rms-table {
+        &:not(:last-of-type) {
+            margin-bottom: 23px;
+        }
+    }
+
+    rms-filter {
+        &.error {
+            .filters__controls {
+                margin-top: 24px;
+            }
+        }
+    }
+
+    mat-select {
+        width: 16px; 
+    }
+
+    mat-paginator {
+        mat-select {
+            width: auto; 
+        }
+
+        .mat-select-value {
+            max-width: initial;
+        }
+    }
+}
+
+.research-lockbox {
+    display: flex;
+    flex-grow: 2;
+    flex-direction: column;
+    padding: 20px 24px;
+    padding-right: 9px;
+    overflow: auto;
+
+    .filters__desc {
+        padding-left: 15px;
+    }
+}

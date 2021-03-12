@@ -1,0 +1,134 @@
+<section class="workflow">
+    <as-split direction="vertical">
+        <as-split-area [size]="50" minSize="30">
+            <rms-document-editor
+                [totalAmount]="'$' + (totalAmount | number)"
+                (onCompleteDocument)="onCompleteDocument()"
+                (onHoldDocument)="onHoldDocument()"
+                (onDeliteDocument)="onDeliteDocument()"
+                [linkEncounter]="false"
+                (onUnprocessedDocument)="onUnprocessedDocument()"
+                totalItems="10"
+                [imgPath]="imgPath"
+                doc="ID UNKNOWN"></rms-document-editor>
+        </as-split-area>
+        <as-split-area [size]="50" minSize="30">
+            <rms-table [displayedColumns]="displayedColumnsResult" 
+                   *ngIf="(items$ | async) as items"
+                   [tableData]="items"
+                   [selectOptionRow]="selectOptionRow"
+                   title="Results"
+                   (onSelectRow)="onSelectRow($event)"
+                   (onView)="onView()"
+                   (onEditNotes)="onEditNotes()"
+                   (onSearchTable)="onSearchTable()"
+                   (onSelectChange)="onSelectChange($event)"></rms-table>
+        </as-split-area>
+    </as-split>
+</section>
+<rms-filter-with-tabs (onSearch)="onSearch()"
+            (onClear)="onClear()"
+            [formGroup]="filterForm"
+            novalidate
+            #ngForm="ngForm"
+            [ngClass]="{error: ngForm.invalid && ngForm.submitted}">
+    <div class="filters-with-tabs__content" filters-with-tabs-first-tab>
+        <rms-nested-list [listData]="listData"></rms-nested-list>
+    </div>
+    <perfect-scrollbar class="filters-with-tabs__content filters-with-tabs__content_search" filters-with-tabs-second-tab>
+        <rms-filter-date class="filters-with-tabs__element"
+                         #dateOfDeposit
+                         [rangeMode]="false"
+                         (onDateChange)="onChangeDateOfDepisit($event)"
+                         [ngClass]="{error: _dateOfDeposit.invalid && ngForm.submitted}"
+                         [PassedformControl]="filterForm.controls['dateOfDeposit']"
+                         title="Date Of Deposit"></rms-filter-date>
+        <rms-filter-component class="filters-with-tabs__element"
+                         title="Batch number"
+                         shortDropdown="true"
+                         *ngIf="(params$ | async) as params"
+                         [options]="params.batch"
+                         [ngClass]="{error: _batchNumber.invalid && ngForm.submitted}"
+                         [PassedformControl]="filterForm.controls['batchNumber']"
+                         (onChangeSearchOption)="onChangeSearchOptionBatchNumber($event)"
+                         [selectedOption]="params.batchSelectedOption"></rms-filter-component>
+        <rms-filter-component class="filters-with-tabs__element"
+                        title="Provider"
+                        shortDropdown="true"
+                        *ngIf="(params$ | async) as params"
+                         [options]="params.provider"
+                        [ngClass]="{error: _provider.invalid && ngForm.submitted}"
+                        [PassedformControl]="filterForm.controls['provider']"
+                        (onChangeSearchOption)="onChangeSearchOptionProvider($event)"
+                        [selectedOption]="params.providerSelectedOption"></rms-filter-component>
+        <p class="filters-with-tabs__desc">Max Shown 200</p>
+        <rms-filter-component class="filters-with-tabs__element"
+                              title="Lockbox"
+                              shortDropdown="true"
+                              *ngIf="(params$ | async) as params"
+                              [options]="params.lockbox"
+                              [ngClass]="{error: _lockbox.invalid && ngForm.submitted}"
+                              [PassedformControl]="filterForm.controls['lockbox']"
+                              (onChangeSearchOption)="onChangeSearchOptionLockbox($event)"
+                              [selectedOption]="params.lockBoxSelectedOption"></rms-filter-component>
+        <rms-filter-component class="filters-with-tabs__element"
+                              title="Status"
+                              shortDropdown="true"
+                              *ngIf="(params$ | async) as params"
+                              [options]="params.status"
+                              [ngClass]="{error: _status.invalid && ngForm.submitted}"
+                              [PassedformControl]="filterForm.controls['status']"
+                              (onChangeSearchOption)="onChangeSearchOptionStatus($event)"
+                              [selectedOption]="params.statusSelectedOption"></rms-filter-component>
+        <rms-filter-component class="filters-with-tabs__element"
+                              title="Queue"
+                              shortDropdown="true"
+                              *ngIf="(params$ | async) as params"
+                              [options]="params.queue"
+                              [ngClass]="{error: _queue.invalid && ngForm.submitted}"
+                              [PassedformControl]="filterForm.controls['queue']"
+                              (onChangeSearchOption)="onChangeSearchOptionQueue($event)"
+                              [selectedOption]="params.queueSelectedOption"></rms-filter-component>
+        <rms-filter-component class="filters-with-tabs__element"
+                              title="Payer"
+                              shortDropdown="true"
+                              *ngIf="(params$ | async) as params"
+                              [options]="params.payer"
+                              [ngClass]="{error: _payer.invalid && ngForm.submitted}"
+                              [PassedformControl]="filterForm.controls['payer']"
+                              (onChangeSearchOption)="onChangeSearchOptionPayer($event)"
+                              [selectedOption]="params.payerSelectedOption"></rms-filter-component>
+        <hr>
+        <rms-filter-component class="filters-with-tabs__element"
+                              title="Destination Queues"
+                              shortDropdown="true"
+                              *ngIf="(params$ | async) as params"
+                              [options]="params.destinationQueues"
+                              [ngClass]="{error: _destinationQueues.invalid && ngForm.submitted}"
+                              [PassedformControl]="filterForm.controls['destinationQueues']"
+                              (onChangeSearchOption)="onChangeSearchOptionDestinationQueues($event)"
+                              [selectedOption]="params.destinationQueuesSelectedOption"></rms-filter-component>
+        <rms-filter-component class="filters-with-tabs__element"
+                              title="Thumbnails"
+                              shortDropdown="true"
+                              [dropdown]="true"
+                              *ngIf="(params$ | async) as params"
+                              [options]="params.thumbnails"
+                              [ngClass]="{error: _thumbnails.invalid && ngForm.submitted}"
+                              [PassedformControl]="filterForm.controls['thumbnails']"
+                              [selectedOption]="params.thumbnailsSelectedOption"></rms-filter-component>
+    </perfect-scrollbar>
+    <div filters-with-tabs-errors class="filters-with-tabs__errors">
+        <p *ngIf="_dateOfDeposit.invalid && ngForm.submitted && dateOfDeposit.rangeMode" >Please provide a valid date in one of the following formats: <br> MM-dd-yy - MM-dd-yy, MM-dd-yyyy - MM-dd-yyyy, MM/dd/yy - MM/dd/yy, MM/dd/yyyy-MM/dd/yyyy</p>
+        <p *ngIf="_dateOfDeposit.invalid && ngForm.submitted && !dateOfDeposit.rangeMode">Please provide a valid date in one of the following formats: <br> MM-dd-yy, MM-dd-yyyy, MM/dd/yy, MM/dd/yyyy</p>
+        <p *ngIf="_batchNumber.invalid && ngForm.submitted">Please provide the following field(s):  Batch number</p>
+        <p *ngIf="_provider.invalid && ngForm.submitted">Please provide the following field(s):  Provider</p>
+        <p *ngIf="_lockbox.invalid && ngForm.submitted">Please provide the following field(s):  Lockbox</p>
+        <p *ngIf="_status.invalid && ngForm.submitted">Please provide the following field(s):  Status</p>
+        <p *ngIf="_queue.invalid && ngForm.submitted">Please provide the following field(s):  Queue</p>
+        <p *ngIf="_payer.invalid && ngForm.submitted">Please provide the following field(s):  Payer</p>
+        <p *ngIf="_destinationQueues.invalid && ngForm.submitted">Please provide the following field(s):  Destination Queues</p>
+        <p *ngIf="_thumbnails.invalid && ngForm.submitted">Please provide the following field(s):  Thumbnails</p>
+        <p *ngIf="filterForm.hasError('noResultsFound')">No results found with your parameters</p>
+    </div>
+</rms-filter-with-tabs>

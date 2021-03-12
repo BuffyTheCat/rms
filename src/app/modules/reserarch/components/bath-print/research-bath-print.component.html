@@ -1,0 +1,57 @@
+<perfect-scrollbar class="research-bath">
+    <rms-table [displayedColumns]="displayedColumns" 
+               *ngIf="(items$ | async) as items"
+               [tableData]="items"
+               download="true"
+               (onSelectRow)="onSelectRow($event)"
+               (onComplete)="onComplete($event)"
+               title="Batch Results"
+               (onExport)="onExport($event)"></rms-table>
+</perfect-scrollbar>
+<rms-filter (onSearch)="onSearch()"
+            (onClear)="onClear()"
+            [formGroup]="filterForm"
+            #ngForm="ngForm"
+            novalidate
+            [ngClass]="{error: ngForm.invalid && ngForm.submitted}">
+    <div class="filters__content" filters-content>
+        <rms-filter-date class="filters__element"
+                         #dateOfDeposit
+                         (onDateChange)="onChangeDateOfDepisit($event)"
+                         [ngClass]="{error: _dateOfDeposit.invalid && ngForm.submitted}"
+                         [PassedformControl]="filterForm.controls['dateOfDeposit']"
+                         title="Date Of Deposit"></rms-filter-date>
+        <rms-filter-component class="filters__element"
+                         title="Lockbox"
+                         *ngIf="(params$ | async) as params"
+                         [options]="params.lockbox"
+                         [ngClass]="{error: _lockbox.invalid && ngForm.submitted}"
+                         [PassedformControl]="filterForm.controls['lockbox']"
+                         (onChangeSearchOption)="onChangeSearchOptionLockbox($event)"
+                         [selectedOption]="params.lockBoxSelectedOption"></rms-filter-component>
+        <rms-filter-component class="filters__element"
+                         title="Batch"
+                         (onChangeSearchOption)="onChangeSearchOptionBatch($event)"
+                         [ngClass]="{error: _batch.invalid && ngForm.submitted}"
+                         [PassedformControl]="filterForm.controls['batch']"
+                         *ngIf="(params$ | async) as params"
+                         [options]="params.batch"
+                         [selectedOption]="params.batchSelectedOption"></rms-filter-component>
+        <rms-filter-component class="filters__element"
+                         title="Provider"
+                         *ngIf="(params$ | async) as params"
+                         [options]="params.provider"
+                         [ngClass]="{error: _provider.invalid && ngForm.submitted}"
+                         (onChangeSearchOption)="onChangeSearchOptionProvider($event)"
+                         [PassedformControl]="filterForm.controls['provider']"
+                         [selectedOption]="params.providerSelectedOption"></rms-filter-component>
+    </div>
+    <div filters-errors class="filters__errors">
+        <p *ngIf="_dateOfDeposit.invalid && ngForm.submitted && !dateOfDeposit.rangeMode">Please provide a valid date in one of the following formats: <br> MM-dd-yy, MM-dd-yyyy, MM/dd/yy, MM/dd/yyyy</p>
+        <p *ngIf="_dateOfDeposit.invalid && ngForm.submitted && dateOfDeposit.rangeMode" >Please provide a valid date in one of the following formats: <br> MM-dd-yy - MM-dd-yy, MM-dd-yyyy - MM-dd-yyyy, MM/dd/yy - MM/dd/yy, MM/dd/yyyy-MM/dd/yyyy</p>
+        <p *ngIf="_lockbox.invalid && ngForm.submitted">Please provide the following field(s):  Lockbox</p>
+        <p *ngIf="_batch.invalid && ngForm.submitted">Please provide the following field(s):  Batch</p>
+        <p *ngIf="_provider.invalid && ngForm.submitted">Please provide the following field(s):  Provider</p>
+        <p *ngIf="filterForm.hasError('noResultsFound')">No results found with your parameters</p>
+    </div>
+</rms-filter>

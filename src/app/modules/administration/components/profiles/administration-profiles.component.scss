@@ -1,0 +1,98 @@
+@import "../../../../../assets/styles/mixins.scss";
+
+rms-administration-profiles {
+    padding: 20px 24px;
+    display: flex;
+    align-items: flex-start;
+    align-content: flex-start;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.administration-profiles {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    flex: 1;
+
+    .table {
+        height: 100%;
+
+        .table__container {
+            max-height: none;
+            min-height: auto;
+        }
+
+        .table__head {
+            padding: 20px 32px;
+            border-bottom: 1px solid #E5E6E7;
+        }
+    }
+
+    button.button_green {
+        width: 206px;
+    }
+
+    .table__head {
+        order: 0;
+    }
+
+    &__copy {
+        display: flex;
+        align-items: center;
+        order: 1;
+        padding: 40px 32px;
+
+        button.button_green {
+            width: 116px;
+        }
+
+        .administration-profiles__select {
+            margin-right: 22px;
+        }
+    }
+
+    perfect-scrollbar {
+        order: 2;
+    }
+
+    &__save {
+        order: 3;
+        padding: 40px 32px;
+    }
+
+    &__select {
+        position: relative;
+        width: 405px;
+        margin-right: auto;
+        
+        .grey-select {
+            padding: 10px 17px;
+            padding-top: 27px;
+            padding-bottom: 11px;
+
+            .mat-select-value-text {
+                font-weight: 500;
+                font-size: 12px;
+            }
+
+            .mat-select-arrow-wrapper {
+                transform: translateY(-6px);
+            }
+        }
+
+        p {
+            position: absolute;
+            top: 11px;
+            left: 16px;
+            margin: 0;
+            font-weight: normal;
+            font-size: 11px;
+            line-height: 16px;
+            letter-spacing: 0.4px;
+            color: color(textsecondary);
+        }
+    }
+}

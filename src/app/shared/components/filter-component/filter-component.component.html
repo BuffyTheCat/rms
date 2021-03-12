@@ -1,0 +1,32 @@
+<section class="filter-component" [class.filter-component_opened]="isOpen">
+  <div class="filter-component__container">
+    <p class="filter-component__title">{{title}}</p>
+    <mat-form-field *ngIf="dropdown; else input">
+        <mat-select [formControl]="PassedformControl" [@.disabled]="true" (selectionChange)="onSelect($event.value)" (openedChange)="selectOpen($event)" [disabled]="disabled" disableOptionCentering [panelClass]="shortDropdown ? 'filter-component__dropdown_short' : 'filter-component__dropdown'">
+          <perfect-scrollbar #perfectScrollSelect>
+            <mat-option *ngFor="let option of options" [value]="option">
+              {{option}}
+            </mat-option>
+          </perfect-scrollbar>
+        </mat-select>
+    </mat-form-field>
+    <ng-template #input>
+        <mat-form-field>
+            <input type="text"
+                   aria-label="Number"
+                   matInput
+                   maxlength="200"
+                   [formControl]="PassedformControl"
+                   [matAutocomplete]="auto">
+            <mat-autocomplete #auto="matAutocomplete" [@.disabled]="true" [panelWidth]="shortDropdown ? '243px' : '258px'" (opened)="autocompleteOpened($event)" (closed)="autocompleteClosed($event)" position="auto">
+              <perfect-scrollbar #perfectScroll>
+                <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                  {{option}}
+                </mat-option>
+              </perfect-scrollbar>
+            </mat-autocomplete>
+        </mat-form-field>
+    </ng-template>
+  </div>
+  <rms-custom-select (onSelectChange)="changeSearchOption($event)" *ngIf="selectOption !== undefined && selectOption !== null || !dropdown && onChangeSearchOption.observers.length > 0" [selectOptions]="!dropdown ? textFieldOperators : selectOption"></rms-custom-select>
+</section>

@@ -1,0 +1,512 @@
+<div class="administration-create-profiles">
+    <mat-tab-group animationDuration="0ms">
+        <mat-tab label="Profile Info" >
+            <div class="administration-create-profiles__header">
+                <p class="administration-create-profiles__title">Profile Info</p>
+                <dl class="administration-create-profiles__provider">
+                    <dt>Provider: </dt>
+                    <dd>{{provider}}</dd>
+                </dl>
+            </div>
+            <form #ngForm="ngForm" [formGroup]="userInfoForm" class="administration-create-profiles__content">
+                <div class="administration-create-profiles__profiles">
+                    <rms-filter-component class="administration-create-user__element"
+                                          title="Name"
+                                          shortDropdown="true"
+                                          [ngClass]="{error: _profileName.invalid && ngForm.submitted}"
+                                          [PassedformControl]="userInfoForm['controls'].profileName"></rms-filter-component>
+                    <dl class="administration-create-profiles__termin">
+                        <dt>Date Created</dt>
+                        <dd>March 14th, 2016</dd>
+                    </dl>
+                </div>
+                <div class="administration-create-profiles__controls">
+                    <button mat-flat-button
+                            class="button button_green"
+                            (click)="onPressSave()">Save</button>
+                    <button mat-flat-button
+                            class="button"
+                            (click)="onPressCancel()">Cancel</button>
+                </div>
+            </form>
+        </mat-tab>
+        <mat-tab label="Profiles">
+            <div class="administration-create-profiles__header">
+                <p class="administration-create-profiles__title">Profiles</p>
+                <dl class="administration-create-profiles__provider">
+                    <dt>Provider: </dt>
+                    <dd>{{provider}}</dd>
+                </dl>
+            </div>
+            <div class="administration-create-profiles__content">
+                <div class="administration-create-profiles__tables" cdkDropListGroup>
+                    <perfect-scrollbar #perfectScrollRight class="administration-create-profiles__table-wrap" 
+                            cdkDropList
+                            [cdkDropListData]="userInfo ? userInfo.profilesUnassigned : []"
+                            (cdkDropListDropped)="drop($event)">
+                        <table #tableUnassigned  class="administration-create-profiles__right" mat-table [dataSource]="userInfo ? userInfo.profilesUnassigned : []">
+                            <ng-container matColumnDef="select">
+                                <th mat-header-cell *matHeaderCellDef>
+                                    <mat-checkbox (change)="$event ? masterToggleRight() : null"
+                                                [checked]="selectionRight.hasValue() && isAllSelectedRight()"
+                                                [indeterminate]="selectionRight.hasValue() && !isAllSelectedRight()">
+                                    </mat-checkbox>
+                                </th>
+                                <td mat-cell *matCellDef="let row">
+                                    <mat-checkbox (click)="$event.stopPropagation()"
+                                                (change)="$event ? selectionRight.toggle(row) : null"
+                                                [checked]="selectionRight.isSelected(row)">
+                                    </mat-checkbox>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="column">
+                                <th mat-header-cell *matHeaderCellDef>{{selectionRight.selected.length}}/{{userInfo ? userInfo.profilesUnassigned.length : ''}} items</th>
+                                <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="title">
+                                <th mat-header-cell *matHeaderCellDef>Unassigned</th>
+                                <td mat-cell *matCellDef="let element"></td>
+                            </ng-container>
+                            <tr mat-header-row *matHeaderRowDef="['select', 'column', 'title']; sticky: true"></tr>
+                            <tr mat-row 
+                                cdkDrag
+                                cdkDragBoundary=".administration-create-profiles__main"
+                                *matRowDef="let row; columns: ['select', 'column', 'title']"
+                                (click)="selectionRight.toggle(row)"></tr>
+                        </table>
+                    </perfect-scrollbar>
+                    <div class="administration-create-profiles__switcher">
+                        <button mat-flat-button (click)="onPressToAssigned()"> 
+                            <mat-icon aria-label="To right icon" aria-hidden="false">chevron_right</mat-icon>
+                        </button>
+                        <button mat-flat-button (click)="onPressToUnassigned()">
+                            <mat-icon aria-label="To left icon" aria-hidden="false">chevron_left</mat-icon>
+                        </button>
+                    </div>
+                    <perfect-scrollbar #perfectScroll class="administration-create-profiles__table-wrap" 
+                         cdkDropList
+                         [cdkDropListData]="userInfo ? userInfo.profilesAssigned : []"
+                         (cdkDropListDropped)="drop($event)">
+                        <table #tableAssigned class="administration-create-profiles__left" mat-table [dataSource]="userInfo ? userInfo.profilesAssigned : []">
+                            <ng-container matColumnDef="select">
+                                <th mat-header-cell *matHeaderCellDef>
+                                  <mat-checkbox (change)="$event ? masterToggle() : null"
+                                                [checked]="selection.hasValue() && isAllSelected()"
+                                                [indeterminate]="selection.hasValue() && !isAllSelected()">
+                                  </mat-checkbox>
+                                </th>
+                                <td mat-cell *matCellDef="let row">
+                                  <mat-checkbox (click)="$event.stopPropagation()"
+                                                (change)="$event ? selection.toggle(row) : null"
+                                                [checked]="selection.isSelected(row)">
+                                  </mat-checkbox>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="column">
+                                <th mat-header-cell *matHeaderCellDef>{{selection.selected.length}}/{{userInfo ? userInfo.profilesAssigned.length : ''}} items</th>
+                                <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="title">
+                                <th mat-header-cell *matHeaderCellDef>Assigned</th>
+                                <td mat-cell *matCellDef="let element"></td>
+                            </ng-container>
+                            <tr mat-header-row *matHeaderRowDef="['select', 'column', 'title']; sticky: true"></tr>
+                            <tr mat-row 
+                                cdkDrag 
+                                cdkDragBoundary=".administration-create-profiles__main"
+                                *matRowDef="let row; columns: ['select', 'column', 'title']"
+                                (click)="selection.toggle(row)"></tr>
+                        </table>
+                    </perfect-scrollbar>
+                </div>
+                <div class="administration-create-profiles__controls">
+                    <button mat-flat-button
+                            class="button button_green"
+                            (click)="onPressProfilesSave()">Save</button>
+                    <button mat-flat-button
+                            class="button"
+                            (click)="onPressProfilesCancel()">Cancel</button>
+                </div>
+            </div>
+        </mat-tab>
+        <mat-tab label="Roles">
+            <div class="administration-create-profiles__header">
+                <p class="administration-create-profiles__title">Roles</p>
+                <dl class="administration-create-profiles__provider">
+                    <dt>Provider: </dt>
+                    <dd>{{provider}}</dd>
+                </dl>
+            </div>
+            <div class="administration-create-profiles__content">
+                <div class="administration-create-profiles__select">
+                    <p>Category</p>
+                    <mat-select *ngIf="userInfo" class="grey-select huge" [(value)]="category" (selectionChange)="selectCategory($event)" panelClass="huge">
+                        <perfect-scrollbar>
+                            <mat-option *ngFor="let val of userInfo.rolesUnassigned | keyvalue" [value]="val.key">{{val.key | titlecase }}</mat-option>
+                        </perfect-scrollbar>
+                    </mat-select>
+                </div>
+                <div class="administration-create-profiles__tables" cdkDropListGroup>
+                    <perfect-scrollbar #perfectScrollRolesRight class="administration-create-profiles__table-wrap" 
+                            cdkDropList
+                            [cdkDropListData]="userInfo ? userInfo.rolesUnassigned[category] : []"
+                            (cdkDropListDropped)="dropRole($event)">
+                        <table #tableRolesUnassigned  class="administration-create-profiles__right" mat-table [dataSource]="userInfo ? userInfo.rolesUnassigned[category] : []">
+                            <ng-container matColumnDef="select">
+                                <th mat-header-cell *matHeaderCellDef>
+                                    <mat-checkbox (change)="$event ? masterToggleRolesRight() : null"
+                                                [checked]="selectionRolesRight.hasValue() && isAllSelectedRolesRight()"
+                                                [indeterminate]="selectionRolesRight.hasValue() && !isAllSelectedRolesRight()">
+                                    </mat-checkbox>
+                                </th>
+                                <td mat-cell *matCellDef="let row">
+                                    <mat-checkbox (click)="$event.stopPropagation()"
+                                                (change)="$event ? selectionRolesRight.toggle(row) : null"
+                                                [checked]="selectionRolesRight.isSelected(row)">
+                                    </mat-checkbox>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="column">
+                                <th mat-header-cell *matHeaderCellDef>{{selectionRolesRight.selected.length}}/{{userInfo ? userInfo.rolesUnassigned[category].length : ''}} items</th>
+                                <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="title">
+                                <th mat-header-cell *matHeaderCellDef>Unassigned</th>
+                                <td mat-cell *matCellDef="let element"></td>
+                            </ng-container>
+                            <tr mat-header-row *matHeaderRowDef="['select', 'column', 'title']; sticky: true"></tr>
+                            <tr mat-row 
+                                cdkDrag
+                                cdkDragBoundary=".administration-create-profiles__main"
+                                *matRowDef="let row; columns: ['select', 'column', 'title']"
+                                (click)="selectionRolesRight.toggle(row)"></tr>
+                        </table>
+                    </perfect-scrollbar>
+                    <div class="administration-create-profiles__switcher">
+                        <button mat-flat-button (click)="onPressToAssignedRoles()"> 
+                            <mat-icon aria-label="To right icon" aria-hidden="false">chevron_right</mat-icon>
+                        </button>
+                        <button mat-flat-button (click)="onPressToUnassignedRoles()">
+                            <mat-icon aria-label="To left icon" aria-hidden="false">chevron_left</mat-icon>
+                        </button>
+                    </div>
+                    <perfect-scrollbar #perfectScrollRoles class="administration-create-profiles__table-wrap" 
+                         cdkDropList
+                         [cdkDropListData]="userInfo ? userInfo.rolesAssigned[category] : []"
+                         (cdkDropListDropped)="dropRole($event)">
+                        <table #tableRolesAssigned class="administration-create-profiles__left" mat-table [dataSource]="userInfo ? userInfo.rolesAssigned[category] : []">
+                            <ng-container matColumnDef="select">
+                                <th mat-header-cell *matHeaderCellDef>
+                                  <mat-checkbox (change)="$event ? masterToggleRoles() : null"
+                                                [checked]="selectionRoles.hasValue() && isAllSelectedRoles()"
+                                                [indeterminate]="selectionRoles.hasValue() && !isAllSelectedRoles()">
+                                  </mat-checkbox>
+                                </th>
+                                <td mat-cell *matCellDef="let row">
+                                  <mat-checkbox (click)="$event.stopPropagation()"
+                                                (change)="$event ? selectionRoles.toggle(row) : null"
+                                                [checked]="selectionRoles.isSelected(row)">
+                                  </mat-checkbox>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="column">
+                                <th mat-header-cell *matHeaderCellDef>{{selectionRoles.selected.length}}/{{userInfo ? userInfo.rolesAssigned[category].length : ''}} items</th>
+                                <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="title">
+                                <th mat-header-cell *matHeaderCellDef>Assigned</th>
+                                <td mat-cell *matCellDef="let element"></td>
+                            </ng-container>
+                            <tr mat-header-row *matHeaderRowDef="['select', 'column', 'title']; sticky: true"></tr>
+                            <tr mat-row 
+                                cdkDrag 
+                                cdkDragBoundary=".administration-create-profiles__main"
+                                *matRowDef="let row; columns: ['select', 'column', 'title']"
+                                (click)="selectionRoles.toggle(row)"></tr>
+                        </table>
+                    </perfect-scrollbar>
+                </div>
+                <div class="administration-create-profiles__controls">
+                    <button mat-flat-button
+                            class="button button_green"
+                            (click)="onPressRolesSave()">Save</button>
+                    <button mat-flat-button
+                            class="button"
+                            (click)="onPressRolesCancel()">Cancel</button>
+                </div>
+            </div>
+        </mat-tab>
+        <mat-tab label="Dashboards">
+            <div class="administration-create-profiles__header">
+                <p class="administration-create-profiles__title">Dashboards</p>
+                <dl class="administration-create-profiles__provider">
+                    <dt>Provider: </dt>
+                    <dd>{{provider}}</dd>
+                </dl>
+            </div>
+            <div class="administration-create-profiles__content">
+                <div class="administration-create-profiles__tables" cdkDropListGroup>
+                    <perfect-scrollbar #perfectScrollDashboardRight class="administration-create-profiles__table-wrap" 
+                            cdkDropList
+                            [cdkDropListData]="userInfo ? userInfo.dashboardUnassigned : []"
+                            (cdkDropListDropped)="dropDashboard($event)">
+                        <table #tableUnassigned  class="administration-create-profiles__right" mat-table [dataSource]="userInfo ? userInfo.dashboardUnassigned : []">
+                            <ng-container matColumnDef="select">
+                                <th mat-header-cell *matHeaderCellDef>
+                                    <mat-checkbox (change)="$event ? masterToggleDashboardRight() : null"
+                                                [checked]="selectionDashboardRight.hasValue() && isAllSelectedDashboardRight()"
+                                                [indeterminate]="selectionDashboardRight.hasValue() && !isAllSelectedDashboardRight()">
+                                    </mat-checkbox>
+                                </th>
+                                <td mat-cell *matCellDef="let row">
+                                    <mat-checkbox (click)="$event.stopPropagation()"
+                                                (change)="$event ? selectionDashboardRight.toggle(row) : null"
+                                                [checked]="selectionDashboardRight.isSelected(row)">
+                                    </mat-checkbox>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="column">
+                                <th mat-header-cell *matHeaderCellDef>{{selectionDashboardRight.selected.length}}/{{userInfo ? userInfo.dashboardUnassigned.length : ''}} items</th>
+                                <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="title">
+                                <th mat-header-cell *matHeaderCellDef>Unassigned</th>
+                                <td mat-cell *matCellDef="let element"></td>
+                            </ng-container>
+                            <tr mat-header-row *matHeaderRowDef="['select', 'column', 'title']; sticky: true"></tr>
+                            <tr mat-row 
+                                cdkDrag
+                                cdkDragBoundary=".administration-create-profiles__main"
+                                *matRowDef="let row; columns: ['select', 'column', 'title']"
+                                (click)="selectionDashboardRight.toggle(row)"></tr>
+                        </table>
+                    </perfect-scrollbar>
+                    <div class="administration-create-profiles__switcher">
+                        <button mat-flat-button (click)="onPressToAssignedDashboard()"> 
+                            <mat-icon aria-label="To right icon" aria-hidden="false">chevron_right</mat-icon>
+                        </button>
+                        <button mat-flat-button (click)="onPressToUnassignedDashboard()">
+                            <mat-icon aria-label="To left icon" aria-hidden="false">chevron_left</mat-icon>
+                        </button>
+                    </div>
+                    <perfect-scrollbar #perfectScrollDashboard class="administration-create-profiles__table-wrap" 
+                         cdkDropList
+                         [cdkDropListData]="userInfo ? userInfo.dashboardAssigned : []"
+                         (cdkDropListDropped)="dropDashboard($event)">
+                        <table #tableAssigned class="administration-create-profiles__left" mat-table [dataSource]="userInfo ? userInfo.dashboardAssigned : []">
+                            <ng-container matColumnDef="select">
+                                <th mat-header-cell *matHeaderCellDef>
+                                  <mat-checkbox (change)="$event ? masterToggleDashboard() : null"
+                                                [checked]="selectionDashboard.hasValue() && isAllSelectedDashboard()"
+                                                [indeterminate]="selectionDashboard.hasValue() && !isAllSelectedDashboard()">
+                                  </mat-checkbox>
+                                </th>
+                                <td mat-cell *matCellDef="let row">
+                                  <mat-checkbox (click)="$event.stopPropagation()"
+                                                (change)="$event ? selectionDashboard.toggle(row) : null"
+                                                [checked]="selectionDashboard.isSelected(row)">
+                                  </mat-checkbox>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="column">
+                                <th mat-header-cell *matHeaderCellDef>{{selectionDashboard.selected.length}}/{{userInfo ? userInfo.dashboardAssigned.length : ''}} items</th>
+                                <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="title">
+                                <th mat-header-cell *matHeaderCellDef>Assigned</th>
+                                <td mat-cell *matCellDef="let element"></td>
+                            </ng-container>
+                            <tr mat-header-row *matHeaderRowDef="['select', 'column', 'title']; sticky: true"></tr>
+                            <tr mat-row 
+                                cdkDrag 
+                                cdkDragBoundary=".administration-create-profiles__main"
+                                *matRowDef="let row; columns: ['select', 'column', 'title']"
+                                (click)="selection.toggle(row)"></tr>
+                        </table>
+                    </perfect-scrollbar>
+                </div>
+                <div class="administration-create-profiles__controls">
+                    <button mat-flat-button
+                            class="button button_green"
+                            (click)="onPressDashboardSave()">Save</button>
+                    <button mat-flat-button
+                            class="button"
+                            (click)="onPressDashboardCancel()">Cancel</button>
+                </div>
+            </div>
+        </mat-tab>
+        <mat-tab label="Reports">
+            <div class="administration-create-profiles__header">
+                <p class="administration-create-profiles__title">Reports</p>
+                <dl class="administration-create-profiles__provider">
+                    <dt>Provider: </dt>
+                    <dd>{{provider}}</dd>
+                </dl>
+            </div>
+            <div class="administration-create-profiles__content">
+                <div class="administration-create-profiles__select">
+                    <p>Category</p>
+                    <mat-select *ngIf="userInfo" class="grey-select huge" [(value)]="categoryReports" (selectionChange)="selectCategoryReports($event)" panelClass="huge">
+                        <perfect-scrollbar>
+                            <mat-option *ngFor="let val of userInfo.reportsUnassigned | keyvalue" [value]="val.key">{{val.key | titlecase }}</mat-option>
+                        </perfect-scrollbar>
+                    </mat-select>
+                </div>
+                <div class="administration-create-profiles__tables" cdkDropListGroup>
+                    <perfect-scrollbar #perfectScrollReportsRight class="administration-create-profiles__table-wrap" 
+                            cdkDropList
+                            [cdkDropListData]="userInfo ? userInfo.reportsUnassigned[categoryReports] : []"
+                            (cdkDropListDropped)="dropReports($event)">
+                        <table #tableRolesUnassigned  class="administration-create-profiles__right" mat-table [dataSource]="userInfo ? userInfo.reportsUnassigned[categoryReports] : []">
+                            <ng-container matColumnDef="select">
+                                <th mat-header-cell *matHeaderCellDef>
+                                    <mat-checkbox (change)="$event ? masterToggleReportsRight() : null"
+                                                [checked]="selectionReportsRight.hasValue() && isAllSelectedReportsRight()"
+                                                [indeterminate]="selectionReportsRight.hasValue() && !isAllSelectedReportsRight()">
+                                    </mat-checkbox>
+                                </th>
+                                <td mat-cell *matCellDef="let row">
+                                    <mat-checkbox (click)="$event.stopPropagation()"
+                                                (change)="$event ? selectionReportsRight.toggle(row) : null"
+                                                [checked]="selectionReportsRight.isSelected(row)">
+                                    </mat-checkbox>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="column">
+                                <th mat-header-cell *matHeaderCellDef>{{selectionReportsRight.selected.length}}/{{userInfo ? userInfo.reportsUnassigned[categoryReports].length : ''}} items</th>
+                                <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="title">
+                                <th mat-header-cell *matHeaderCellDef>Unassigned</th>
+                                <td mat-cell *matCellDef="let element"></td>
+                            </ng-container>
+                            <tr mat-header-row *matHeaderRowDef="['select', 'column', 'title']; sticky: true"></tr>
+                            <tr mat-row 
+                                cdkDrag
+                                cdkDragBoundary=".administration-create-profiles__main"
+                                *matRowDef="let row; columns: ['select', 'column', 'title']"
+                                (click)="selectionReportsRight.toggle(row)"></tr>
+                        </table>
+                    </perfect-scrollbar>
+                    <div class="administration-create-profiles__switcher">
+                        <button mat-flat-button (click)="onPressToAssignedReports()"> 
+                            <mat-icon aria-label="To right icon" aria-hidden="false">chevron_right</mat-icon>
+                        </button>
+                        <button mat-flat-button (click)="onPressToUnassignedReports()">
+                            <mat-icon aria-label="To left icon" aria-hidden="false">chevron_left</mat-icon>
+                        </button>
+                    </div>
+                    <perfect-scrollbar #perfectScrollReports class="administration-create-profiles__table-wrap" 
+                         cdkDropList
+                         [cdkDropListData]="userInfo ? userInfo.reportsAssigned[categoryReports] : []"
+                         (cdkDropListDropped)="dropReports($event)">
+                        <table #tableRolesAssigned class="administration-create-profiles__left" mat-table [dataSource]="userInfo ? userInfo.reportsAssigned[categoryReports] : []">
+                            <ng-container matColumnDef="select">
+                                <th mat-header-cell *matHeaderCellDef>
+                                  <mat-checkbox (change)="$event ? masterToggleReports() : null"
+                                                [checked]="selectionReports.hasValue() && isAllSelectedReports()"
+                                                [indeterminate]="selectionReports.hasValue() && !isAllSelectedReports()">
+                                  </mat-checkbox>
+                                </th>
+                                <td mat-cell *matCellDef="let row">
+                                  <mat-checkbox (click)="$event.stopPropagation()"
+                                                (change)="$event ? selectionReports.toggle(row) : null"
+                                                [checked]="selectionReports.isSelected(row)">
+                                  </mat-checkbox>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="column">
+                                <th mat-header-cell *matHeaderCellDef>{{selectionReports.selected.length}}/{{userInfo ? userInfo.reportsAssigned[categoryReports].length : ''}} items</th>
+                                <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="title">
+                                <th mat-header-cell *matHeaderCellDef>Assigned</th>
+                                <td mat-cell *matCellDef="let element"></td>
+                            </ng-container>
+                            <tr mat-header-row *matHeaderRowDef="['select', 'column', 'title']; sticky: true"></tr>
+                            <tr mat-row 
+                                cdkDrag 
+                                cdkDragBoundary=".administration-create-profiles__main"
+                                *matRowDef="let row; columns: ['select', 'column', 'title']"
+                                (click)="selectionReports.toggle(row)"></tr>
+                        </table>
+                    </perfect-scrollbar>
+                </div>
+                <div class="administration-create-profiles__controls">
+                    <button mat-flat-button
+                            class="button button_green"
+                            (click)="onPressSave()">Save</button>
+                    <button mat-flat-button
+                            class="button"
+                            (click)="onPressCategoryCancel()">Cancel</button>
+                </div>
+            </div>
+        </mat-tab>
+        <mat-tab label="Domains">
+            <div class="administration-create-profiles__header">
+                <p class="administration-create-profiles__title">Domains</p>
+                <dl class="administration-create-profiles__provider">
+                    <dt>Provider: </dt>
+                    <dd>{{provider}}</dd>
+                </dl>
+            </div>
+            <div class="administration-create-profiles__content administration-create-profiles__content_domains">
+                <div class="administration-create-profiles__select">
+                    <p>Select Parent Domain</p>
+                    <mat-select *ngIf="userInfo" class="grey-select huge" [(value)]="categoryDomains" (selectionChange)="selectCategoryDomains($event)" panelClass="huge">
+                        <perfect-scrollbar>
+                            <mat-option *ngFor="let val of userInfo.domains | keyvalue" [value]="val.key">{{val.key | titlecase }}</mat-option>
+                        </perfect-scrollbar>
+                    </mat-select>
+                </div>
+                <rms-nested-list-table [listData]="userInfo ? userInfo.domains : []"
+                                        (toUnassigned)="toUnassigned($event)"
+                                        [category]="categoryDomains"
+                                        (onDrag)="onDragDomains($event)"
+                                        (toAssigned)="toAssigned($event)"></rms-nested-list-table>
+                <div class="administration-create-profiles__controls">
+                    <button mat-flat-button
+                            class="button button_green"
+                            (click)="onPressDomainsSave()">Save</button>
+                    <button mat-flat-button
+                            class="button"
+                            (click)="onPressDomainsCancel()">Cancel</button>
+                </div>
+            </div>
+        </mat-tab>
+        <mat-tab label="Queues">
+            <div class="administration-create-profiles__header">
+                <p class="administration-create-profiles__title">Queues</p>
+                <dl class="administration-create-profiles__provider">
+                    <dt>Provider: </dt>
+                    <dd>{{provider}}</dd>
+                </dl>
+            </div>
+            <div class="administration-create-profiles__content administration-create-profiles__content_queue">
+                <div class="administration-create-profiles__select">
+                    <p>Select Parent Domain</p>
+                    <mat-select *ngIf="userInfo" class="grey-select huge" [(value)]="categoryQueue" (selectionChange)="selectCategoryQueue($event)" panelClass="huge">
+                        <perfect-scrollbar>
+                            <mat-option *ngFor="let val of userInfo.queues | keyvalue" [value]="val.key">{{val.key | titlecase }}</mat-option>
+                        </perfect-scrollbar>
+                    </mat-select>
+                </div>
+                <rms-nested-list-table [listData]="userInfo ? userInfo.queues : []"
+                                       (toUnassigned)="toUnassignedQueue($event)"
+                                       [category]="categoryQueue"
+                                       (onDrag)="onDragQueue($event)"
+                                       (toAssigned)="toAssignedQueue($event)"></rms-nested-list-table>
+                <div class="administration-create-profiles__controls">
+                    <button mat-flat-button
+                            class="button button_green"
+                            (click)="onPressQueueSave()">Save</button>
+                    <button mat-flat-button
+                            class="button"
+                            (click)="onPressQueueCancel()">Cancel</button>
+                </div>
+            </div>
+        </mat-tab>
+    </mat-tab-group>
+</div>
+
+

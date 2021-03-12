@@ -1,0 +1,54 @@
+<section class="edit-modal">
+    <div class="edit-modal__head">
+        <p>{{title}}</p>
+        <button mat-dialog-close>
+            <mat-icon aria-label="Close icon" aria-hidden="false" type="none">close</mat-icon>
+        </button>
+    </div>
+    <div class="edit-modal__main" [formGroup]="editForm" #ngForm="ngForm">
+        <rms-filter-component class="edit-modal__element"
+                        title="Patient First Name"
+                        [options]="firstNameOptions"
+                        [ngClass]="{error: _firstName.invalid && ngForm.submitted}"
+                        [PassedformControl]="editForm.controls['firstName']"
+                        [selectedOption]="firstNameSelectedOption"></rms-filter-component>
+        <rms-filter-component class="edit-modal__element"
+                        title="Patient Last Name"
+                        [options]="lastNameOptions"
+                        [ngClass]="{error: _lastName.invalid && ngForm.submitted}"
+                        [PassedformControl]="editForm.controls['lastName']"
+                        [selectedOption]="lastNameSelectedOption"></rms-filter-component>
+        <rms-filter-component class="edit-modal__element"
+                        title="Patient Account Number"
+                        [options]="accountNumberOptions"
+                        [ngClass]="{error: _accountNumber.invalid && ngForm.submitted}"
+                        [PassedformControl]="editForm.controls['accountNumber']"
+                        [selectedOption]="accountNumberSelectedOption"></rms-filter-component>
+        <rms-filter-date class="edit-modal__element"
+                        #dateOfService
+                        (onDateChange)="onChangedateOfService($event)"
+                        [ngClass]="{error: _dateOfService.invalid && ngForm.submitted}"
+                        [PassedformControl]="editForm.controls['dateOfService']"
+                        title="Date Of Service"></rms-filter-date>
+        <rms-filter-component class="edit-modal__element"
+                        title="Remit Amount"
+                        [options]="remitAmountOptions"
+                        [ngClass]="{error: _remitAmount.invalid && ngForm.submitted}"
+                        [PassedformControl]="editForm.controls['remitAmount']"
+                        [selectedOption]="remitAmountSelectedOption"></rms-filter-component>
+        <rms-filter-component class="edit-modal__element"
+                        title="Submitted Amount"
+                        [options]="submittedAmountOptions"
+                        [ngClass]="{error: _submittedAmount.invalid && ngForm.submitted}"
+                        [PassedformControl]="editForm.controls['submittedAmount']"
+                        [selectedOption]="submittedAmountSelectedOption"></rms-filter-component>
+        <div class="edit-modal__controls">
+            <button mat-flat-button
+                    class="button button_green"
+                    (click)="onPressSave()">Save</button>
+            <button mat-flat-button
+                    mat-dialog-close
+                    class="button">cancel</button>
+        </div>
+    </div>
+</section>

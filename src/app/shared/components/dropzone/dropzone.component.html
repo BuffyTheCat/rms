@@ -1,0 +1,9 @@
+<section class="dropzone">
+    <p class="dropzone__title">{{title}}</p>
+    <div class="dropzone__preview">
+        <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f" [removable]="false"></ngx-dropzone-image-preview>
+    </div>
+    <p class="dropzone__desc">Maximum file size 1 mb</p>
+    <button (click)="onChange()" class="dropzone__button">change logo</button>
+    <button (click)="onRemove(files[0])" class="dropzone__button">remove</button>
+</section>

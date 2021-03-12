@@ -1,0 +1,118 @@
+<section class="document-editor">
+    <div class="document-editor__head">
+        <dl>
+            <dt>Total Amount:</dt>
+            <dd>{{totalAmount}}</dd>
+        </dl>
+        <dl>
+            <dt>Total Items:</dt>
+            <dd>{{totalItems}}</dd>
+        </dl>
+        <dl>
+            <dt>Doc:</dt>
+            <dd>{{doc}}</dd>
+        </dl>
+    </div>
+    <div class="document-editor__main">
+        <perfect-scrollbar class="document-editor__panel">
+            <div class="document-editor__panel-group">
+                <button mat-button #complete (click)="onPressComplete()"> 
+                    <mat-icon aria-label="Complete icon" aria-hidden="false">done</mat-icon>
+                </button>
+                <button mat-button #Hold (click)="onPressHold()">
+                    <mat-icon aria-label="Hold icon" aria-hidden="false">pause</mat-icon>
+                </button>
+                <button mat-button #delite (click)="onPressDelite()">
+                    <mat-icon aria-label="Delite icon" aria-hidden="false">delete</mat-icon>
+                </button>
+                <button mat-button #Unprocessed (click)="onPressUnprocecced()">
+                    <mat-icon aria-label="Unprocessed icon" aria-hidden="false">reply</mat-icon>
+                </button> 
+                <button mat-button #Ruler (click)="onPressRuler()">
+                    <img src="../../../../../assets/icons/ruler.svg" alt="ruler">
+                </button>
+                <button mat-button *ngIf="linkEncounter" #linkEncounterNumber (click)="onPressLinkEncounterNumber()"> 
+                    <mat-icon aria-label="Link encounter icon" aria-hidden="false">insert_link</mat-icon>
+                </button>
+                <button mat-button #updateAll (click)="onPressUpdateAll()">
+                    <img src="../../../../../assets/icons/post.svg" alt="update">
+                </button>
+                <button mat-button #moveToRemitPost (click)="onPressMoveToRemitPost()">
+                    <img src="../../../../../assets/icons/moveToRemitPost.svg" alt="post">
+                </button>
+            </div>
+            <div class="document-editor__panel-group">
+                <button mat-button #toStart (click)="onPressToStart()">
+                    <mat-icon aria-label="To start icon" aria-hidden="false">fast_rewind</mat-icon>
+                </button>
+                <button class="document-editor__back" mat-button #toPrev (click)="onPressToPrev()">
+                    <mat-icon aria-label="To prev icon" aria-hidden="false">play_arrow</mat-icon>
+                </button>
+                <input type="number" [(ngModel)]="activeSlide">
+                <p>of {{imgPath.length}}</p>
+                <button mat-button #toNext (click)="onPressToNext()">
+                    <mat-icon aria-label="To next icon" aria-hidden="false">play_arrow</mat-icon>
+                </button>
+                <button mat-button #toLast (click)="onPressToLast()">
+                    <mat-icon aria-label="To last icon" aria-hidden="false">fast_forward</mat-icon>
+                </button>
+            </div>
+            <div class="document-editor__panel-group">
+                <button mat-button #zoom (click)="onPressZoom()">
+                    <mat-icon aria-label="Zoom icon" aria-hidden="false">add</mat-icon>
+                </button>
+                <mat-select [(ngModel)]="size" disableOptionCentering (selectionChange)="changeSize($event)">
+                    <mat-option value="10">10%</mat-option>
+                    <mat-option value="25">25%</mat-option>
+                    <mat-option value="50">50%</mat-option>
+                    <mat-option value="75">75%</mat-option>
+                    <mat-option value="90">90%</mat-option>
+                    <mat-option value="100">100%</mat-option>
+                    <mat-option value="150">150%</mat-option>
+                    <mat-option value="200">200%</mat-option>
+                    <mat-option value="400">400%</mat-option>
+                    <mat-option value="800">800%</mat-option>
+                </mat-select>
+                <button mat-button #zoomOut (click)="onPressZoomOut()">
+                    <mat-icon aria-label="Zomm out icon" aria-hidden="false">remove</mat-icon>
+                </button>
+            </div>
+            <div class="document-editor__panel-group">
+                <button mat-button #fullscreen (click)="onPressFullscreen()">
+                    <mat-icon aria-label="fullscreen icon" aria-hidden="false">fullscreen</mat-icon>
+                </button>
+                <button mat-button #fullscreenExit (click)="onPressFullscreenExit()">
+                    <mat-icon aria-label="Exit fullscreen icon" aria-hidden="false">fullscreen_exit</mat-icon>
+                </button>
+            </div>
+            <div class="document-editor__panel-group">
+                <button mat-button #update (click)="onPressRotate()">
+                    <mat-icon aria-label="Update icon" aria-hidden="false">loop</mat-icon>
+                </button>
+            </div>
+            <div class="document-editor__panel-group document-editor__panel-group_settings">
+                <button mat-button #export (click)="onPressExport()">
+                    <mat-icon aria-label="Export icon" aria-hidden="false">get_app</mat-icon>
+                </button>
+                <div class="document-editor__print">
+                    <mat-select disableOptionCentering (selectionChange)="onPressPrint($event.value)" (openedChange)="selectOpen($event)" panelClass="tabel-panel tabel-panel_align-left" [class.document-editor__print_opened]="isOpen">
+                      <mat-option *ngFor="let option of printOptions index as i" [value]="option">
+                          {{option}}
+                      </mat-option>
+                    </mat-select>
+                    <mat-icon aria-label="Columns editor icon" aria-hidden="false">local_printshop</mat-icon>
+                </div>
+            </div>
+            <button mat-button #notes (click)="onPressNotes()">
+                <mat-icon aria-label="Notes icon" aria-hidden="false">note</mat-icon>
+            </button>
+        </perfect-scrollbar>
+        <perfect-scrollbar class="document-editor__content" [ngClass]="{fullSize: isFullSize}">
+            <p *ngIf="activeSlide > imgPath.length" class="document-editor__error">Incorrect picture number</p>
+            <div class="document-editor__ruller" *ngIf="ruler" cdkDragBoundary=".document-editor__content" cdkDragLockAxis="y" cdkDrag></div>
+            <div class="document-editor__content-wrap" #imageWrap [ngStyle]="!isFullSize && size === '100' ? {'width': 'fit-content'} : {'width': size + '%'}">
+                <img *ngIf="activeSlide <= imgPath.length"  [style.height]="isRightSideHorisontal ? 'auto' : rightImageWidth + 'px'" [style.transform]="'rotate(' + rightRotate + 'deg)'" [src]="imgPath[activeSlide - 1]" alt="image-viewer">
+            </div>
+        </perfect-scrollbar>
+    </div>
+</section>

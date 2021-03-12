@@ -1,0 +1,37 @@
+<img class="logo" [src]="logoPath" alt="logo">
+<form class="questions" [formGroup]="answerForm" novalidate #ngForm="ngForm">
+    <p class="questions__title">{{hasQuestions ? 'Secure question' : 'Multifactor authentication'}}</p>
+    <div class="questions__content">
+        <p class="questions__question" *ngIf="hasQuestions; else setQuestions">{{question}}</p>
+        <ng-template #setQuestions>
+            <div class="questions__item">
+                <p>You have <span>{{questionCount}} questions</span> left</p>
+                <mat-select class="grey-select" 
+                            (selectionChange)="onChange()"
+                            disableOptionCentering 
+                            [formControl]="questionsControl"
+                            [(ngModel)]="selectedValue">
+                        <mat-option *ngFor="let question of questions" [disabled]="question.disabled" [value]="question.value">{{question.name}}</mat-option>
+                </mat-select>
+            </div>
+        </ng-template>
+        <div class="questions__item" [ngClass]="{error: _answer.invalid && ngForm.dirty, invalidValue: answerForm.hasError('invalidAnswer'), hasQuestions: hasQuestions}">
+            <p>Your answer</p>
+            <input class="input" placeholder="" type="text" formControlName="answer">
+        </div>
+        <mat-checkbox class="questions__checkbox"
+                      *ngIf="hasQuestions"
+                      (change)="onRemember($event)" >Register this computer </mat-checkbox>
+        <p class="questions__errors" *ngIf="answerForm.hasError('invalidAnswer')">Incorrect answer</p>
+        <button mat-flat-button
+                    (click)="onSubmit()"
+                    [disabled]="hasQuestions && answerForm.invalid"
+                    class="button button_green">{{hasQuestions ? 'Login' : 'save answer'}}</button>
+    </div>
+</form>
+
+<!-- this button only for testing -->
+<button mat-flat-button
+                    style="margin-top: 40px"
+                    (click)="hasQuestions = !hasQuestions"
+                    class="button button_green">toggle hasQuestions ( only for testing)</button>

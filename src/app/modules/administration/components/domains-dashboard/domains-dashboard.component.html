@@ -1,0 +1,61 @@
+<form class="domains-dashboard" #ngForm="ngForm" [formGroup]="domainsDashboardForm">
+    <div class="domains-dashboard__column domains-dashboard__remit-post">
+        <p class="domains-dashboard__title">Remit Post</p>
+        <rms-filter-component class="administration-create-user__element"
+                              title="Warning Threshold"
+                              shortDropdown="true"
+                              [ngClass]="{error: _remitPostWarning.invalid && ngForm.submitted}"
+                              [PassedformControl]="domainsDashboardForm['controls'].remitPostWarning"></rms-filter-component>
+        <rms-filter-component class="administration-create-user__element"
+                              title="Danger Threshold"
+                              shortDropdown="true"
+                              [ngClass]="{error: _remitPostDanger.invalid && ngForm.submitted}"
+                              [PassedformControl]="domainsDashboardForm['controls'].remitPostDanger"></rms-filter-component>
+    </div>
+    <div class="domains-dashboard__column domains-dashboard__denial">
+        <p class="domains-dashboard__title">Denial</p>
+        <rms-filter-component class="administration-create-user__element"
+                title="Warning Threshold"
+                shortDropdown="true"
+                [ngClass]="{error: _denialWarning.invalid && ngForm.submitted}"
+                [PassedformControl]="domainsDashboardForm['controls'].denialWarning"></rms-filter-component>
+        <rms-filter-component class="administration-create-user__element"
+                title="Danger Threshold"
+                shortDropdown="true"
+                [ngClass]="{error: _denialDanger.invalid && ngForm.submitted}"
+                [PassedformControl]="domainsDashboardForm['controls'].denialDanger"></rms-filter-component>
+    </div>
+    <div class="domains-dashboard__column domains-dashboard__tax-id">
+        <p class="domains-dashboard__title">Tax ID</p>
+        <rms-filter-component class="administration-create-user__element"
+                title="Warning Threshold"
+                shortDropdown="true"
+                [ngClass]="{error: _taxIDWarning.invalid && ngForm.submitted}"
+                [PassedformControl]="domainsDashboardForm['controls'].taxIDWarning"></rms-filter-component>
+        <rms-filter-component class="administration-create-user__element"
+                title="Danger Threshold"
+                shortDropdown="true"
+                [ngClass]="{error: _taxIDDanger.invalid && ngForm.submitted}"
+                [PassedformControl]="domainsDashboardForm['controls'].taxIDDanger"></rms-filter-component>
+    </div>
+    <div class="domains-dashboard__controls">
+        <button mat-flat-button
+                class="button button_green"
+                (click)="onPressSave()">Save</button>
+        <button mat-flat-button
+                class="button"
+                (click)="onPressReset()">Reset</button>
+    </div>
+</form>
+
+
+
+
+
+
+
+
+
+
+
+

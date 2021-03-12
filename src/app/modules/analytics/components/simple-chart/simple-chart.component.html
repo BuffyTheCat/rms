@@ -1,0 +1,14 @@
+<section class="simple-chart">
+    <div class="simple-chart__head">
+        <p class="simple-chart__title">{{title}}</p>
+        <rms-custom-select isHuge="true" [selectOptions]="selectOption"></rms-custom-select>
+    </div>
+    <p class="simple-chart__desc">{{desc}}</p>
+    <div class="simple-chart__chart">
+        <p class="simple-chart__name">{{name}}</p>
+        <p class="simple-chart__val">{{val}}</p>
+        <div class="simple-chart__chart-val">
+            <span [ngStyle]="{'width': val, 'background-color': color}"></span>
+        </div>
+    </div>
+</section>

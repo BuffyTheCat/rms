@@ -1,0 +1,41 @@
+<form class="filters-with-tabs" [ngClass]="opened ? '' : 'filters-with-tabs_closed'">
+    <button type="button" (click)="switchFilterWithTabs()" class="filters-with-tabs__switcher">
+        <mat-icon aria-label="Switcher icon" *ngIf="opened;else menuClosedImg" aria-hidden="false">menu_open</mat-icon>
+        <ng-template #menuClosedImg>
+            <mat-icon aria-label="Switcher icon" aria-hidden="false">menu</mat-icon>
+        </ng-template>
+    </button>
+    <mat-tab-group animationDuration="0ms" disablePagination="true">
+        <mat-tab [label]="label">
+            <perfect-scrollbar #perfectScroll>
+                <ng-content select="[filters-with-tabs-first-tab]">
+                
+                </ng-content>
+            </perfect-scrollbar>
+            <div *ngIf="searchTabs" class="filters-with-tabs__controls">
+                <button mat-flat-button
+                        class="button button_green"
+                        (click)="onPressSearchFirst()">Search</button>
+                <button mat-flat-button
+                        class="button"
+                        (click)="onPressClearFirst()">clear</button>
+            </div>
+        </mat-tab>
+        <mat-tab [label]="secondLabel">
+            <ng-content select="[filters-with-tabs-second-tab]">
+            
+            </ng-content>
+            <ng-content select="[filters-with-tabs-errors]">
+
+            </ng-content>
+            <div class="filters-with-tabs__controls">
+                <button mat-flat-button
+                        class="button button_green"
+                        (click)="onPressSearch()">Search</button>
+                <button mat-flat-button
+                        class="button"
+                        (click)="onPressClear()">clear</button>
+            </div>
+        </mat-tab>
+    </mat-tab-group>
+</form>

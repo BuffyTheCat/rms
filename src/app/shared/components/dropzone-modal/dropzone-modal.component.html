@@ -1,0 +1,25 @@
+<section class="dropzone-modal">
+    <div class="dropzone-modal__head">
+        <p>{{filename}}</p>
+        <button mat-dialog-close>
+            <mat-icon aria-label="Close icon" aria-hidden="false" type="none">close</mat-icon>
+        </button>
+    </div>
+    <div class="dropzone-modal__main">
+        <ngx-dropzone #drop (change)="onSelect($event)" [multiple]="false">
+            <ngx-dropzone-label>Drop file here</ngx-dropzone-label>
+            <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f" [removable]="false"></ngx-dropzone-image-preview>
+        </ngx-dropzone>
+        <span>or</span>
+        <button (click)="drop.showFileSelector()" class="dropzone-modal__manual">upload file</button>
+        <div class="dropzone-modal__controls">
+            <button mat-flat-button
+                    class="button button_green"
+                    [disabled]="files.length === 0"
+                    (click)="onApply()">Apply</button>
+            <button mat-flat-button
+                    class="button"
+                    (click)="onCloseClick()">Cancel</button>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,86 @@
+<form class="domains-info" #ngForm="ngForm" [formGroup]="domainsInfoForm">
+    <div class="domains-info__left">
+        <rms-filter-component class="administration-create-user__element"
+                              title="Name"
+                              shortDropdown="true"
+                              [options]="params.provider"
+                              [ngClass]="{error: _name.invalid && ngForm.submitted}"
+                              [selectedOption]="params.providerSelectedOption"
+                              [PassedformControl]="domainsInfoForm['controls'].name"></rms-filter-component>
+        <rms-filter-component class="administration-create-user__element"
+                              title="Domain URL"
+                              shortDropdown="true"
+                              [ngClass]="{error: _domainURL.invalid && ngForm.submitted}"
+                              [PassedformControl]="domainsInfoForm['controls'].domainURL"></rms-filter-component>
+        <rms-filter-component class="administration-create-user__element"
+                              title="User Lockout Time"
+                              shortDropdown="true"
+                              [ngClass]="{error: _userLockoutTime.invalid && ngForm.submitted}"
+                              [PassedformControl]="domainsInfoForm['controls'].userLockoutTime"></rms-filter-component>
+        <rms-filter-component class="administration-create-user__element"
+                              title="Login Method"
+                              shortDropdown="true"
+                              [dropdown]="true"
+                              [ngClass]="{error: _loginMethod.invalid && ngForm.submitted}"
+                              [options]="params.loginMethod"
+                              [selectedOption]="params.loginMethodSelectedOption"
+                              [PassedformControl]="domainsInfoForm['controls'].loginMethod"></rms-filter-component>
+        <rms-filter-component class="administration-create-user__element"
+                              title="User Password Life (days)"
+                              shortDropdown="true"
+                              [ngClass]="{error: _userPasswordLife.invalid && ngForm.submitted}"
+                              [PassedformControl]="domainsInfoForm['controls'].userPasswordLife"></rms-filter-component>
+        <rms-filter-component class="administration-create-user__element"
+                              title="Session Timeout"
+                              shortDropdown="true"
+                              [ngClass]="{error: _sessionTimeout.invalid && ngForm.submitted}"
+                              [PassedformControl]="domainsInfoForm['controls'].sessionTimeout"></rms-filter-component>
+        <rms-filter-component class="administration-create-user__element"
+                              title="Password History Size"
+                              shortDropdown="true"
+                              [ngClass]="{error: _passwordHistorySize.invalid && ngForm.submitted}"
+                              [PassedformControl]="domainsInfoForm['controls'].passwordHistorySize"></rms-filter-component>
+        <rms-filter-component class="administration-create-user__element"
+                              title="Use Provider Info from EDI"
+                              shortDropdown="true"
+                              [ngClass]="{error: _useProviderInfofromEDI.invalid && ngForm.submitted}"
+                              [dropdown]="true"
+                              [options]="params.useProviderInfofromEDI"
+                              [selectedOption]="params.useProviderInfofromEDISelectedOption"
+                              [PassedformControl]="domainsInfoForm['controls'].useProviderInfofromEDI"></rms-filter-component>
+        <rms-filter-component class="administration-create-user__element"
+                              title="Max Failed Logins"
+                              shortDropdown="true"
+                              [ngClass]="{error: _maxFailedLogins.invalid && ngForm.submitted}"
+                              [PassedformControl]="domainsInfoForm['controls'].maxFailedLogins"></rms-filter-component>
+        <rms-filter-component class="administration-create-user__element"
+                              title="Dormant Account Time (days)"
+                              shortDropdown="true"
+                              [ngClass]="{error: _dormantAccountTime.invalid && ngForm.submitted}"
+                              [PassedformControl]="domainsInfoForm['controls'].dormantAccountTime"></rms-filter-component>
+    </div>
+    <div class="domains-info__textarea" [ngClass]="{error: _homeScreenMessage.invalid && ngForm.submitted}">
+        <p>Home Screen Message</p>
+        <textarea maxlength="2000" formControlName="homeScreenMessage"  name="homeScreenMessage"></textarea>
+    </div>
+    <div class="domains-info__controls">
+        <button mat-flat-button
+                class="button button_green"
+                (click)="onPressSave()">Save</button>
+        <button mat-flat-button
+                class="button"
+                (click)="onPressCancel()">Cancel</button>
+    </div>
+</form>
+
+
+
+
+
+
+
+
+
+
+
+

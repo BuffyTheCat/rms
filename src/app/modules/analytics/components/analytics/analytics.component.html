@@ -1,0 +1,76 @@
+<section class="analytics">
+    <div class="analytics__item analytics__info">
+        <p class="analytics__title">RMS</p>
+        <rms-filter-component class="filters__element"
+            title="Provider"
+            value="RMS"></rms-filter-component>
+        <div class="analytics__select-wrap">
+            <p>Period</p>
+            <mat-select class="grey-select huge" [formControl]="reportsControl" panelClass="huge">
+                <mat-option *ngFor="let val of shedulerReports" [value]="val.value">{{val.name}}</mat-option>
+            </mat-select>
+        </div>
+        <button mat-flat-button
+                class="button button_green">Search</button>
+        <button mat-flat-button
+                class="button">clear</button>
+    </div>
+    <div class="analytics__wrap">
+        <rms-simple-chart title='RMS'
+                        [selectOption]="selectOption"
+                        val='98%'
+                        name='Good'
+                        desc='Percentage of all-inclusive files being  returned by the Provider`s SLA'
+                        color='#4787FF'></rms-simple-chart>
+        <rms-simple-chart title='RMS'
+                        [selectOption]="selectOption"
+                        val='98%'
+                        name='Good'
+                        desc='Percentage of all-inclusive files being  returned by the Provider`s SLA'
+                        color='#4787FF'></rms-simple-chart>
+        <rms-simple-chart title='RMS'
+                        [selectOption]="selectOption"
+                        val='98%'
+                        name='Good'
+                        desc='Percentage of all-inclusive files being  returned by the Provider`s SLA'
+                        color='#4787FF'></rms-simple-chart>
+        <rms-simple-chart title='RMS'
+                        [selectOption]="selectOption"
+                        val='20%'
+                        name='Poor'
+                        desc='Percentage of all-inclusive files being  returned by the Provider`s SLA'
+                        color='#EB5757'></rms-simple-chart>
+        <rms-simple-chart title='RMS'
+                        [selectOption]="selectOption"
+                        val='98%'
+                        name='Good'
+                        desc='Percentage of all-inclusive files being  returned by the Provider`s SLA'
+                        color='#4787FF'></rms-simple-chart>
+        </div>
+        <rms-line-chart title="Catholic Health Partner Overall with Trend"></rms-line-chart>
+        <aside class="analytics__filters">
+            <div class="analytics__filters-item">
+                <p class="analytics__filters-title">Use chart names from:</p>
+                <div class="analytics__select-wrap">
+                    <p>Сhart names</p>
+                    <mat-select class="grey-select huge" [formControl]="reportsControl" panelClass="huge">
+                        <mat-option *ngFor="let val of shedulerReports" [value]="val.value">{{val.name}}</mat-option>
+                    </mat-select>
+                </div>
+            </div>
+            <div class="analytics__filters-item" *ngFor="let item of filterItems index as i">
+                <p class="analytics__filters-name">{{item}}</p>
+                <button mat-flat-button
+                        class="button button_green">show results</button>
+            </div>
+        </aside>
+        <section class="analytics__cart">
+            <div class="analytics__cart-head">
+                <p class="analytics__cart-name">AppleCare</p>
+                <rms-custom-select isHuge="true" [selectOptions]="selectOption"></rms-custom-select>
+            </div>
+            <p class="analytics__cart-total">0 Total rejected items</p>
+            <button mat-flat-button
+                        class="button button_green">VIEW DAY BREAK OUT</button>
+        </section>
+</section>

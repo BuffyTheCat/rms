@@ -1,0 +1,45 @@
+<perfect-scrollbar #perfectScroll class="sidenav" [ngClass]="opened ? '' : 'sidenav_closed'">
+    <button (click)="switchSidenav()" class="sidenav__switcher">
+        <mat-icon aria-label="Sidenav switcher icon" *ngIf="opened;else menuClosedImg" aria-hidden="false">menu_open</mat-icon>
+        <ng-template #menuClosedImg>
+            <mat-icon aria-label="Sidenav switcher icon" aria-hidden="false">menu</mat-icon>
+        </ng-template>
+    </button>
+    <nav>
+        <mat-accordion >
+            <ng-container *ngFor="let link of navLinks index as i">
+                <mat-expansion-panel [@.disabled]="true" 
+                                     (click)="onUpdateScrollBar()"
+                                     routerLinkActive="sidenav__link_active" 
+                                     [routerLinkActiveOptions]="{exact: true}"
+                                     [hideToggle]="link.sublinks.length === 0 || !opened"
+                                     [ngClass]="link.sublinks.length === 0 ? 'sidenav__link_simple' : ''"
+                                     class="sidenav__link">
+                    <mat-expansion-panel-header>
+                        <a routerLink="/{{link.url}}">
+                            <mat-icon [matTooltip]="opened ? '' : link.name" matTooltipPosition="right" aria-label="Link icon" aria-hidden="false">{{link.iconName}}</mat-icon>
+                            {{link.name}}
+                        </a>
+                    </mat-expansion-panel-header>
+                    <div class="sidenav__sublinks">
+                        <a *ngFor="let sublink of link.sublinks index as i"
+                           routerLink="/{{sublink.url}}"
+                           routerLinkActive="sidenav__sublink_active" 
+                           [routerLinkActiveOptions]="{exact: true}">{{sublink.name}}</a>
+                    </div>
+                </mat-expansion-panel>
+            </ng-container>
+        </mat-accordion>
+    </nav>
+    <div class="sidenav__info">
+        <a class="sidenav__help" routerLink="/help">
+            <mat-icon aria-label="Help icon" aria-hidden="false" [matTooltip]="opened ? '' : 'Help'" matTooltipPosition="right">error</mat-icon>
+            Help
+        </a>
+        <a class="sidenav__preferences" routerLink="/preferences">
+            <mat-icon aria-label="Preferences icon" aria-hidden="false" [matTooltip]="opened ? '' : 'Preferences'" matTooltipPosition="right">flag</mat-icon>
+            Preferences
+        </a>
+        <p class="sidenav__copyright">RMS<br> 2019 ©</p>
+    </div>
+</perfect-scrollbar>

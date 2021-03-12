@@ -1,0 +1,121 @@
+@import "../../../../assets/styles/mixins.scss";
+
+rms-filter {
+    background-color: color(maincolor);
+}
+
+.filters {
+    display: flex;
+    flex-direction: column;
+    width: 308px;
+    height: 100%;
+    padding: 20px 24px;
+
+    .filters__errors {
+        margin: 0;
+        margin-top: auto;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 20px;
+        letter-spacing: 0.25px;
+        color: color(error);;
+
+        p {
+            margin: 0;
+            &:not(:last-of-type) {
+                margin-bottom: 14px;
+            }
+        }
+    }
+
+    &_closed {
+        width: auto;
+
+        .filters__title,
+        .filters__content,
+        .filters__controls,
+        .filters__errors {
+            display: none!important;
+        }
+    }
+
+    &__switcher {
+        display: flex;
+        justify-content: flex-end;
+        width: 100%;
+        padding: 11px 0;
+        margin: 0;
+        margin-bottom: 4px;
+        border: none;
+        outline: none;
+        background-color: color(maincolor);
+        cursor: pointer;
+        color: color(textsecondary);
+
+        .mat-icon {
+            transform: rotate(180deg);
+        }
+    }
+
+    &__title {
+        margin: 0;
+        margin-bottom: 20px;
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 16px;
+        letter-spacing: 0.25px;
+        color: color(textmain);
+    }
+
+    &__controls {
+        display: flex;
+        justify-content: space-between;
+        margin-top: auto;
+        
+        button {
+            flex-grow: 2;
+
+            &:not(:last-of-type) {
+                margin-right: 20px;
+            }
+        }
+    }
+
+    .filters__desc {
+        margin: 0;
+        margin-left: 17px;
+        margin-top: -15px;
+        margin-bottom: 20px;
+        font-size: 11px;
+        line-height: 16px;
+        letter-spacing: 0.4px;
+        color: color(textmain);
+        font-weight: normal;
+    }
+    .filters__content {
+        display: flex;
+        flex-direction: column;
+        overflow-y: auto;
+    }
+
+    rms-filter-date {
+        margin-bottom: 20px;
+    }
+
+    .filters__element {
+        display: block;
+        margin-bottom: 20px;
+    }
+
+    hr {
+        margin: 0;
+        margin-bottom: 20px;
+        border: none;
+        border-bottom: 1px solid #E5E6E7;
+
+        & ~ .filters__element {
+            margin-bottom: 13px;
+        }
+    }
+}

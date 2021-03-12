@@ -1,0 +1,163 @@
+@import "../../../../../assets/styles/mixins.scss";
+
+.queue-management {
+    display: flex;
+    flex-direction: column;
+    width: 504px;
+
+    &__head {
+        display: flex;
+        align-items: center;
+        padding: 19px 34px;
+        padding-bottom: 24px;
+        background-color: color(modalhead);
+
+        p {
+            margin: 0;
+            margin-right: auto;
+            font-weight: 500;
+            font-size: 12px;
+            line-height: 16px;
+            letter-spacing: 0.25px;
+            color: color(textmain);
+        }
+
+        button {
+            display: flex;
+            padding: 5px;
+            margin: 0;
+            margin-right: -5px;
+            background-color: transparent;
+            outline: none;
+            border: none;
+            color: color(textsecondary);
+            cursor: pointer;
+
+            mat-icon {
+                font-size: 18px;
+                width: 18px;
+                height: 18px;
+            }
+        }
+    }
+
+    &__textarea {
+        position: relative;
+        width: 100%;
+        background-color: color(lightcolor);
+        border-radius: 5px;
+        
+        align-self: flex-start;
+
+        textarea {
+            width: 100%;
+            height: 190px;
+            padding: 16px;
+            padding-top: 41px;
+            outline: none;
+            border: none;
+            resize: none;
+            background-color: transparent;
+            font-weight: normal;
+            font-size: 12px;
+            line-height: 16px;
+            color: color(textsecondary);
+        }
+
+        p {
+            position: absolute;
+            top: 15px;
+            left: 16px;
+            margin: 0;
+            font-weight: normal;
+            font-size: 12px;
+            line-height: 16px;
+            color: color(textmain);
+        }
+    }
+
+    &__title {
+        margin: 0;
+        margin-bottom: 30px;
+        font-weight: 500;
+        font-size: 12px;
+        letter-spacing: 0.25px;
+        color: color(textmain);
+    }
+
+    &__element {
+        margin-bottom: 20px;
+    }
+
+    &__main {
+        display: flex;
+        flex-direction: column;
+        padding: 30px 34px;
+        padding-bottom: 40px;
+        background-color: color(modalbody);
+    }
+
+    &__element {
+        &:not(:last-of-type) {
+            margin-bottom: 24px;
+        }
+    }
+
+    &__select {
+        position: relative;
+        width: 100%;
+        
+        .grey-select {
+            padding: 10px 17px;
+            padding-top: 27px;
+            padding-bottom: 11px;
+
+            .mat-select-value-text {
+                font-weight: 500;
+                font-size: 12px;
+            }
+
+            .mat-select-arrow-wrapper {
+                transform: translateY(-6px);
+            }
+        }
+
+        p {
+            position: absolute;
+            top: 11px;
+            left: 16px;
+            margin: 0;
+            font-weight: normal;
+            font-size: 11px;
+            line-height: 16px;
+            letter-spacing: 0.4px;
+            color: color(textsecondary);
+        }
+    }
+    
+    &__question {
+        text-align: center;
+        margin: 0;
+        color: color(textmain);
+        font-size: 14px;
+        line-height: 24px;
+    }
+
+    &__controls {
+        display: flex;
+        align-items: center;
+        margin-top: 25px;
+
+        .button {
+            width: 206px;
+
+            &:first-of-type {
+                margin-right: auto;
+            }
+
+            &:not(:first-of-type):not(:last-of-type) {
+                margin-right: 5px;
+            }
+        }
+    }
+}

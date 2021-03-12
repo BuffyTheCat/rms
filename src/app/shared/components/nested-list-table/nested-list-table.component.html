@@ -1,0 +1,98 @@
+<div class="nested-list-table__tables" cdkDropListGroup>
+    <perfect-scrollbar #perfectScroll class="nested-list-table__table-wrap">
+        <table #tableDomainsUnassigned  class="nested-list-table__right" mat-table [dataSource]="['']">
+            <ng-container matColumnDef="select">
+                <th mat-header-cell *matHeaderCellDef>
+                    <mat-checkbox #mainCheckboxUnassigned (change)="mainCheckboxUnassigned.checked ? onPressCheckAllUnassigned() : onPressUncheckAllUnassigned()"
+                                  [disabled]="allUnassignedAreDisable()"
+                                  [checked]="allCompleteUnassigned()"
+                                  [indeterminate]="someCompleteUnassigned() && !allCompleteUnassigned()">
+                    </mat-checkbox>
+                    {{checklistSelection.selected.length}} / {{treeControl.dataNodes.length}} items
+                    <span class="nested-list-table__title">Unassigned</span>
+                </th>
+                <td mat-cell *matCellDef="let row">
+                    
+                    <mat-tree #treeUnassigned [dataSource]="dataSource" [treeControl]="treeControl" cdkDropList cdkDropListSortingDisabled (cdkDropListDropped)="drop($event)">
+                        <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle matTreeNodePadding cdkDrag [cdkDragDisabled]="!!node.assigned">
+                            <button mat-icon-button disabled></button>
+                            <mat-checkbox class="checklist-leaf-node"
+                                [disabled]="!!node.assigned" 
+                                [checked]="checklistSelection.isSelected(node)"
+                                (change)="todoLeafItemSelectionToggle(node)">{{node.item}}</mat-checkbox>
+                        </mat-tree-node>
+                        <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding cdkDrag [cdkDragDisabled]="!!node.assigned">
+                            <button mat-icon-button matTreeNodeToggle
+                                [attr.aria-label]="'Toggle ' + node.item">
+                                <ng-container *ngIf="treeControl.isExpanded(node); else isNotExpanded">
+                                    <span class="arrow-down"></span>
+                                </ng-container>
+                                <ng-template #isNotExpanded>  
+                                    <span class="arrow-right"></span>
+                                </ng-template>   
+                            </button>
+                            <mat-checkbox [checked]="descendantsAllSelected(node)"
+                                [disabled]="!!node.assigned"
+                                [indeterminate]="node.level === 0 && someCompleteUnassignedParent(node) && !descendantsAllSelected(node)"   
+                                (change)="todoItemSelectionToggle(node)">{{node.item}}</mat-checkbox>
+                        </mat-tree-node>
+                    </mat-tree>
+                </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="['select']; sticky: true"></tr>
+            <tr mat-row
+                *matRowDef="let row; columns: ['select']"></tr>
+        </table>
+    </perfect-scrollbar>
+    <div class="nested-list-table__switcher">
+        <button mat-flat-button  (click)="onPressToAssigned()"> 
+            <mat-icon aria-label="To right icon" aria-hidden="false">chevron_right</mat-icon>
+        </button>
+        <button mat-flat-button  (click)="onPressToUnassigned()">
+            <mat-icon aria-label="To left icon" aria-hidden="false">chevron_left</mat-icon>
+        </button>
+    </div>
+    <perfect-scrollbar #perfectScrollRight class="nested-list-table__table-wrap">
+        <table #tableDomainsAssigned class="nested-list-table__left" mat-table [dataSource]="['']">
+            <ng-container matColumnDef="select">
+                <th mat-header-cell *matHeaderCellDef>
+                  <mat-checkbox #mainCheckboxAssigned (change)="mainCheckboxAssigned.checked ? onPressCheckAllAssigned() : onPressUncheckAllAssigned()"
+                                [disabled]="allAssignedAreDisable()"
+                                [checked]="allCompleteAssigned()"
+                                [indeterminate]="someCompleteAssigned() && !allCompleteAssigned()">
+                  </mat-checkbox>
+                  {{checklistSelectionAssigned.selected.length}} / {{treeControlAssigned.dataNodes.length}} items
+                  <span class="nested-list-table__title">Assigned</span>
+                </th>
+                <td mat-cell *matCellDef="let row">
+                    <mat-tree #treeAssigned [dataSource]="dataSourceAssigned" [treeControl]="treeControlAssigned" cdkDropList cdkDropListSortingDisabled (cdkDropListDropped)="drop($event)">
+                        <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle matTreeNodePadding cdkDrag [cdkDragDisabled]="!node.assigned">
+                            <button mat-icon-button disabled></button>
+                            <mat-checkbox class="checklist-leaf-node"
+                                [disabled]="!node.assigned" 
+                                [checked]="checklistSelectionAssigned.isSelected(node)"
+                                (change)="todoLeafItemSelectionToggleAssigned(node)">{{node.item}}</mat-checkbox>
+                        </mat-tree-node>
+                        <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding cdkDrag [cdkDragDisabled]="!node.assigned">
+                            <button mat-icon-button matTreeNodeToggle
+                                [attr.aria-label]="'Toggle ' + node.item">
+                                <ng-container *ngIf="treeControlAssigned.isExpanded(node); else isNotExpanded">
+                                    <span class="arrow-down"></span>
+                                </ng-container>
+                                <ng-template #isNotExpanded>  
+                                    <span class="arrow-right"></span>
+                                </ng-template>   
+                            </button>
+                            <mat-checkbox [checked]="descendantsAllSelectedAssigned(node)"
+                                    [disabled]="!node.assigned"
+                                    (change)="todoItemSelectionToggleAssigned(node)">{{node.item}}</mat-checkbox>
+                            </mat-tree-node>
+                    </mat-tree>
+                </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="['select']; sticky: true"></tr>
+            <tr mat-row
+                *matRowDef="let row; columns: ['select']"></tr>
+        </table>
+    </perfect-scrollbar>
+</div>

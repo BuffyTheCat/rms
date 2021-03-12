@@ -1,0 +1,22 @@
+<img class="logo" [src]="logoPath" alt="logo">
+<form class="login" [formGroup]="loginForm" novalidate #ngForm="ngForm">
+    <p class="login__title">Login</p>
+    <div class="login__content">
+        <fieldset [ngClass]="{error:  _email.invalid && ngForm.submitted || _email.invalid && (_email.dirty || _email.touched)}">
+            <p>User Name</p>
+            <input class="input" [ngClass]="{invalidValue: loginForm.hasError('nameError')}" placeholder="Login" type="text" formControlName="email">
+        </fieldset>
+        <fieldset [ngClass]="{error:  _password.invalid && ngForm.submitted || _password.invalid && (_password.dirty || _password.touched)}">
+            <p>Password</p>
+            <input class="input" [ngClass]="{invalidValue: loginForm.hasError('passwordError'), hasError: (_email.invalid && ngForm.submitted) || (_password.invalid && ngForm.submitted) }" placeholder="Password" type="password" formControlName="password">
+        </fieldset>
+        <div class="login__errors" *ngIf="loginForm.hasError('invalidAttempt') || loginForm.hasError('nameError') ">
+            <p>Either your username or password incorrenct.</p>
+            <p>Your account may lock out after {{attempts}} incorrect attempts.</p>
+            <p>Please contact Support if further assistence is required.</p>
+        </div>
+        <button mat-flat-button
+                    (click)="onSubmit()"
+                    class="button button_green">login</button>
+    </div>
+</form>

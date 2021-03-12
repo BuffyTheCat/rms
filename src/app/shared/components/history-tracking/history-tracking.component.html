@@ -1,0 +1,77 @@
+<section class="history-tracking"
+         [formGroup]="filterForm"
+         novalidate
+         #ngForm="ngForm">
+    <div class="history-tracking__head">
+        <p>Find Patient Account</p>
+        <button mat-dialog-close>
+            <mat-icon aria-label="Close icon" aria-hidden="false" type="none">close</mat-icon>
+        </button>
+    </div>
+    <div class="history-tracking__main">
+        <div class="history-tracking__filter">
+            <p class="history-tracking__title">Filters</p>
+            <rms-filter-component class="history-tracking__element"
+                             title="Patient Account Number"
+                             [options]="patientAccountNumberOptions"
+                             [ngClass]="{error: _patientAccountNumber.invalid && ngForm.submitted}"
+                             [PassedformControl]="filterForm.controls['patientAccountNumber']"></rms-filter-component>
+            <rms-filter-component class="history-tracking__element"
+                            title="First name"
+                            [options]="firstNameOptions"
+                            [ngClass]="{error: _firstName.invalid && ngForm.submitted}"
+                            [PassedformControl]="filterForm.controls['firstName']"></rms-filter-component>
+            <rms-filter-component class="history-tracking__element"
+                            title="Last Name"
+                            [options]="lastNameOptions"
+                            [ngClass]="{error: _lastName.invalid && ngForm.submitted}"
+                            [PassedformControl]="filterForm.controls['lastName']"></rms-filter-component>
+            <rms-filter-date class="history-tracking__element"
+                             #DataOfService
+                             [rangeMode]="false"
+                             [ngClass]="{error: _dataOfService.invalid && ngForm.submitted}"
+                             [PassedformControl]="filterForm.controls['dataOfService']"
+                             title="Data of service"></rms-filter-date>
+            <rms-filter-component class="history-tracking__element"
+                             title="Provider"
+                             [options]="providerOptions"
+                             [ngClass]="{error: _provider.invalid && ngForm.submitted}"
+                             [PassedformControl]="filterForm.controls['provider']"></rms-filter-component>
+            <div class="history-tracking__controls">
+                <button mat-flat-button
+                        class="button button_green"
+                        (click)="onPressSave()">SAVE</button>
+                <button mat-flat-button
+                        class="button"
+                        (click)="onFilterClear()">clear</button>
+            </div>
+        </div>
+        <div class="history-tracking__result">
+            <p class="history-tracking__title">Searching results</p>
+            <perfect-scrollbar #perfectScrollHistory class="history-tracking__table">
+                <mat-table class="history-tracking__table" [dataSource]="dataSource">
+                    <ng-container *ngFor="let column of displayedColumnsResult index as i">          
+                        <ng-container [matColumnDef]="column.column">
+                            <th mat-header-cell *matHeaderCellDef>{{column.title}}</th>
+                            <td mat-cell *matCellDef="let element">
+                                {{element[column.column]}}
+                            </td>
+                        </ng-container>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="displayedColumnsArray; sticky: true"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumnsArray;"></tr>
+                </mat-table>
+            </perfect-scrollbar>
+            <div class="history-tracking__controls">
+                <button mat-flat-button
+                        class="button button_green"
+                        (click)="onPressFinish()">FINISH</button>
+                <button mat-flat-button
+                        class="button"
+                        (click)="onHistoryTrackingClear()">cancel</button>
+            </div>
+        </div>
+
+        
+    </div>
+</section>

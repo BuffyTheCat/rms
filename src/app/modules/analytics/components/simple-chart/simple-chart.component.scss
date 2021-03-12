@@ -1,0 +1,75 @@
+@import "../../../../../assets/styles/mixins.scss";
+.simple-chart {
+    display: flex;
+    flex-direction: column;
+    padding: 30px 32px;
+    padding-top: 20px;
+    background: #FFFFFF;
+    box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.05), 0px 3px 4px rgba(0, 0, 0, 0.02), 0px 2px 4px rgba(0, 0, 0, 0.02);
+    border-radius: 7px;
+    overflow: hidden;
+
+    &__head {
+        display: flex;
+        padding-bottom: 21px;
+        margin-bottom: 20px;
+        border-bottom: 1px solid #E5E6E7;
+    }
+
+    &__title {
+        margin: 0;
+        margin-right: auto;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 16px;
+        letter-spacing: 0.25px;
+        color: color(textmain);
+    }
+
+    &__desc {
+        margin: 0;
+        margin-bottom: 30px;
+        font-weight: normal;
+        font-size: 12px;
+        line-height: 20px;
+        letter-spacing: 0.25px;
+        color: color(textsecondary);
+    }
+
+    &__chart {
+        display: flex;
+        flex-wrap: wrap;
+        width: 100%;
+        justify-content: space-between;
+        
+        &-val {
+            width: 100%;
+            height: 32px;
+            border-radius: 5px;
+            background-color: #F3F5F5;
+            overflow: hidden;
+    
+            span {
+                display: flex;
+                margin-right: auto;
+                height: 100%;
+            }
+        }
+    }
+
+    &__name,
+    &__val {
+        margin: 0;
+        margin-bottom: 20px;
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 16px;
+        letter-spacing: 0.25px;
+        color: color(textsecondary);
+    }
+
+    &__val {
+        color: color(textmain);
+    }
+}

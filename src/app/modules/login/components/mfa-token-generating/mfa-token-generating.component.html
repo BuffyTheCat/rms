@@ -1,0 +1,21 @@
+<img class="logo" [src]="logoPath" alt="logo">
+<form class="mfa-token-generaning" [formGroup]="mfaTokenForm" novalidate #ngForm="ngForm">
+    <p class="mfa-token-generaning__title">Generate a token</p>
+    <div class="mfa-token-generaning__content">
+        <div class="mfa-token-generaning__wrap">
+            <p>Enter seed into your chosen token generator</p>
+            <span class="mfa-token-generaning__example">{{exampleToken}}</span>
+        </div>
+        <div class="mfa-token-generaning__wrap">
+            <p>Or scan with token generator QR Scanner</p>
+            <img [src]="QrPath" alt="qrToken">
+        </div>
+        <fieldset [ngClass]="{error:  _token.invalid && ngForm.submitted || _token.invalid && (_token.dirty || _token.touched)}">
+            <p>Enter token</p>
+            <input class="input" [ngClass]="{invalidValue: mfaTokenForm.hasError('passwordError')}" type="text" formControlName="token">
+        </fieldset>
+        <button mat-flat-button
+                    (click)="onSubmit()"
+                    class="button button_green">Submit</button>
+    </div>
+</form>

@@ -1,0 +1,66 @@
+<div class="administration-create-lockboxes">
+    <div class="administration-create-lockboxes__header">
+        <p class="administration-create-lockboxes__title">Configuration</p>
+    </div>
+    <form class="administration-create-lockboxes__main" #ngForm="ngForm" [formGroup]="createLockboxForm">
+        <div class="administration-create-lockboxes__content">
+            <rms-filter-component class="administration-create-lockboxes__element"
+                                  title="Name"
+                                  shortDropdown="true"
+                                  [ngClass]="{error: _name.invalid && ngForm.submitted}"
+                                  [PassedformControl]="createLockboxForm.controls['name']"></rms-filter-component>
+            <rms-filter-component class="administration-create-lockboxes__element"
+                                  title="Street"
+                                  shortDropdown="true"
+                                  [ngClass]="{error: _street.invalid && ngForm.submitted}"
+                                  [PassedformControl]="createLockboxForm.controls['street']"></rms-filter-component>
+            <rms-filter-component class="administration-create-lockboxes__element"
+                                  title="Bank Identifier"
+                                  shortDropdown="true"
+                                  [ngClass]="{error: _bankIdentifier.invalid && ngForm.submitted}"
+                                  [PassedformControl]="createLockboxForm.controls['bankIdentifier']"></rms-filter-component>
+            <rms-filter-component class="administration-create-lockboxes__element"
+                                  title="Additional Street Information"
+                                  shortDropdown="true"
+                                  [ngClass]="{error: _additionalStreetInformation.invalid && ngForm.submitted}"
+                                  [PassedformControl]="createLockboxForm.controls['additionalStreetInformation']"></rms-filter-component>
+            <rms-filter-component class="administration-create-lockboxes__element"
+                                  title="Transit Routing Number"
+                                  shortDropdown="true"
+                                  [ngClass]="{error: _transitRoutingNumber.invalid && ngForm.submitted}"
+                                  [PassedformControl]="createLockboxForm.controls['transitRoutingNumber']"></rms-filter-component>
+            <rms-filter-component class="administration-create-lockboxes__element"
+                                title="City"
+                                shortDropdown="true"
+                                [ngClass]="{error: _city.invalid && ngForm.submitted}"
+                                [PassedformControl]="createLockboxForm.controls['city']"></rms-filter-component>
+            <rms-filter-component class="administration-create-lockboxes__element"
+                                title="Lockbox Number"
+                                shortDropdown="true"
+                                [ngClass]="{error: _lockboxNumber.invalid && ngForm.submitted}"
+                                [PassedformControl]="createLockboxForm.controls['lockboxNumber']"></rms-filter-component>
+            <rms-filter-component class="administration-create-lockboxes__element"
+                                title="State"
+                                shortDropdown="true"
+                                dropdown="true"
+                                [options]="stateOptions"
+                                [ngClass]="{error: _state.invalid && ngForm.submitted}"
+                                [PassedformControl]="createLockboxForm.controls['state']"></rms-filter-component>
+            <rms-filter-component class="administration-create-lockboxes__element"
+                                title="Zip Code"
+                                shortDropdown="true"
+                                [ngClass]="{error: _zipCode.invalid && ngForm.submitted}"
+                                [PassedformControl]="createLockboxForm.controls['zipCode']"></rms-filter-component>
+        </div>
+        <div class="administration-create-lockboxes__controls">
+            <button mat-flat-button
+                    class="button button_green"
+                    (click)="onPressSave()">Save</button>
+            <button mat-flat-button
+                    class="button"
+                    (click)="onPressCancel()">Cancel</button>
+        </div>
+    </form>
+</div>
+
+

@@ -1,0 +1,13 @@
+<section class="filter-date">
+    <div class="filter-date__date">
+        <p class="filter-date__title">{{title}}</p>
+        <mat-form-field>
+            <input matInput [formControl]="PassedformControl" (dateChange)="onDate($event)" [satDatepicker]="picker">
+            <sat-datepicker #picker [rangeMode]="rangeMode"></sat-datepicker>
+            <sat-datepicker-toggle matSuffix [for]="picker">
+                <mat-icon aria-label="Calendar icon" matDatepickerToggleIcon>date_range</mat-icon>
+            </sat-datepicker-toggle>
+        </mat-form-field>
+    </div>
+    <rms-custom-select (onSelectChange)="onChange($event)" [selectedOption]="selected" *ngIf="selectOption !== undefined && selectOption !== null" [selectOptions]="selectOption"></rms-custom-select>
+</section>

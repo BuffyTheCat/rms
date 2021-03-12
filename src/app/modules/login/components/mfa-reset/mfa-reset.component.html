@@ -1,0 +1,35 @@
+<img class="logo" [src]="logoPath" alt="logo">
+<form class="mfa-reset" *ngIf="!usernameIsCorrect;else email" [formGroup]="mfaResetFormUsername" novalidate #ngFormUsername="ngForm">
+    <p class="mfa-reset__title">Enter user name to reset password</p>
+    <div class="mfa-reset__content">
+        <fieldset  [ngClass]="{error:  _username.invalid && ngFormUsername.submitted || _username.invalid && (_username.dirty || _username.touched)}">
+            <p>User Name</p>
+            <input class="input" [ngClass]="{invalidValue: mfaResetFormUsername.hasError('nameError')}" type="text" formControlName="username">
+        </fieldset>
+        <button mat-flat-button
+                    (click)="onUsernameSubmit()"
+                    class="button button_green">Submit</button>
+        <a class="mfa-reset__return" routerLink="/mfa-login"><i></i> Return to login screen</a>
+    </div>
+</form>
+<ng-template #email>
+    <form *ngIf="!emailIsCorrect" class="mfa-reset" [formGroup]="mfaResetFormEmail" novalidate #ngFormEmail="ngForm">
+        <p class="mfa-reset__title">Enter your e-mail to reset password</p>
+        <div class="mfa-reset__content">
+            <fieldset [ngClass]="{error:  _email.invalid && ngFormEmail.submitted || _email.invalid && (_email.dirty || _email.touched)}">
+                <p>E-mail</p>
+                <input class="input" [ngClass]="{invalidValue: mfaResetFormEmail.hasError('nameError')}" type="email" formControlName="email">
+            </fieldset>
+            <button mat-flat-button
+                        (click)="onEmailSubmit()"
+                        class="button button_green">Submit</button>
+            <a class="mfa-reset__return" routerLink="/mfa-login"><i></i> Return to login screen</a>
+        </div>
+    </form>
+</ng-template>
+<section *ngIf="emailIsCorrect" class="mfa-reset mfa-reset_submitted">
+    <p class="mfa-reset__title">An e-mail address with your temporary password has been sent. If you do not receive an e-mail, please contact your system administrator</p>
+    <div class="mfa-reset__content">
+        <a class="mfa-reset__return" routerLink="/mfa-login"><i></i> Return to login screen</a>
+    </div>
+</section>

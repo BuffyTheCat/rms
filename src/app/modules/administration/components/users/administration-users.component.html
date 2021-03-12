@@ -1,0 +1,22 @@
+<div class="administration-users">
+    <rms-table [displayedColumns]="displayedColumns" 
+        *ngIf="(items$ | async) as items"
+        [tableData]="items"
+        [columnEditor]="false"
+        [pagination]="false"
+        (onSelectRow)="onSelectRow($event)"
+        (onEdit)="onEdit($event)"
+        title="All Users"
+        [provider]="activeProvider"
+        (onExport)="onExport($event)">
+        <div table-additional-content class="administration-users__create">
+            <button class="administration-users__create-button"
+                [routerLink]="'/administration/users/create'">
+                <mat-icon aria-label="Create user" aria-hidden="false">add_circle</mat-icon>
+                Create User 
+            </button>
+        </div>
+    </rms-table>
+</div>
+
+

@@ -1,0 +1,232 @@
+@import "../../../assets/styles/mixins.scss";
+rms-sidenav {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 9px 8px;
+    padding-bottom: 31px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+    background-color: color(maincolor);
+
+    a {
+        display: flex;
+        flex-grow: 2;
+        align-items: flex-end;
+        text-decoration: none;
+        font-size: 12px;
+        line-height: 20px;
+        letter-spacing: 0.25px;
+        color: color(textsecondary);
+
+        mat-icon {
+            margin-right: 23px;
+        }
+    }
+
+    .mat-expansion-panel-spacing {
+        margin: 0;
+    }
+
+    .mat-expansion-indicator::after {
+        color: color(textsecondary)!important;
+    }
+
+    mat-accordion {
+        &:not(:last-of-type) {
+            margin-bottom: 10px;
+        }
+    }
+
+    mat-expansion-panel {
+        border-radius: 3px!important;
+        box-shadow: none!important;
+
+        &.mat-expanded {
+            &:not(.sidenav__link_simple) {
+                mat-expansion-panel-header {
+                    margin-bottom: 12px;
+                }
+            }
+        }
+    }
+    .sidenav__link_simple {
+        .mat-expansion-panel-content {
+            display: none;
+        }
+    }
+
+    .mat-expanded {
+        height: auto!important;
+
+        .ng-trigger-indicatorRotate {
+            top: 2px;
+        }
+    }
+
+    .sidenav__sublinks {
+        display: flex;
+        flex-direction: column;
+
+        a {
+            padding-left: 43px;
+            &:not(:last-of-type) {
+                margin-bottom: 20px;
+            }
+        }
+    }
+
+    .mat-expansion-panel-header {
+        height: auto!important;
+        padding: 10px 20px;
+    }
+
+    .ng-trigger-indicatorRotate {
+        position: relative;
+        top: -2px;
+    }
+
+    .sidenav__link {
+        &.mat-expansion-panel {
+            background-color: color(maincolor);
+        }
+    }
+
+    .sidenav__link_active {
+        &.mat-expansion-panel {
+            background-color: color(sidenavactive);
+            mat-expansion-panel-header {
+                a {
+                    color: color(textmain);
+                    
+                    mat-icon {
+                        color: color(textmain);
+                    }
+                }
+            }
+        }
+
+        .mat-expansion-indicator::after {
+            color: color(secondary);
+        }
+
+        a {
+            color: color(menuaitem);
+            font-weight: 500;
+        }
+    }
+
+    a.sidenav__sublink_active {
+        color: color(textmain); 
+    }
+}
+
+.sidenav {
+    display: flex;
+    flex-direction: column;
+    width: 256px;
+    height: 100%;
+
+    nav {
+        padding-bottom: 31px;
+    }
+
+    .ps {
+        display: flex!important;
+    }
+
+    .ps-content {
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__switcher {
+        display: flex;
+        justify-content: flex-end;
+        flex-shrink: 0;
+        width: 100%;
+        padding: 11px 0;
+        margin: 0;
+        margin-bottom: 9px;
+        border: none;
+        outline: none;
+        background-color: color(maincolor);
+        cursor: pointer;
+        color: color(textsecondary);
+    }
+
+    &_closed {
+        width: auto;
+
+        a {
+            font-size: 0;
+            flex-grow: 0;
+        }
+
+        .sidenav__switcher {
+            justify-content: center;
+        }
+
+        .sidenav__copyright {
+            padding: 0 9px;
+
+            br {
+                display: inherit;
+            }
+        }
+
+        .sidenav__info {
+            a {
+                &:last-of-type {
+                    margin-bottom: 40px;
+                }
+            }
+        }
+
+        mat-icon {
+            margin-right: 0;
+        }
+
+        .mat-expansion-panel-content {
+            display: none;
+        }
+
+        mat-expansion-panel {    
+            &.mat-expanded {
+                &:not(.sidenav__link_simple) {
+                    mat-expansion-panel-header {
+                        margin-bottom: 0;
+                    }
+                }
+            }
+        }
+    }
+
+    &__info {
+        margin-top: auto;
+
+        a {
+            padding: 10px 20px;
+
+            &:not(:last-of-type) {
+                margin-bottom: 12px;
+            }
+
+            &:last-of-type {
+                margin-bottom: 59px;
+            }
+        }
+    }
+
+    &__copyright {
+        margin: 0;
+        padding: 0 20px;
+        font-size: 12px;
+        line-height: 20px;
+        letter-spacing: 0.25px;
+        color: color(textsecondary);
+
+        br {
+            display: none;
+        }
+    }
+}

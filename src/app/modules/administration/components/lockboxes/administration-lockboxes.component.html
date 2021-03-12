@@ -1,0 +1,21 @@
+<div class="administration-lockboxes">
+    <rms-table [displayedColumns]="displayedColumns" 
+                *ngIf="(items$ | async) as items"
+                [tableData]="items"
+                [columnEditor]="false"
+                [pagination]="false"
+                (onSelectRow)="onSelectRow($event)"
+                (onEdit)="onEdit($event)"
+                title="All Lockboxes"
+                [provider]="activeProvider">
+        <div table-additional-content class="administration-lockboxes__create">
+            <button class="administration-lockboxes__create-button"
+                [routerLink]="'/administration/lockboxes/create'">
+                <mat-icon aria-label="Create lockbox" aria-hidden="false">add_circle</mat-icon>
+                Create Lockbox 
+            </button>
+        </div>
+    </rms-table>
+</div>
+
+

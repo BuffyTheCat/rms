@@ -1,0 +1,24 @@
+<form class="filters" [ngClass]="opened ? '' : 'filters_closed'">
+    <button type="button" (click)="switchFilter()" class="filters__switcher">
+        <mat-icon aria-label="Switcher icon" *ngIf="opened;else menuClosedImg" aria-hidden="false">menu_open</mat-icon>
+        <ng-template #menuClosedImg>
+            <mat-icon aria-label="Switcher icon" aria-hidden="false">menu</mat-icon>
+        </ng-template>
+    </button>
+    <p class="filters__title">{{title}}</p>
+    <ng-content select="[filters-content]">
+
+    </ng-content>
+    <ng-content select="[filters-errors]">
+
+    </ng-content>
+    <div class="filters__controls">
+        <button mat-flat-button
+                class="button button_green"
+                [disabled]="disabled"
+                (click)="onPressSearch()">{{search}}</button>
+        <button mat-flat-button
+                class="button"
+                (click)="onPressClear()">{{clear}}</button>
+    </div>
+</form>

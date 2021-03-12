@@ -1,0 +1,129 @@
+@import "../../../../assets/styles/mixins.scss";
+
+rms-filter-date {
+    display: flex;
+    background: color(lightcolor);
+    border-radius: 5px;
+
+    &.error {
+
+        .filter-date {
+            border: 1px solid color(error);;
+            border-radius: 5px;
+        }
+
+        .filter-date__title {
+            color: color(error);;
+        }
+
+        .mat-datepicker-toggle {
+            color: color(error);;
+        }
+    }
+
+    rms-custom-select {
+        width: 26px;
+        display: flex;
+        align-items: center;
+        flex-shrink: 0;
+        border-left: 1px solid color(bordercolor);
+        border: 1px solid transparent;
+        transition: border .3s;
+        border-left-color: color(bordercolor);
+    }
+
+    .mat-form-field-label-wrapper,
+    .mat-input-element  {
+        color: color(textsecondary)!important;
+    }
+
+    sat-datepicker-toggle {
+        color: color(iconcolor);
+    }
+
+    .mat-form-field {
+        line-height: normal;
+    }
+
+    .mat-form-field-wrapper {
+        padding: 0!important;
+        font-size: 12px!important;
+    }
+
+    .mat-form-field-underline,
+    .mat-form-field-subscript-wrapper {
+        display: none;
+    }
+
+    .mat-form-field-flex {
+        align-items: flex-start;
+    }
+
+    .mat-form-field-infix {
+        width: 100%;
+        padding: 0;
+        margin: 0;
+        border: none;
+    }
+
+    .mat-input-element {
+        font-size: 12px;
+        line-height: normal;
+        letter-spacing: 0.15px;
+        color: color(textmain);
+        font-weight: normal;
+    }
+
+    .mat-form-field-suffix {
+        top: -7px;
+    }
+
+    .mat-icon {
+        font-size: 18px!important;
+    }
+
+    .mat-datepicker-toggle {
+        transition: color .3s;
+    }
+
+    .mat-datepicker-toggle-active {
+        color: #8ABD0F!important;
+    }
+}
+.filter-date {
+    width: 100%;
+    display: flex;
+    border-radius: 5px;
+    overflow: hidden;
+    border: 1px solid transparent;
+    transition: border .3s;
+    
+    &__date {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 2;
+        padding: 8px 17px;
+        border: 1px solid transparent;
+        transition: border .3s;
+        flex: 10 1 0%;
+    }
+
+    &__title {
+        width: 100%;
+        font-size: 11px;
+        margin: 0;
+        line-height: 16px;
+        letter-spacing: 0.4px;
+        color: color(textmain);
+        transition: color .3s;
+    }
+
+    &__value {
+        width: 100%;
+        margin: 0;
+        font-size: 12px;
+        line-height: 24px;
+        letter-spacing: 0.15px;
+        color: color(textmain);
+    }
+}

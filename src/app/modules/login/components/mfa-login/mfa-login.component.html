@@ -1,0 +1,22 @@
+<img class="logo" [src]="logoPath" alt="logo">
+<form class="mfa-login" [formGroup]="mfaLoginForm" novalidate #ngForm="ngForm">
+    <p class="mfa-login__title">Token MFA Login</p>
+    <div class="mfa-login__content">
+        <fieldset [ngClass]="{error:  _username.invalid && ngForm.submitted || _username.invalid && (_username.dirty || _username.touched)}">
+            <p>User Name</p>
+            <input class="input" [ngClass]="{invalidValue: mfaLoginForm.hasError('nameError')}" type="text" formControlName="username">
+        </fieldset>
+        <fieldset [ngClass]="{error:  _password.invalid && ngForm.submitted || _password.invalid && (_password.dirty || _password.touched)}">
+            <p>Password</p>
+            <input class="input" [ngClass]="{invalidValue: mfaLoginForm.hasError('passwordError'), hasError: (_username.invalid && ngForm.submitted) || (_password.invalid && ngForm.submitted) }" type="password" formControlName="password">
+        </fieldset>
+        <fieldset [ngClass]="{error:  _token.invalid && ngForm.submitted || _token.invalid && (_token.dirty || _token.touched)}">
+            <p>Token</p>
+            <input class="input" [ngClass]="{invalidValue: mfaLoginForm.hasError('passwordError')}" type="text" formControlName="token">
+        </fieldset>
+        <button mat-flat-button
+                    (click)="onSubmit()"
+                    class="button button_green">login</button>
+        <a class="mfa-login__forgot" routerLink="/mfa-reset">Forgot password?</a>
+    </div>
+</form>

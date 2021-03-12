@@ -1,0 +1,107 @@
+<form class="administration" [formGroup]="selectProviderForm">
+    <section class="administration__name">
+        <p>Lenny Belardo</p>
+        <a routerLink="/administration/domains">
+            <mat-icon aria-label="edit icon" aria-hidden="false">remove_red_eye</mat-icon>
+        </a>
+    </section>
+    <section class="administration__wrapper">
+        <div class="administration__main">
+            <mat-tab-group class="administration__navigation" animationDuration="0ms">
+                <div class="administration__provider">
+                    <mat-tab>
+                        <div class="administration__provider-header">
+                            <p class="administration__provider-title">Select Provider</p>
+                            <dl class="administration__provider-parent">
+                                <dt>Parent: </dt>
+                                <dd>demos</dd>
+                            </dl>
+                        </div>
+                        <div class="administration__provider-content">
+                            <rms-filter-component class="filters__element"
+                                title="Provider"
+                                *ngIf="(params$ | async) as params"
+                                [options]="params.provider"
+                                [PassedformControl]="selectProviderForm.controls['usersProvider']"></rms-filter-component>
+                            <button mat-flat-button
+                                [disabled]="_usersProvider.hasError('forbiddenNames')"
+                                (click)="onClickViewUsers()"
+                                class="button button_green">VIEW</button>
+                        </div>
+                        <ng-template mat-tab-label>
+                            Users <span>63</span>
+                        </ng-template>
+                    </mat-tab>
+                </div>
+                <div class="administration__provider">
+                    
+
+                    <mat-tab >
+                        <div class="administration__provider-header">
+                            <p class="administration__provider-title">Select Provider</p>
+                            <dl class="administration__provider-parent">
+                                <dt>Parent: </dt>
+                                <dd>demos</dd>
+                            </dl>
+                        </div>
+                        <div class="administration__provider-content">
+                            <rms-filter-component class="filters__element"
+                                title="Provider"
+                                *ngIf="(params$ | async) as params"
+                                [options]="params.provider"
+                                [PassedformControl]="selectProviderForm.controls['profilesProvider']"></rms-filter-component>
+                            <button mat-flat-button
+                                [disabled]="_profilesProvider.hasError('forbiddenNames')"
+                                (click)="onClickViewProfiles()"
+                                class="button button_green">VIEW</button>
+                        </div>
+                        <ng-template mat-tab-label>
+                            Profiles <span>10</span>
+                        </ng-template>
+                    </mat-tab>
+                </div>
+                <div class="administration__provider">
+                    <mat-tab >
+                        <div class="administration__provider-header">
+                            <p class="administration__provider-title">Select Provider</p>
+                            <dl class="administration__provider-parent">
+                                <dt>Parent: </dt>   
+                                <dd>demos</dd>
+                            </dl>
+                        </div>
+                        <div class="administration__provider-content">
+                            <rms-filter-component class="filters__element"
+                                title="Provider"
+                                *ngIf="(params$ | async) as params"
+                                [options]="params.provider"
+                                [PassedformControl]="selectProviderForm.controls['lockboxesProvider']"></rms-filter-component>
+                            <button mat-flat-button
+                                [disabled]="_lockboxesProvider.hasError('forbiddenNames')"
+                                (click)="onClickViewLockboxes()"
+                                class="button button_green">VIEW</button>
+                        </div>
+                        <ng-template mat-tab-label>
+                            Lockboxes <span>21</span>
+                        </ng-template>
+                    </mat-tab>
+                </div>
+            </mat-tab-group>
+        </div>
+        <div class="administration__children">
+            <div class="administration__children-header">
+                <p class="administration__provider-title">Provider Children</p>
+            </div>
+            <div class="administration__children-content">
+                <mat-checkbox formControlName="ADD_DOMAIN">ADD_DOMAIN</mat-checkbox>
+                <mat-checkbox formControlName="ADMIN_VIEW">ADMIN_VIEW</mat-checkbox>
+                <mat-checkbox formControlName="ASSIGN_CHILD_DOMAIN_ACCESS">ASSIGN_CHILD_DOMAIN_ACCESS</mat-checkbox>
+                <mat-checkbox formControlName="ASSIGN_DASHBOARDS">ASSIGN_DASHBOARDS</mat-checkbox>
+                <mat-checkbox formControlName="ASSIGN_PROFILES">ASSIGN_PROFILES</mat-checkbox>
+                <mat-checkbox formControlName="ASSIGN_QUEUES">ASSIGN_QUEUES</mat-checkbox>
+                <mat-checkbox formControlName="ASSIGN_REPORTS">ASSIGN_REPORTS</mat-checkbox>
+            </div>
+        </div>
+    </section>
+</form>
+
+

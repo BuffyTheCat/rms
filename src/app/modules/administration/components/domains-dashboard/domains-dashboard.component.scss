@@ -1,0 +1,63 @@
+@import "../../../../../assets/styles/mixins.scss";
+
+rms-domains-dashboard {
+    display: flex;
+    align-items: flex-start;
+    align-content: flex-start;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.domains-dashboard {
+    display: flex;
+    flex-grow: 2;
+    flex-wrap: wrap;
+    width: 100%;
+
+
+    &__title {
+        margin: 0;
+        margin-bottom: 22px;
+        padding: 8px 32px;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 20px;
+        letter-spacing: 0.25px;
+        color: var(--color-textmain);
+        background-color: color(modalhead);
+    }
+
+    &__column {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 2;
+
+        rms-filter-component {
+            margin: 0 32px;
+            margin-right: 11px;
+
+            &:not(:last-of-type) {
+                margin-bottom: 22px;
+            }
+        }
+    }
+
+    &__controls {
+        width: 100%;
+        display: flex;
+        margin-top: auto;
+        padding: 0 32px;
+        
+        button.button {
+            width: 206px;
+
+            &:not(:last-of-type) {
+                margin-right: 16px;
+            }
+        }
+    }
+    
+}

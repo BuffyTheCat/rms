@@ -1,0 +1,170 @@
+@import "../../../../assets/styles/mixins.scss";
+
+.columns-editor {
+    display: flex;
+    flex-direction: column;
+
+    &__head {
+        display: flex;
+        align-items: center;
+        padding: 19px 34px;
+        padding-bottom: 24px;
+        background-color: color(modalhead);
+
+        p {
+            margin: 0;
+            margin-right: auto;
+            font-weight: 500;
+            font-size: 12px;
+            line-height: 16px;
+            letter-spacing: 0.25px;
+            color: color(textmain);
+        }
+
+        button {
+            display: flex;
+            padding: 5px;
+            margin: 0;
+            margin-right: -5px;
+            background-color: transparent;
+            outline: none;
+            border: none;
+            color: color(textsecondary);
+            cursor: pointer;
+        }
+    }
+
+    &__main {
+        padding: 64px 34px;
+        padding-bottom: 50px;
+        background-color: color(modalbody);
+    }
+
+    &__controls {
+        display: flex;
+        align-items: center;
+        margin-top: 25px;
+
+        button:not(.button) {
+            display: flex;
+            padding: 0;
+            background-color: transparent;
+            outline: none;
+            margin: 0;
+            cursor: pointer;
+            border: none;
+            color: color(textsecondary);
+
+            &:not(:last-of-type) {
+                margin-right: 20px;
+            }
+
+            &:not(:first-of-type) {
+                margin-right: auto;
+            }
+        }
+
+        .button {
+            width: 120px;
+
+            &:first-of-type {
+                margin-left: auto;
+            }
+
+            &:not(:first-of-type):not(:last-of-type) {
+                margin-right: 5px;
+            }
+        }
+    }
+
+    &__tables {
+        display: flex;
+        align-items: center;
+    }
+
+    &__table-wrap {
+        height: 393px;
+        width: 410px;
+        border-radius: 3px;
+        border: 1px solid #E9EDEF;
+
+        &:first-of-type {
+            margin-right: 23px;
+        }
+    }
+
+    &__switcher {
+        display: flex;
+        flex-direction: column;
+        margin-right: 23px;
+
+        button {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            width: 30px;
+            height: 30px;
+            background-color: #E9EDEF;
+            border: none;
+            outline: none;
+            color: color(textsecondary);
+            line-height: initial;
+            min-width: auto;
+
+            &:active {
+                background-color: color(secondary);
+                color: white;
+            }
+
+            &:not(:last-of-type) {
+                margin-bottom: 5px;
+            }
+        }
+    }
+
+    table {
+        width: 100%;
+
+        thead {
+            tr.mat-header-row {
+                background-color: color(modalhead);
+
+                th {
+                    font-style: normal;
+                    font-weight: 500;
+                    font-size: 12px;
+                    line-height: 20px;
+                    letter-spacing: 0.25px;
+                    color: color(textmain);
+
+                    p {
+                        margin-left: 16px;
+                        display: inline;
+                        font-weight: normal;
+                        font-size: 12px;
+                        line-height: 20px;
+                        letter-spacing: 0.25px;
+                        color: color(textmain);
+                    }
+                }
+            }
+        }
+
+        tbody {
+            tr {
+                cursor: pointer;
+                background-color: color(modalbody);
+                td {
+                    font-weight: normal;
+                    font-size: 12px;
+                    line-height: 20px;
+                    letter-spacing: 0.25px;
+                    color: color(textsecondary);
+                    border: none;
+                }
+            }
+        }
+    }
+}

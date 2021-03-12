@@ -1,0 +1,19 @@
+<section class="delete-modal">
+    <div class="delete-modal__head">
+        <p>{{title}}</p>
+        <button mat-dialog-close>
+            <mat-icon aria-label="Close icon" aria-hidden="false" type="none">close</mat-icon>
+        </button>
+    </div>
+    <div class="delete-modal__main">
+        <p class="delete-modal__question">{{question}}</p>
+        <div class="delete-modal__controls">
+            <button mat-flat-button
+                    class="button button_green"
+                    [mat-dialog-close]="true">Delete</button>
+            <button mat-flat-button
+                    mat-dialog-close
+                    class="button">cancel</button>
+        </div>
+    </div>
+</section>

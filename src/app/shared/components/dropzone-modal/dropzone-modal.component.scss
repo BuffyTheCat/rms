@@ -1,0 +1,130 @@
+@import "../../../../assets/styles/mixins.scss";
+
+rms-dropzone-modal {
+    display: flex;
+}
+
+.dropzone-modal {
+    display: flex;
+    flex-direction: column;
+    width: 504px;
+
+    &__head {
+        display: flex;
+        align-items: center;
+        padding: 19px 34px;
+        padding-bottom: 24px;
+        background-color: color(modalhead);
+
+        p {
+            margin: 0;
+            margin-right: auto;
+            font-weight: 500;
+            font-size: 12px;
+            line-height: 16px;
+            letter-spacing: 0.25px;
+            color: color(textmain);
+        }
+
+        button {
+            display: flex;
+            padding: 5px;
+            margin: 0;
+            margin-right: -5px;
+            background-color: transparent;
+            outline: none;
+            border: none;
+            color: color(textsecondary);
+            cursor: pointer;
+
+            mat-icon {
+                font-size: 18px;
+                width: 18px;
+                height: 18px;
+            }
+        }
+    }
+
+    &__main {
+        padding: 30px 34px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: color(modalbody);
+
+        ngx-dropzone {
+            width: 100%;
+            margin-bottom: 32px;
+            background: #FFFFFF;
+            border: 2px dashed #E9EDEF;
+            box-sizing: border-box;
+            border-radius: 5px;
+        }
+
+        ngx-dropzone-label {
+            font-weight: 500;
+            font-size: 12px;
+            line-height: 16px;
+            color: color(textmain);
+        }
+
+        ngx-dropzone-image-preview {
+            outline: none!important;
+            
+            img {
+                opacity: 1!important;
+            }
+
+            &:hover {
+                img {
+                    opacity: 1!important;
+                }
+            }
+        }
+
+        & > span {
+            margin: 0;
+            margin-bottom: 25px;
+            font-weight: 500;
+            font-size: 12px;
+            line-height: 16px;
+            color: color(textmain);
+        }
+    }
+
+    &__manual {
+        display: flex;
+        align-items: center;
+        background-color: transparent;
+        padding: 0;
+        outline: none;
+        border: none;
+        color: color(secondary);
+        font-style: normal;
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 16px;
+        letter-spacing: 1.25px;
+        text-transform: uppercase;
+        cursor: pointer;
+    }
+
+    &__controls {
+        display: flex;
+        align-items: center;
+        margin-top: 137px;
+        width: 100%;
+
+        .button {
+            width: 206px;
+
+            &:first-of-type {
+                margin-right: auto;
+            }
+
+            &:not(:first-of-type):not(:last-of-type) {
+                margin-right: 5px;
+            }
+        }
+    }
+}

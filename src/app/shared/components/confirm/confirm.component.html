@@ -1,0 +1,11 @@
+<section class="confirm">
+    <p>{{question}}</p>
+    <div class="confirm__controls">
+        <button mat-flat-button
+                class="button button_green"
+                [mat-dialog-close]="true">{{apply}}</button>
+        <button mat-flat-button
+                class="button"
+                (click)="onCloseClick()">{{cancel}}</button>
+    </div>
+</section>

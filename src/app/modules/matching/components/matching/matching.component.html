@@ -1,0 +1,185 @@
+<perfect-scrollbar class="matching">
+    <rms-table [displayedColumns]="displayedColumns" 
+               #table
+               *ngIf="(items$ | async) as items"
+               [tableData]="items"
+               [selectOptionRow]="selectOptionRow"
+               download="true"
+               (onExport)="onExport($event)"
+               (onSelectRow)="onSelectRow($event)"
+               (onSelectChange)="onSelectChange($event)"
+               (onSearchTable)="onFindPayment()"
+               (onDownload)="onDownload($event)">
+        <div class="matching__buttons" table-additional-header>
+            <button class="matching__table-button"
+                    (click)="onIgnoreEra()">
+                Ignore Era
+            </button>
+            <button class="matching__table-button"
+                    (click)="onReleaseEra()">
+                release Era
+            </button>
+        </div>        
+    </rms-table>
+    <rms-table [displayedColumns]="displayedColumnsPayments"
+               *ngIf="(items$ | async) as items"
+               [tableData]="items"
+               [selectOptionRow]="selectOptionRow"
+               (onSearchTable)="onFindEra()"
+               (onSelectChange)="onSelectChange($event)"
+               (onSelectRow)="onSelectRow($event)"
+               (onExport)="onExport($event)">
+        <div class="matching__buttons" table-additional-header>
+            <button class="matching__table-button"
+                    (click)="onIgnorePayments()">
+                Ignore payments
+            </button>
+            <button class="matching__table-button"
+                    (click)="onMatch()">
+                Match
+            </button>
+        </div>          
+    </rms-table>
+</perfect-scrollbar>
+<rms-filter-with-tabs 
+                     [formGroup]="matchingForm"
+                     novalidate
+                     #ngForm="ngForm"
+                     label="ERA" 
+                     secondLabel="Payments" 
+                     searchTabs="true"
+                     (onClear)="onClearPayments()"
+                     (onClearFirst)="onClearEra()"
+                     (onSearchFirst)="onSearchEra()"
+                     (onSearch)="onSearchPayments()">
+    <div class="filters-with-tabs__content filters-with-tabs__content_search"
+         filters-with-tabs-first-tab
+         formGroupName="eraForm">
+         <rms-filter-date class="filters-with-tabs__element"
+                        #recieveDate
+                        [rangeMode]="false"
+                        [ngClass]="{error: _recieveDate.invalid && ngForm.submitted}"
+                        [PassedformControl]="matchingForm.controls.eraForm['controls']['recieveDate']"
+                        title="Recieve Date"></rms-filter-date>
+        <rms-filter-component class="filters-with-tabs__element"
+                        title="Payment Number"
+                        shortDropdown="true"
+                        *ngIf="(params$ | async) as params"
+                        [options]="params.paymentNumber"
+                        [ngClass]="{error: _paymentNumber.invalid && ngForm.submitted}"
+                        [PassedformControl]="matchingForm.controls.eraForm['controls']['paymentNumber']"
+                        (onChangeSearchOption)="onChangeSearchOptionPaymentNumber($event)"
+                        [selectedOption]="params.paymentNumberSelectedOption"></rms-filter-component>
+        <rms-filter-component class="filters-with-tabs__element"
+                        title="Payment Amount"
+                        moneyField="true"
+                        shortDropdown="true"
+                        *ngIf="(params$ | async) as params"
+                        [options]="params.paymentAmount"
+                        [ngClass]="{error: _paymentAmount.invalid && ngForm.submitted}"
+                        [PassedformControl]="matchingForm.controls.eraForm['controls']['paymentAmount']"
+                        (onChangeSearchOption)="onChangeSearchOptionPaymentAmount($event)"
+                        [selectedOption]="params.paymentAmountSelectedOption"></rms-filter-component>
+        <rms-filter-component class="filters-with-tabs__element"
+                        title="Payer"
+                        shortDropdown="true"
+                        *ngIf="(params$ | async) as params"
+                        [options]="params.payerName"
+                        [ngClass]="{error: _payerName.invalid && ngForm.submitted}"
+                        [PassedformControl]="matchingForm.controls.eraForm['controls']['payerName']"
+                        (onChangeSearchOption)="onChangeSearchOptionPayerName($event)"
+                        [selectedOption]="params.payerNameSelectedOption"></rms-filter-component>
+        <rms-filter-component class="filters-with-tabs__element"
+                        title="Provider"
+                        shortDropdown="true"
+                        *ngIf="(params$ | async) as params"
+                        [options]="params.provider"
+                        [ngClass]="{error: _provider.invalid && ngForm.submitted}"
+                        [PassedformControl]="matchingForm.controls.eraForm['controls']['provider']"
+                        (onChangeSearchOption)="onChangeSearchOptionProvider($event)"
+                        [selectedOption]="params.providerSelectedOption"></rms-filter-component>
+    </div>
+    <perfect-scrollbar class="filters-with-tabs__content filters-with-tabs__content_search" 
+                       filters-with-tabs-second-tab
+                       formGroupName="paymentsForm">
+                        <rms-filter-date class="filters-with-tabs__element"
+                                        #dateOfDeposite
+                                        [rangeMode]="false"
+                                        [ngClass]="{error: _dateOfDeposite.invalid && ngForm.submitted}"
+                                        [PassedformControl]="matchingForm.controls.paymentsForm['controls']['dateOfDeposite']"
+                                        title="Date of Deposite"></rms-filter-date>
+                        <rms-filter-component class="filters-with-tabs__element"
+                                        title="Batch"
+                                        shortDropdown="true"
+                                        *ngIf="(params$ | async) as params"
+                                        [options]="params.batch"
+                                        [ngClass]="{error: _batch.invalid && ngForm.submitted}"
+                                        [PassedformControl]="matchingForm.controls.paymentsForm['controls']['batch']"
+                                        (onChangeSearchOption)="onChangeSearchOptionBatch($event)"
+                                        [selectedOption]="params.batchSelectedOption"></rms-filter-component>
+                        <rms-filter-component class="filters-with-tabs__element"
+                                        title="Payment Number"
+                                        shortDropdown="true"
+                                        *ngIf="(params$ | async) as params"
+                                        [options]="params.paymentNumber"
+                                        [ngClass]="{error: _paymentNumberEra.invalid && ngForm.submitted}"
+                                        [PassedformControl]="matchingForm.controls.paymentsForm['controls']['paymentNumberEra']"
+                                        (onChangeSearchOption)="onChangeSearchOptionPaymentNumberEra($event)"
+                                        [selectedOption]="params.paymentNumberSelectedOption"></rms-filter-component>
+                        <rms-filter-component class="filters-with-tabs__element"
+                                        title="Payer Group"
+                                        shortDropdown="true"
+                                        *ngIf="(params$ | async) as params"
+                                        [options]="params.payerGroup"
+                                        [ngClass]="{error: _payerGroup.invalid && ngForm.submitted}"
+                                        [PassedformControl]="matchingForm.controls.paymentsForm['controls']['payerGroup']"
+                                        (onChangeSearchOption)="onChangeSearchOptionPayerGroup($event)"
+                                        [selectedOption]="params.payerGroupSelectedOption"></rms-filter-component>
+                        <rms-filter-component class="filters-with-tabs__element"
+                                        title="Payment Amount"
+                                        moneyField="true"
+                                        shortDropdown="true"
+                                        *ngIf="(params$ | async) as params"
+                                        [options]="params.paymentAmount"
+                                        [ngClass]="{error: _paymentAmountEra.invalid && ngForm.submitted}"
+                                        [PassedformControl]="matchingForm.controls.paymentsForm['controls']['paymentAmountEra']"
+                                        (onChangeSearchOption)="onChangeSearchOptionPaymentAmountEra($event)"
+                                        [selectedOption]="params.paymentAmountSelectedOption"></rms-filter-component>
+                        <rms-filter-component class="filters-with-tabs__element"
+                                        title="TRN"
+                                        shortDropdown="true"
+                                        *ngIf="(params$ | async) as params"
+                                        [options]="params.TRN"
+                                        [ngClass]="{error: _TRN.invalid && ngForm.submitted}"
+                                        [PassedformControl]="matchingForm.controls.paymentsForm['controls']['TRN']"
+                                        (onChangeSearchOption)="onChangeSearchOptionTRN($event)"
+                                        [selectedOption]="params.TRNSelectedOption"></rms-filter-component>
+                        <rms-filter-component class="filters-with-tabs__element"
+                                        title="Payment Type"
+                                        shortDropdown="true"
+                                        *ngIf="(params$ | async) as params"
+                                        [options]="params.paymentType"
+                                        [ngClass]="{error: _paymentType.invalid && ngForm.submitted}"
+                                        [PassedformControl]="matchingForm.controls.paymentsForm['controls']['paymentType']"
+                                        (onChangeSearchOption)="onChangeSearchOptionPaymentType($event)"
+                                        [selectedOption]="params.paymentTypeSelectedOption"></rms-filter-component>
+                        <rms-filter-component class="filters-with-tabs__element"
+                                        title="Payer"
+                                        shortDropdown="true"
+                                        *ngIf="(params$ | async) as params"
+                                        [options]="params.payerName"
+                                        [ngClass]="{error: _payerNameEra.invalid && ngForm.submitted}"
+                                        [PassedformControl]="matchingForm.controls.paymentsForm['controls']['payerNameEra']"
+                                        (onChangeSearchOption)="onChangeSearchOptionPayerNameEra($event)"
+                                        [selectedOption]="params.payerNameSelectedOption"></rms-filter-component>
+                        <rms-filter-component class="filters-with-tabs__element"
+                                        title="Provider"
+                                        shortDropdown="true"
+                                        *ngIf="(params$ | async) as params"
+                                        [options]="params.provider"
+                                        [ngClass]="{error: _providerEra.invalid && ngForm.submitted}"
+                                        [PassedformControl]="matchingForm.controls.paymentsForm['controls']['providerEra']"
+                                        (onChangeSearchOption)="onChangeSearchOptionProviderEra($event)"
+                                        [selectedOption]="params.providerSelectedOption"></rms-filter-component>
+    </perfect-scrollbar>
+</rms-filter-with-tabs>

@@ -1,0 +1,177 @@
+@import "../../../../assets/styles/mixins.scss";
+
+.select-color {
+    
+    &__left-side {
+        position: relative;
+        border-radius: 5px;
+    }
+
+    &__input {
+        width: 152px;
+        padding: 20px;
+        padding-left: 56px;
+        padding-right: 30px;
+        border: none;
+        outline: none;
+        color: color(textmain);
+        // border-right: 1px solid color(bordercolor);
+        background-color: color(datecolor);
+        border-radius: 5px;
+    }
+
+    &__color {
+        position: absolute;
+        top: 50%;
+        left: 20px;
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        transform: translateY(-50%);
+    }
+
+    .color-picker  {
+        flex-wrap: wrap;
+        padding: 16px;
+        padding-bottom: 20px;
+        background: #FFFFFF;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        border-radius: 6px;
+        border: none;
+        transform: translate(16px, -10px);
+        box-sizing: content-box;
+
+        &.open {
+            display: flex!important;
+        }
+
+        .arrow {
+            border-color: transparent transparent white!important;
+            border-width: 10px 10px!important;
+            left: 20px!important;
+        }
+
+        .cursor {
+            width: 32px;
+            height: 32px;
+            border: 8px solid white;
+            transform: translate(-8px, -8px);
+            box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.5);
+            cursor: grab;
+        }
+        
+        .saturation-lightness {
+            width: 100%;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            order: 1;
+        }
+
+        .type-policy  {
+            display: none;
+        }
+
+        .hex-text,
+        .rgba-text {
+            padding: 0;
+            width: auto;
+            display: flex!important;
+            flex-direction: column-reverse;
+
+            .box {
+                padding: 0;
+
+                div {
+                    margin-bottom: 8px;
+                    text-align: left;
+                    font-size: 12px;
+                    line-height: 16px;
+                    text-transform: uppercase;
+                    color: color(textmain);
+                }
+            }
+        }
+
+        .hex-text {
+            order: 3;
+            margin-right: 8px;
+
+            input {
+                margin: 0;
+                padding: 12px 20px!important;
+                outline: none;
+                border: 1px solid #E5E6E7;
+                border-radius: 8px;
+                font-size: 12px;
+                line-height: 16px;
+                text-transform: uppercase;
+                color: color(textmain);
+                letter-spacing: 1.25px;
+                width: auto;
+                width: 100px;
+                height: 40px;
+                flex-grow: 0!important;
+                min-width: auto!important;
+            }
+        }
+
+        .rgba-text {
+            order: 4;
+            margin-right: -8px;
+
+            input {
+                padding: 12px 16px!important;
+                outline: none;
+                border: 1px solid #E5E6E7;
+                border-radius: 8px;
+                font-size: 12px;
+                line-height: 16px;
+                text-transform: uppercase;
+                color: color(textmain);
+                letter-spacing: 1.25px;
+                width: 64px;
+                height: 40px;
+                flex-grow: 0!important;
+                min-width: auto!important;
+
+                &:last-of-type {
+                    display: none;
+                }
+            }
+
+            .box {
+                div {
+                    &:last-of-type {
+                        display: none;
+                    }
+                }
+            }
+        }
+
+        .hue-alpha {
+            width: 100%;
+            order: 2;
+
+            &.box {
+                padding: 0;
+
+                .left {
+                    display: none;
+                }
+
+                .right {
+                    padding: 0;
+                    margin-bottom: 16px;
+
+                    .hue {
+                        margin: 0;
+                    }
+
+                    & > div:not(.hue) {
+                        display: none!important;
+                    }
+                }
+            }
+        }
+    }
+}

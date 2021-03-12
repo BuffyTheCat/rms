@@ -1,0 +1,102 @@
+<form class="new-report" [formGroup]="reportForm" #ngForm="ngForm">
+    <div class="new-report__head">
+        <p>Check Detail</p>
+        <button [routerLink]="'/reports/report-scheduler'">
+            <mat-icon aria-label="Close icon" aria-hidden="false">close</mat-icon>
+        </button>
+    </div>
+    <perfect-scrollbar class="new-report__main">
+        <section class="new-report__section">
+            <p class="new-report__title">Report Details</p>
+            <dl>
+                <dt>Report Type:</dt>
+                <dd>Outstanding ACH</dd>
+            </dl>
+            <div class="new-report__section-wrap">
+                <input class="input input_grey" formControlName="name" [ngClass]="{error: _name.invalid && ngForm.submitted}" type="text" [ngModel]="passedData ? passedData.reportName : null" placeholder="Report Name">
+                <div class="new-report__radio">
+                    <p>{{checked ? 'Enable' : 'Disable'}}</p>
+                    <mat-slide-toggle formControlName="enable" [(ngModel)]="checked"></mat-slide-toggle>
+                </div>
+            </div>
+            <p class="new-report__desc">*Report name well be appended with _date.csv</p>
+        </section>
+        <section class="new-report__section">
+            <p class="new-report__title">Domains</p>
+            <div class="new-report__section-wrap">
+                <input class="input input_grey" [ngClass]="{error: _domain.invalid && ngForm.submitted}" formControlName="domain" [matAutocomplete]="auto" type="text" placeholder="Search for domains">
+                <mat-autocomplete #auto="matAutocomplete" 
+                                  [@.disabled]="true"
+                                  class="report-autocomplete"
+                                  [panelWidth]="'344px'"
+                                  position="auto">
+                    <perfect-scrollbar #perfectScroll>
+                        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                            {{option}}
+                        </mat-option>
+                    </perfect-scrollbar>
+                </mat-autocomplete>
+                <mat-radio-group formControlName="file" aria-label="Select an option">
+                    <mat-radio-button checked value="filePerDomain">One file per domain</mat-radio-button>
+                    <mat-radio-button value="combinedFile">One combined file</mat-radio-button>
+                </mat-radio-group>                  
+            </div>
+        </section>
+        <section class="new-report__section">
+            <p class="new-report__title">Parameters</p>
+            <mat-select class="grey-select" formControlName="grouping" panelClass="simple-panel">
+                <perfect-scrollbar>
+                    <mat-option *ngFor="let val of shedulerGrouping" [value]="val.value">{{val.name}}</mat-option>
+                </perfect-scrollbar>
+            </mat-select>
+            <p class="new-report__title">From Date Of Deposit to Date Of Deposit</p>
+            <mat-select formControlName="dateOfDeposite" class="grey-select">
+                <mat-option *ngFor="let val of shedulerReports" [value]="val.value">{{val.name}}</mat-option>
+            </mat-select>
+            <p class="new-report__desc">*Indicates required parameter </p>
+        </section>
+        <section class="new-report__section new-report__section_interval">
+            <p class="new-report__title">Interval</p>
+            <div class="new-report__section-wrap">
+                <mat-select class="grey-select" [ngClass]="{error: _interval.invalid && ngForm.submitted}" formControlName="interval" placeholder="Interval" (selectionChange)="onChangeInterval($event.value)">
+                    <mat-option *ngFor="let val of shedulerReportsWeek" [value]="val.value">{{val.name}}</mat-option>
+                </mat-select>
+                <mat-select class="grey-select" [ngClass]="{error: _dayOfMonth.invalid && ngForm.submitted}" formControlName="dayOfMonth" *ngIf="isDayOfMonth" panelClass="simple-panel" placeholder="Day Of Month" multiple>
+                    <perfect-scrollbar>
+                        <mat-option *ngFor="let val of shedulerReportsDayOfMonth" [value]="val">
+                            {{val}}
+                        </mat-option>
+                    </perfect-scrollbar>
+                </mat-select>
+                <mat-select class="grey-select" [ngClass]="{error: _dayOfWeek.invalid && ngForm.submitted}" *ngIf="isDayOfWeek" formControlName="dayOfWeek" panelClass="simple-panel" placeholder="Day Of Week" multiple >
+                    <perfect-scrollbar>
+                        <mat-option *ngFor="let val of shedulerReportsDayOfWeek" [value]="val">
+                            {{val}}
+                        </mat-option>
+                    </perfect-scrollbar>
+                </mat-select>
+                <mat-select class="grey-select" [ngClass]="{error: _hour.invalid && ngForm.submitted}" formControlName="hour" panelClass="simple-panel" placeholder="Hour">
+                    <perfect-scrollbar>
+                        <mat-option *ngFor="let val of shedulerReportsHour" [value]="val">
+                            {{val}}
+                        </mat-option>
+                    </perfect-scrollbar>
+                </mat-select>
+            </div>
+            <p class="error" *ngIf="_name.invalid && ngForm.submitted">Please write name.</p>
+            <p class="error" *ngIf="_interval.invalid && ngForm.submitted">Please select an interval.</p>
+            <p class="error" *ngIf="_dayOfMonth.invalid && ngForm.submitted">Please select an interval.</p>
+            <p class="error" *ngIf="_dayOfWeek.invalid && ngForm.submitted">Please select an interval.</p>
+            <p class="error" *ngIf="_hour.invalid && ngForm.submitted">Please select an hour.</p>
+            <p class="error" *ngIf="_domain.invalid && ngForm.submitted">Please select a domain.</p>
+        </section>
+        <div class="new-report__controls">
+            <button mat-flat-button
+                    (click)="onSave()"
+                    class="button button_green">SAVE</button>
+            <button mat-flat-button
+                    (click)="onCancel()"
+                    class="button">CANCEL</button>
+        </div>
+    </perfect-scrollbar>
+</form>

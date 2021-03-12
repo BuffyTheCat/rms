@@ -1,0 +1,40 @@
+<div class="domains-queues">
+    <rms-table [displayedColumns]="displayedColumns" 
+        *ngIf="(items$ | async) as items"
+        [tableData]="items"
+        [columnEditor]="false"
+        [pagination]="false"
+        (onSelectRow)="onSelectRow($event)"
+        (onEdit)="onEdit($event)"
+        (onRemove)="onRemove($event)"
+        title="All Users"
+        [provider]="activeProvider">
+        <div table-additional-content class="domains-queues__create">
+            <button class="domains-queues__create-button"
+                    (click)="onPressAdd()">
+                <mat-icon aria-label="Create user" aria-hidden="false">add_circle</mat-icon>
+                Add Queue
+            </button>
+        </div>
+    </rms-table>
+    <div class="domains-info__controls">
+        <button mat-flat-button
+                class="button button_green"
+                (click)="onPressSave()">Save</button>
+        <button mat-flat-button
+                class="button"
+                (click)="onPressCancel()">Cancel</button>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,11 @@
+<div class="line-chart">
+    <p class="line-chart__title">{{title}}</p>
+    <canvas baseChart width="400" height="400"
+                [datasets]="lineChartData"
+                [labels]="lineChartLabels"
+                [options]="lineChartOptions"
+                [colors]="lineChartColors"
+                [legend]="false"
+                [chartType]="lineChartType"></canvas>
+</div>
+  

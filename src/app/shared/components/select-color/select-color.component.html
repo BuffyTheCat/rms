@@ -1,0 +1,13 @@
+<section class="select-color">
+    <div class="select-color__left-side"
+         (colorPickerChange)="changeColor($event)"
+         [(colorPicker)]="color"
+         [cpPosition]="'bottom'"
+         [cpWidth]="'320px'"
+         [cpPositionOffset]="'0'"
+         [cpPositionRelativeToArrow]="true">
+         <span [style.background]="color" class="select-color__color"></span>
+         <input class="select-color__input" disabled 
+                [value]="color"/>
+    </div>
+</section>

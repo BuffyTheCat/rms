@@ -1,0 +1,103 @@
+<section class="columns-editor">
+    <div class="columns-editor__head">
+        <p>Columns editor</p>
+        <button mat-dialog-close>
+            <mat-icon aria-label="Close icon" aria-hidden="false" type="">close</mat-icon>
+        </button>
+    </div>
+    <div class="columns-editor__main">
+        <div class="columns-editor__tables" cdkDropListGroup>
+            <perfect-scrollbar #perfectScroll class="columns-editor__table-wrap" 
+                 cdkDropList
+                 [cdkDropListData]="firstTableDisplayedColumns"
+                 (cdkDropListDropped)="drop($event)">
+                <table #tableAvailible class="columns-editor__left" mat-table [dataSource]="firstTableDisplayedColumns">
+                    <ng-container matColumnDef="select">
+                        <th mat-header-cell *matHeaderCellDef>
+                          <mat-checkbox (change)="$event ? masterToggle() : null"
+                                        [checked]="selection.hasValue() && isAllSelected()"
+                                        [indeterminate]="selection.hasValue() && !isAllSelected()">
+                          </mat-checkbox>
+                          <p>
+                            {{selection.selected.length}}/{{firstTableDisplayedColumns.length}} items
+                          </p>
+                        </th>
+                        <td mat-cell *matCellDef="let row">
+                          <mat-checkbox (click)="$event.stopPropagation()"
+                                        (change)="$event ? selection.toggle(row) : null"
+                                        [checked]="selection.isSelected(row)">
+                          </mat-checkbox>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="column">
+                        <th mat-header-cell *matHeaderCellDef>Available Columns</th>
+                        <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="['select', 'column']; sticky: true"></tr>
+                    <tr mat-row 
+                        cdkDrag 
+                        cdkDragBoundary=".columns-editor__main"
+                        *matRowDef="let row; columns: ['select', 'column']"
+                        (click)="selection.toggle(row)"></tr>
+                </table>
+            </perfect-scrollbar>
+            <div class="columns-editor__switcher">
+                <button mat-flat-button (click)="onPressToSelected()"> 
+                    <mat-icon aria-label="To right icon" aria-hidden="false">chevron_right</mat-icon>
+                </button>
+                <button mat-flat-button (click)="onPressToAvailible()">
+                    <mat-icon aria-label="To left icon" aria-hidden="false">chevron_left</mat-icon>
+                </button>
+            </div>
+            <perfect-scrollbar #perfectScrollRight class="columns-editor__table-wrap" 
+                 cdkDropList
+                 [cdkDropListData]="secondTableDisplayedColumns"
+                 (cdkDropListDropped)="drop($event)">
+                <table #tableSelected  class="columns-editor__right" mat-table [dataSource]="secondTableDisplayedColumns">
+                    <ng-container matColumnDef="select">
+                        <th mat-header-cell *matHeaderCellDef>
+                          <mat-checkbox (change)="$event ? masterToggleRight() : null"
+                                        [checked]="selectionRight.hasValue() && isAllSelectedRight()"
+                                        [indeterminate]="selectionRight.hasValue() && !isAllSelectedRight()">
+                          </mat-checkbox>
+                          <p>
+                            {{selectionRight.selected.length}}/{{secondTableDisplayedColumns.length}} items
+                          </p>
+                        </th>
+                        <td mat-cell *matCellDef="let row">
+                          <mat-checkbox (click)="$event.stopPropagation()"
+                                        (change)="$event ? selectionRight.toggle(row) : null"
+                                        [checked]="selectionRight.isSelected(row)">
+                          </mat-checkbox>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="column">
+                        <th mat-header-cell *matHeaderCellDef>Selected Columns</th>
+                        <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="['select', 'column']; sticky: true"></tr>
+                    <tr mat-row 
+                        cdkDrag
+                        cdkDragBoundary=".columns-editor__main"
+                        *matRowDef="let row; columns: ['select', 'column']"
+                        (click)="selectionRight.toggle(row)"></tr>
+                </table>
+            </perfect-scrollbar>
+        </div>
+
+        <div class="columns-editor__controls">
+            <button (click)="onPressRestore()">
+                <mat-icon aria-label="Restore icon" aria-hidden="false">restore</mat-icon>
+            </button>
+            <button [mat-dialog-close]="{'reset': true, 'first': firstTableDisplayedColumns,'second': secondTableDisplayedColumns}">
+                <img src="../../../assets/icons/selection-control.svg" alt="selection-control">
+            </button>
+            <button mat-flat-button
+                    class="button button_green"
+                    [mat-dialog-close]="{'first': firstTableDisplayedColumns,'second': secondTableDisplayedColumns}">FINISH</button>
+            <button mat-flat-button
+                    class="button"
+                    (click)="onCloseClick()">cancel</button>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,31 @@
+<div class="reports">
+    <perfect-scrollbar class="reports__content">
+        <p class="reports__placeholder" *ngIf="reportForm.controls['reportType'].value === ''">Select report to begin</p>
+        <p *ngIf="reportForm.controls['reportType'].value === 'Option 1'">Content example 1</p>
+        <p *ngIf="reportForm.controls['reportType'].value === 'Option 2'">Content example 2</p>
+    </perfect-scrollbar>
+</div>
+<rms-filter (onSearch)="onSearch()"
+            (onClear)="onClear()"
+            [formGroup]="reportForm"
+            [disabled]="reportForm.controls['reportType'].value === ''"
+            title="Reports"
+            search="Run"
+            clear="clear"
+            #ngForm="ngForm"
+            novalidate
+            [ngClass]="{error: ngForm.invalid && ngForm.submitted}">
+    <div class="filters__content" filters-content>
+        <mat-select #report class="grey-select huge"  formControlName="reportType" panelClass="huge">
+            <perfect-scrollbar>
+                <mat-option *ngFor="let val of reports" [value]="val">{{val | titlecase }}</mat-option>
+            </perfect-scrollbar>
+        </mat-select>
+        <rms-filter-date class="filters__element"
+                        #dateOfDeposit
+                        *ngIf="reportForm.controls['reportType'].value === 'Option 2'"
+                        [ngClass]="{error: _dateOfDeposit.invalid && ngForm.submitted}"
+                        [PassedformControl]="reportForm.controls['dateOfDeposit']"
+                        title="Date Of Deposit"></rms-filter-date>
+    </div>
+</rms-filter>

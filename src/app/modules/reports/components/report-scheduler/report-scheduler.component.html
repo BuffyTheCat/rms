@@ -1,0 +1,28 @@
+<section class="report-scheduler">
+    <div class="report-scheduler__content">
+          <p class="report-scheduler__title">Sheduler Reports</p>
+          <mat-select class="grey-select" [formControl]="reportsControl" (selectionChange)="onSelect($event.value)">
+             <mat-option *ngFor="let val of shedulerReports" [value]="val.value">{{val.name}}</mat-option>
+          </mat-select>
+          <table mat-table [dataSource]="reportData">
+             <ng-container *ngFor="let column of displayedColumns index as i">
+                <ng-container [matColumnDef]="column.column" *ngIf="column.column !== 'edit'">
+                  <th mat-header-cell *matHeaderCellDef>{{column.title}}</th>
+                  <td mat-cell *matCellDef="let element">
+                      {{element[column.column]}}
+                  </td>
+                </ng-container>
+             </ng-container>
+             <ng-container matColumnDef="edit">
+                <th mat-header-cell *matHeaderCellDef></th>
+                <td mat-cell class="report-scheduler__edit" *matCellDef="let row" >
+                     <button (click)="onEdit(row)">
+                        <mat-icon aria-label="Edit icon" aria-hidden="false">edit</mat-icon>
+                     </button>
+                </td>
+              </ng-container>
+             <tr mat-header-row *matHeaderRowDef="displayedColumnsArray"></tr>
+             <tr mat-row *matRowDef="let row; columns: displayedColumnsArray;"></tr>
+           </table>
+    </div>
+ </section>

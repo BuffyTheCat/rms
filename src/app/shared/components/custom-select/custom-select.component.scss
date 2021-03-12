@@ -1,0 +1,49 @@
+rms-custom-select {
+    width: 16px;
+    justify-content: center;
+
+    .mat-select-value {
+        display: none;
+    }
+
+    .mat-select-trigger {
+        width: 100%;
+        padding-top: 4px;
+    }
+
+    .mat-select-arrow-wrapper {
+        display: flex;
+        justify-content: center;
+     }
+
+    .mat-select-arrow {
+        position: relative;
+        border: none;
+        width: 4px;
+        height: 4px;
+        margin: 0;
+        background-color: #DADADA;
+        border-radius: 50%;
+
+        &::before,
+        &::after {
+            position: absolute;
+            content: '';
+            left: 50%;
+            width: 4px;
+            height: 4px;
+            margin: 0;
+            background-color: #DADADA;
+            border-radius: 50%;
+            transform: translateX(-50%);
+        }
+
+        &::before {
+            top: -6px;
+        }
+
+        &::after {
+            bottom: -6px;
+        }
+    }
+}
